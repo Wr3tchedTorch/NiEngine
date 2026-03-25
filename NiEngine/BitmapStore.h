@@ -10,7 +10,10 @@ class BitmapStore
 private:
 	std::unordered_map<std::string, sf::Texture> map_;
 
+	static bool instantiated_;
+
 public:
+	BitmapStore();
 	sf::Texture& getTexture(const std::string& key);
 };
 

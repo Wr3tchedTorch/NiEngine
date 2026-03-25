@@ -1,10 +1,19 @@
 #include "BitmapStore.h"
 
+#include <cassert>
 #include <string>
 #include <iostream>
 #include <format>
 
 #include <SFML/Graphics/Texture.hpp>
+
+bool BitmapStore::instantiated_ = false;
+
+BitmapStore::BitmapStore()
+{
+    assert(!instantiated_);
+    instantiated_ = true;
+}
 
 sf::Texture& BitmapStore::getTexture(const std::string& key)
 {
