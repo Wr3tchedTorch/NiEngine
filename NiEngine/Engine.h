@@ -9,6 +9,7 @@ namespace ni {
 
 class Engine
 {
+
 private:
 	sf::RenderWindow window_;
 

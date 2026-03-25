@@ -1,20 +1,24 @@
 #pragma once
 
-#include <SFML/Graphics/Drawable.hpp>
+#include <string>
+
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "Component.h"
-#include "GameObject.h"
+#include "BitmapStore.h"
 
 namespace ni {
 
-class GraphicsComponent : public Component, public sf::Drawable
+class GraphicsComponent : public Component
 {
-public:
-	virtual void update(GameObject& parent) = 0;
+protected:
+	std::string texture_key_;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+public:
+	virtual void update() = 0;
+
+	virtual void render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) = 0;
 };
 
 }
