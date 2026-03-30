@@ -36,17 +36,23 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectId.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectId.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentStore.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="BitmapStore.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,8 +74,14 @@
     <ClCompile Include="GraphicsComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="UpdateComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentStore.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
     <ClCompile Include="BitmapStore.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

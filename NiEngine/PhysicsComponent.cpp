@@ -1,1 +1,1 @@
-#include "UpdateComponent.h"
+// THIS IS AN INTERFACE!

@@ -29,7 +29,7 @@ sf::Texture& BitmapStore::getTexture(const std::string& key)
     if (!success)
     {
 #ifdef _DEBUG
-        std::cout << std::format("[Engine/Bitmap]: Texture not found for key `{}`", key);
+        std::cout << std::format("[NiEngine/Bitmap]: Texture not found for key `{}`", key);
 #endif // _DEBUG
     }
 

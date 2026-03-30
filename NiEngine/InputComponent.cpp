@@ -1,1 +1,1 @@
-#include "InputComponent.h"
+// THIS IS AN INTERFACE!
