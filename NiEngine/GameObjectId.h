@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <type_traits>
 
 struct GameObjectId
 {
@@ -12,3 +13,11 @@ struct GameObjectId
 	}
 };
 
+template<>
+struct std::hash<GameObjectId>
+{
+	size_t operator()(const GameObjectId& id) const
+	{
+		return std::hash<uint32_t>{}(id.id_);
+	}
+};

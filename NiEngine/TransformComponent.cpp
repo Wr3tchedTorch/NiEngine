@@ -32,7 +32,7 @@ void ni::TransformComponent::setRotation(float radians)
 	transform_.setRotation(sf::radians(radians));
 }
 
-float ni::TransformComponent::getRotation() const
+float ni::TransformComponent::getRotationInRadians() const
 {
 	return transform_.getRotation().asRadians();
 }

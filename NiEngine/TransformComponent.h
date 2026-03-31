@@ -23,7 +23,7 @@ public:
 	b2Vec2 getPositionInMeters() const;
 
 	void  setRotation(float radians);
-	float getRotation() const;
+	float getRotationInRadians() const;
 
 	void setScale(sf::Vector2f scale);
 	sf::Vector2f getScale() const;

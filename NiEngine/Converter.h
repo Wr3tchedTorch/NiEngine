@@ -2,13 +2,14 @@
 
 #include <math_functions.h>
 
+#include <numbers>
+
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Angle.hpp>
 
 namespace converter
 {
-	constexpr double PIXELS_PER_METERS = 32.0;
-	constexpr double PI = 3.14159265358979323846;
+	constexpr float PIXELS_PER_METERS = 32.0;
 
 	template<typename T>
 	constexpr T pixelsToMeters(const T& x) { return x / PIXELS_PER_METERS; };
@@ -17,10 +18,10 @@ namespace converter
 	constexpr T metersToPixels(const T& x) { return x * PIXELS_PER_METERS; };
 
 	template<typename T>
-	constexpr T degToRad(const T& x) { return PI * x / 180.0; };
+	constexpr T degToRad(const T& x) { return std::numbers::pi * x / 180.0; };
 
 	template<typename T>
-	constexpr T radToDeg(const T& x) { return 180.0 * x / PI; }
+	constexpr T radToDeg(const T& x) { return 180.0 * x / std::numbers::pi; }
 
 	inline sf::Vector2f metersToPixels(const b2Vec2& v) 
 	{
