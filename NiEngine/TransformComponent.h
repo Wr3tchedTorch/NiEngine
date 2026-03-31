@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Transform.hpp>
 
 #include "Component.h"
 
@@ -28,7 +29,9 @@ public:
 	sf::Vector2f getScale() const;
 
 	void setOrigin(sf::Vector2f origin);
-	sf::Vector2f getOrigin();
+	sf::Vector2f getOrigin() const;
+
+	const sf::Transform& getTransform() const;
 };
 
 }

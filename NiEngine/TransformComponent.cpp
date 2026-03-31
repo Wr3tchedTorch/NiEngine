@@ -5,6 +5,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "Converter.h"
+#include <SFML/Graphics/Transform.hpp>
 
 void ni::TransformComponent::setPosition(sf::Vector2f position)
 {
@@ -51,7 +52,12 @@ void ni::TransformComponent::setOrigin(sf::Vector2f origin)
 	transform_.setOrigin(origin);
 }
 
-sf::Vector2f ni::TransformComponent::getOrigin()
+sf::Vector2f ni::TransformComponent::getOrigin() const
 {
 	return transform_.getOrigin();
+}
+
+const sf::Transform& ni::TransformComponent::getTransform() const
+{
+	return transform_.getTransform();
 }
