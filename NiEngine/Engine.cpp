@@ -7,10 +7,18 @@
 #include <SFML/Window/WindowEnums.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+
+#include "GameMode.h"
 
 ni::Engine::Engine(std::string window_name, sf::State start_state)
 {
 	window_.create(sf::VideoMode::getDesktopMode(), window_name, start_state);
+}
+
+void ni::Engine::registerGameMode(GameMode& mode)
+{
+	current_game_mode_ = mode;
 }
 
 void ni::Engine::Run()
@@ -25,7 +33,11 @@ void ni::Engine::Run()
 			}
 		}
 
+		current_game_mode_.update();
+
 		window_.clear(sf::Color::Blue);
+
+		current_game_mode_.render(window_, sf::RenderStates::Default, store_);
 
 		window_.display();
 	}
