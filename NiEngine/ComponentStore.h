@@ -19,57 +19,57 @@ namespace ni {
 class ComponentStore
 {
 private:
-	std::unordered_map<GameObjectId, std::unique_ptr<TransformComponent>> transform_component_;
-	std::unordered_map<GameObjectId, std::unique_ptr<PhysicsComponent>>   physics_component_;
-	std::unordered_map<GameObjectId, std::unique_ptr<UpdateComponent>>	  update_component_;
-	std::unordered_map<GameObjectId, std::unique_ptr<GraphicsComponent>>  graphics_component_;
+	std::unordered_map<GameObjectId, std::unique_ptr<TransformComponent>> transform_components_;
+	std::unordered_map<GameObjectId, std::unique_ptr<PhysicsComponent>>   physics_components_;
+	std::unordered_map<GameObjectId, std::unique_ptr<UpdateComponent>>	  update_components_;
+	std::unordered_map<GameObjectId, std::unique_ptr<GraphicsComponent>>  graphics_components_;
 
 public:
 	void addPhysicsComponent(GameObjectId target, PhysicsComponent& component)
 	{
-		physics_component_[target] = std::make_unique<PhysicsComponent>(component);
+		physics_components_[target] = std::make_unique<PhysicsComponent>(component);
 	}
 
 	void addUpdateComponent(GameObjectId target, UpdateComponent& component)
 	{
-		update_component_[target] = std::make_unique<UpdateComponent>(component);
+		update_components_[target] = std::make_unique<UpdateComponent>(component);
 	}
 
 	void addGraphicsComponent(GameObjectId target, GraphicsComponent& component)
 	{
-		graphics_component_[target] = std::make_unique<GraphicsComponent>(component);
+		graphics_components_[target] = std::make_unique<GraphicsComponent>(component);
 	}
 
 	void addTransformComponent(GameObjectId target, TransformComponent& component)
 	{
-		transform_component_[target] = std::make_unique<TransformComponent>(component);
+		transform_components_[target] = std::make_unique<TransformComponent>(component);
 	}
 
 	void removePhysicsComponent(GameObjectId target)
 	{
-		physics_component_.erase(target);
+		physics_components_.erase(target);
 	}
 
 	void removeUpdateComponent(GameObjectId target)
 	{
-		update_component_.erase(target);
+		update_components_.erase(target);
 	}
 
 	void removeGraphicsComponent(GameObjectId target)
 	{
-		graphics_component_.erase(target);
+		graphics_components_.erase(target);
 	}
 
 	void removeTransformComponent(GameObjectId target)
 	{
-		transform_component_.erase(target);
+		transform_components_.erase(target);
 	}
 
 	void getTransformComponent(TransformComponent* component, GameObjectId id);
 
 	void update();
 	void physicsUpdate();
-	void render(sf::RenderTarget& target, sf::RenderStates& states, BitmapStore& store);
+	void render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 };
 
 }

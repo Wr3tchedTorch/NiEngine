@@ -13,6 +13,8 @@ class Engine
 private:
 	sf::RenderWindow window_;
 
+	GameModeManager game_mode_manager_;
+
 public:
 	Engine(std::string window_name, sf::State start_state);
 	void Run();

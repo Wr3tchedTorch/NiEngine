@@ -9,9 +9,9 @@
 
 void ni::ComponentStore::getTransformComponent(TransformComponent* component, GameObjectId id)
 {
-	auto it = transform_component_.find(id);
+	auto it = transform_components_.find(id);
 
-	if (it == transform_component_.end())
+	if (it == transform_components_.end())
 	{
 		component = nullptr;
 	}
@@ -20,7 +20,7 @@ void ni::ComponentStore::getTransformComponent(TransformComponent* component, Ga
 
 void ni::ComponentStore::update()
 {
-	for (auto& [id, component] : update_component_)
+	for (auto& [id, component] : update_components_)
 	{
 		component->update();
 	}
@@ -28,7 +28,7 @@ void ni::ComponentStore::update()
 
 void ni::ComponentStore::physicsUpdate()
 {
-	for (auto& [id, component] : physics_component_)
+	for (auto& [id, component] : physics_components_)
 	{
 		TransformComponent* transform = nullptr;
 		
@@ -42,9 +42,9 @@ void ni::ComponentStore::physicsUpdate()
 	}
 }
 
-void ni::ComponentStore::render(sf::RenderTarget& target, sf::RenderStates& states, BitmapStore& store)
+void ni::ComponentStore::render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	for (auto& [id, component] : graphics_component_)
+	for (auto& [id, component] : graphics_components_)
 	{
 		TransformComponent* transform = nullptr;
 

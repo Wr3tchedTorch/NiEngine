@@ -11,6 +11,12 @@ struct GameObjectId
 	{
 		return id_ == other.id_;
 	}
+
+	GameObjectId& operator++()
+	{
+		id_++;
+		return *this;
+	}
 };
 
 template<>
