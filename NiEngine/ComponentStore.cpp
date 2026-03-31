@@ -7,15 +7,15 @@
 #include "GameObjectId.h"
 #include "TransformComponent.h"
 
-ni::TransformComponent* ni::ComponentStore::getTransformComponent(GameObjectId id)
+void ni::ComponentStore::getTransformComponent(TransformComponent* component, GameObjectId id)
 {
 	auto it = transform_component_.find(id);
 
 	if (it == transform_component_.end())
 	{
-		return nullptr;
+		component = nullptr;
 	}
-	return it->second.get();
+	component = it->second.get();
 }
 
 void ni::ComponentStore::update()
@@ -30,7 +30,9 @@ void ni::ComponentStore::physicsUpdate()
 {
 	for (auto& [id, component] : physics_component_)
 	{
-		TransformComponent* transform = getTransformComponent(id);
+		TransformComponent* transform = nullptr;
+		
+		getTransformComponent(transform, id);
 
 		if (!transform)
 		{
@@ -44,7 +46,9 @@ void ni::ComponentStore::render(sf::RenderTarget& target, sf::RenderStates& stat
 {
 	for (auto& [id, component] : graphics_component_)
 	{
-		TransformComponent* transform = getTransformComponent(id);
+		TransformComponent* transform = nullptr;
+
+		getTransformComponent(transform, id);
 
 		if (transform)
 		{
