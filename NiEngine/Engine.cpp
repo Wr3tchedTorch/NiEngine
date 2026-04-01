@@ -8,8 +8,12 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "GameModeController.h"
+
+sf::Time ni::Engine::time_elapsed = sf::Time();
 
 ni::Engine::Engine(std::string window_name, sf::State start_state)
 {
@@ -23,6 +27,7 @@ ni::GameModeController& ni::Engine::getGameModeController()
 
 void ni::Engine::Run()
 {
+	sf::Clock deltaClock;
 	while (window_.isOpen())
 	{
 		while (std::optional<sf::Event> event = window_.pollEvent())
@@ -32,6 +37,8 @@ void ni::Engine::Run()
 				window_.close();
 			}
 		}
+
+		time_elapsed += deltaClock.restart();
 
 		game_mode_controller_.Update();
 

@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/WindowEnums.hpp>
+#include <SFML/System/Time.hpp>
 
 #include "BitmapStore.h"
 #include "GameModeController.h"
@@ -20,6 +21,8 @@ private:
 	BitmapStore store_;
 
 public:
+	static sf::Time time_elapsed;
+
 	Engine(std::string window_name, sf::State start_state);
 
 	GameModeController& getGameModeController();

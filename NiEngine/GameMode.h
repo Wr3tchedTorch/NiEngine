@@ -10,6 +10,8 @@
 
 namespace ni {
 
+class GameModeController;
+
 class GameMode
 {
 private:
@@ -30,7 +32,7 @@ public:
 		return ++current_game_object_id_;
 	}
 
-	virtual void Update();
+	virtual void Update(GameModeController& controller);
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 };
 

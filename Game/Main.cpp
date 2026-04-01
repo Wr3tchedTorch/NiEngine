@@ -35,10 +35,8 @@ int main()
     player_transform.SetRotation(sf::degrees(45).asRadians());
 
     ni::Id<GameModeTag> mode2_id = controller.Register(std::move(my_mode2));
-    controller.SwitchTo(mode2_id);
-
-    controller.GetCurrent().GetComponentStore().AttachGraphicsComponent(player_id, player_graphics);
-    controller.GetCurrent().GetComponentStore().AttachTransformComponent(player_id, player_transform);
+    controller.Get(mode2_id).GetComponentStore().AttachGraphicsComponent(player_id, player_graphics);
+    controller.Get(mode2_id).GetComponentStore().AttachTransformComponent(player_id, player_transform);
 
     //engine.getGameModeController().Register(std::move(my_mode2));
 

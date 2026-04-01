@@ -49,7 +49,7 @@ void ni::GameModeController::Update()
 	{
 		return;
 	}
-	game_modes_.at(current_id)->Update();
+	game_modes_.at(current_id)->Update(*this);
 }
 
 void ni::GameModeController::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
