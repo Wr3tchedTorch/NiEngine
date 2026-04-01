@@ -12,9 +12,9 @@ ni::GraphicsComponent::GraphicsComponent(std::string texture_key) : texture_key_
 {
 }
 
-void ni::GraphicsComponent::render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
+void ni::GraphicsComponent::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	sf::Sprite sprite(store.getTexture(texture_key_));
+	sf::Sprite sprite(store.GetTexture(texture_key_));
 
 	target.draw(sprite, states);
 }

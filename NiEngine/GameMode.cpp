@@ -5,14 +5,14 @@
 
 #include "BitmapStore.h"
 
-void ni::GameMode::update()
+void ni::GameMode::Update()
 {
-	store_.update();
+	store_.Update();
 
-	store_.physicsUpdate();
+	store_.PhysicsUpdate();
 }
 
-void ni::GameMode::render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
+void ni::GameMode::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	store_.render(target, states, store);
+	store_.Render(target, states, store);
 }

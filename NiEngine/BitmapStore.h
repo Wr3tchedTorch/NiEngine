@@ -14,6 +14,6 @@ private:
 
 public:
 	BitmapStore();
-	sf::Texture& getTexture(const std::string& key);
+	sf::Texture& GetTexture(const std::string& key);
 };
 

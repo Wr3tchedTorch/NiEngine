@@ -7,7 +7,7 @@ namespace ni {
 class UpdateComponent : public Component
 {
 public:
-	virtual void update() = 0;
+	virtual void Update() = 0;
 };
 
 }

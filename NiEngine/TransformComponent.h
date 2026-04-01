@@ -14,16 +14,16 @@ private:
 	sf::Transformable transformable_;
 
 public:
-	sf::Transformable& getTransformable()
+	sf::Transformable& GetTransformable()
 	{
 		return transformable_;
 	}
 
-	void setPositionInMeters(b2Vec2 position);
-	b2Vec2 getPositionInMeters() const;
+	void SetPositionInMeters(b2Vec2 position);
+	b2Vec2 GetPositionInMeters() const;
 
-	void  setRotation(float radians);
-	float getRotationInRadians() const;
+	void  SetRotation(float radians);
+	float GetRotationInRadians() const;
 };
 
 }

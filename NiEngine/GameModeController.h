@@ -1,0 +1,35 @@
+#pragma once
+
+#include <memory>
+#include <unordered_map>
+
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
+#include "GameModeTag.h"
+#include "GameMode.h"
+#include "BitmapStore.h"
+#include "Id.h"
+
+namespace ni {
+
+class GameModeController
+{
+private:
+	std::unordered_map<Id<GameModeTag>, std::unique_ptr<GameMode>> game_modes_;
+	Id<GameModeTag> current_id;
+
+public:
+	Id<GameModeTag> Register(std::unique_ptr<GameMode> mode);
+	
+	void SwitchTo(Id<GameModeTag> id);
+	void Remove(Id<GameModeTag> id);
+
+	GameMode& Get(Id<GameModeTag> id);
+	GameMode& GetCurrent();
+
+	virtual void Update();
+	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
+};
+
+}

@@ -15,7 +15,7 @@ BitmapStore::BitmapStore()
     instantiated_ = true;
 }
 
-sf::Texture& BitmapStore::getTexture(const std::string& key)
+sf::Texture& BitmapStore::GetTexture(const std::string& key)
 {
     auto result = map_.find(key);
 

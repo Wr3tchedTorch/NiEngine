@@ -19,7 +19,7 @@ public:
 	GraphicsComponent() = default;
 	GraphicsComponent(std::string texture_key);
 
-	virtual void render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
+	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 };
 
 }

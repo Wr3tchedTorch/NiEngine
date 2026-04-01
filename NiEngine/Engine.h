@@ -24,10 +24,6 @@ private:
 public:
 	Engine(std::string window_name, sf::State start_state);
 
-	void registerGameMode(std::unique_ptr<GameMode> mode);
-
-	GameMode* getGameMode();
-
 	void Run();
 };
 

@@ -5,7 +5,8 @@
 
 #include "BitmapStore.h"
 #include "ComponentStore.h"
-#include "GameObjectId.h"
+#include "Id.h"
+#include "GameObjectTag.h"
 
 namespace ni {
 
@@ -14,21 +15,21 @@ class GameMode
 private:
 	ComponentStore store_;
 
-	GameObjectId current_game_object_id_;
+	Id<GameObjectTag> current_game_object_id_;
 
 public:
-	ComponentStore& getComponentStore()
+	ComponentStore& GetComponentStore()
 	{
 		return store_;
 	}
 
-	GameObjectId getNextGameObjectId() 
+	Id<GameObjectTag> CreateGameObject()
 	{
 		return ++current_game_object_id_;
 	}
 
-	virtual void update();
-	virtual void render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
+	virtual void Update();
+	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 };
 
 }

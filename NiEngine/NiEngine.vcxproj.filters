@@ -28,6 +28,12 @@
     <Filter Include="Header Files\Utility">
       <UniqueIdentifier>{aaacebf8-af5f-4f75-9ada-08ae924c815d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Ids">
+      <UniqueIdentifier>{c0751c6e-49e2-4ac3-b744-2e037394c447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ids\Tags">
+      <UniqueIdentifier>{e021c747-2e2c-43f1-a612-9921d1aa26b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -41,9 +47,6 @@
     </ClInclude>
     <ClInclude Include="GraphicsComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectId.h">
-      <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="UpdateComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -62,6 +65,15 @@
     </ClInclude>
     <ClInclude Include="Converter.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModeController.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Id.h">
+      <Filter>Header Files\Ids</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModeTag.h">
+      <Filter>Header Files\Ids\Tags</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +106,12 @@
     </ClCompile>
     <ClCompile Include="GameMode.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameModeController.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectTag.h">
+      <Filter>Header Files\Ids\Tags</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

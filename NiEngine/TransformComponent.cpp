@@ -6,22 +6,22 @@
 
 #include "Converter.h"
 
-void ni::TransformComponent::setPositionInMeters(b2Vec2 position)
+void ni::TransformComponent::SetPositionInMeters(b2Vec2 position)
 {
-	transformable_.setPosition(converter::metersToPixels(position));
+	transformable_.setPosition(converter::MetersToPixels(position));
 }
 
-b2Vec2 ni::TransformComponent::getPositionInMeters() const
+b2Vec2 ni::TransformComponent::GetPositionInMeters() const
 {
-	return converter::pixelsToMeters(transformable_.getPosition());
+	return converter::PixelsToMeters(transformable_.getPosition());
 }
 
-void ni::TransformComponent::setRotation(float radians)
+void ni::TransformComponent::SetRotation(float radians)
 {
 	transformable_.setRotation(sf::radians(radians));
 }
 
-float ni::TransformComponent::getRotationInRadians() const
+float ni::TransformComponent::GetRotationInRadians() const
 {
 	return transformable_.getRotation().asRadians();
 }

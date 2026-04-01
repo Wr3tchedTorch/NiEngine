@@ -3,26 +3,27 @@
 #include <cstdint>
 #include <type_traits>
 
-struct GameObjectId
+template <typename Tag>
+struct Id
 {
 	uint32_t id_ = 0;
 
-	bool operator==(const GameObjectId& other) const
+	bool operator==(const Id& other) const
 	{
 		return id_ == other.id_;
 	}
 
-	GameObjectId& operator++()
+	Id& operator++()
 	{
 		id_++;
 		return *this;
 	}
 };
 
-template<>
-struct std::hash<GameObjectId>
+template<typename Tag>
+struct std::hash<Id<Tag>>
 {
-	size_t operator()(const GameObjectId& id) const
+	size_t operator()(const Id<Tag>& id) const
 	{
 		return std::hash<uint32_t>{}(id.id_);
 	}

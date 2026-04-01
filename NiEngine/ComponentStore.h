@@ -7,7 +7,8 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "GameObjectId.h"
+#include "Id.h"
+#include "GameObjectTag.h"
 #include "GraphicsComponent.h"
 #include "UpdateComponent.h"
 #include "PhysicsComponent.h"
@@ -19,59 +20,59 @@ namespace ni {
 class ComponentStore
 {
 private:
-	std::unordered_map<GameObjectId, std::unique_ptr<TransformComponent>> transform_components_;
-	std::unordered_map<GameObjectId, std::unique_ptr<PhysicsComponent>>   physics_components_;
-	std::unordered_map<GameObjectId, std::unique_ptr<UpdateComponent>>	  update_components_;
-	std::unordered_map<GameObjectId, std::unique_ptr<GraphicsComponent>>  graphics_components_;
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>> transform_components_;
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>   physics_components_;
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>	  update_components_;
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<GraphicsComponent>>  graphics_components_;
 
 public:
 	ComponentStore() = default;
 
-	void attachPhysicsComponent(GameObjectId target, std::unique_ptr<PhysicsComponent>component)
+	void AttachPhysicsComponent(Id<GameObjectTag> target, std::unique_ptr<PhysicsComponent>component)
 	{
 		physics_components_.emplace(target, std::move(component));
 	}
 
-	void attachUpdateComponent(GameObjectId target, std::unique_ptr<UpdateComponent> component)
+	void AttachUpdateComponent(Id<GameObjectTag> target, std::unique_ptr<UpdateComponent> component)
 	{
 		update_components_.emplace(target, std::move(component));
 	}
 
-	void attachGraphicsComponent(GameObjectId target, std::unique_ptr<GraphicsComponent> component)
+	void AttachGraphicsComponent(Id<GameObjectTag> target, std::unique_ptr<GraphicsComponent> component)
 	{
 		graphics_components_.emplace(target, std::move(component));
 	}
 
-	void attachTransformComponent(GameObjectId target, std::unique_ptr<TransformComponent> component)
+	void AttachTransformComponent(Id<GameObjectTag> target, std::unique_ptr<TransformComponent> component)
 	{
 		transform_components_.emplace(target, std::move(component));
 	}
 
-	void removePhysicsComponent(GameObjectId target)
+	void RemovePhysicsComponent(Id<GameObjectTag> target)
 	{
 		physics_components_.erase(target);
 	}
 
-	void removeUpdateComponent(GameObjectId target)
+	void RemoveUpdateComponent(Id<GameObjectTag> target)
 	{
 		update_components_.erase(target);
 	}
 
-	void removeGraphicsComponent(GameObjectId target)
+	void RemoveGraphicsComponent(Id<GameObjectTag> target)
 	{
 		graphics_components_.erase(target);
 	}
 
-	void removeTransformComponent(GameObjectId target)
+	void RemoveTransformComponent(Id<GameObjectTag> target)
 	{
 		transform_components_.erase(target);
 	}
 
-	TransformComponent* getTransformComponent(GameObjectId id);
+	TransformComponent* GetTransformComponent(Id<GameObjectTag> id);
 
-	void update();
-	void physicsUpdate();
-	void render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
+	void Update();
+	void PhysicsUpdate();
+	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 };
 
 }

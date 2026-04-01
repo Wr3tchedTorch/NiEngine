@@ -1,13 +1,14 @@
 #pragma once
 
-#include "GameObjectId.h"
+#include "Id.h"
+#include "GameObjectTag.h"
 
 namespace ni {
 
 class Component
 {
 protected:
-	GameObjectId owner_id_;
+	Id<GameObjectTag> owner_id_;
 };
 
 }

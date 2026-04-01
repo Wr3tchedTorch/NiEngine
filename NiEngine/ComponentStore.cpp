@@ -4,10 +4,11 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "BitmapStore.h"
-#include "GameObjectId.h"
+#include "Id.h"
 #include "TransformComponent.h"
+#include "GameObjectTag.h"
 
-ni::TransformComponent* ni::ComponentStore::getTransformComponent(GameObjectId id)
+ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<GameObjectTag> id)
 {
 	auto it = transform_components_.find(id);
 
@@ -18,38 +19,38 @@ ni::TransformComponent* ni::ComponentStore::getTransformComponent(GameObjectId i
 	return it->second.get();
 }
 
-void ni::ComponentStore::update()
+void ni::ComponentStore::Update()
 {
 	for (auto& [id, component] : update_components_)
 	{
-		component->update();
+		component->Update();
 	}
 }
 
-void ni::ComponentStore::physicsUpdate()
+void ni::ComponentStore::PhysicsUpdate()
 {
 	for (auto& [id, component] : physics_components_)
 	{
-		TransformComponent* transform = getTransformComponent(id);
+		TransformComponent* transform = GetTransformComponent(id);
 
 		if (!transform)
 		{
 			continue;
 		}
-		component->physicsUpdate(*transform);
+		component->PhysicsUpdate(*transform);
 	}
 }
 
-void ni::ComponentStore::render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
+void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
 	for (auto& [id, component] : graphics_components_)
 	{
-		TransformComponent* transform = getTransformComponent(id);
+		TransformComponent* transform = GetTransformComponent(id);
 
 		if (transform)
 		{
-			states.transform *= transform->getTransformable().getTransform();
+			states.transform *= transform->GetTransformable().getTransform();
 		}
-		component->render(target, states, store);
+		component->Render(target, states, store);
 	}
 }
