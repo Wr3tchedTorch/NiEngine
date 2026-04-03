@@ -1,40 +1,26 @@
 #pragma once
 
-#include <memory>
 #include <string>
-#include <concepts>
-#include <unordered_map>
 #include <fstream>
-#include <algorithm>
-#include <format>
-#include <iostream>
 #include <ios>
 
 #include <nlohmann/json.hpp>
+#include <format>
+#include <unordered_map>
 
 using json = nlohmann::json;
 
-template<typename T>
-concept serializable = requires(T t, nlohmann::json & j, const nlohmann::json & cj)
-{
-    { t.Id } -> std::convertible_to<int>;
-};
-
-template <serializable T>
+template <typename T>
 class DataHandler
 {
 private:
-    std::unordered_map<int, T> data_;
-
-	std::string filepath_;
+	std::string filepath_; 
 
     void CreateTemplateJsonFile();
 	
     void SaveToFile(const json& data);
 
     json ReadFromFile();
-
-    int GetNextId(const json& data);
 
     json ResolvePrototype(json& item, json& data);
 
@@ -45,15 +31,15 @@ private:
 
 public:
     DataHandler(std::string filepath);
-    T& GetById(int id);
-    
-    std::unordered_map<int, T>& GetAll();
-    void Create(T& newItem);
-    void DeleteById(int id);
-    void UpdateById(const T& toItem);
+
+    T GetBlueprint();
+    void SaveBlueprint(T blueprint);
+
+    json GetRawData();
+    void SaveRawData(json data);
 };
 
-template<serializable T>
+template<typename T>
 inline void DataHandler<T>::CreateTemplateJsonFile()
 {
     json oldData = ReadFromFile();
@@ -65,16 +51,14 @@ inline void DataHandler<T>::CreateTemplateJsonFile()
         return;
     }
 
-    T item;
-    item.Id = 0;
+    T item{};
 
-    json data;
-    data[std::to_string(item.Id)] = item;
+    json data = item;
 
     SaveToFile(data);
 }
 
-template<serializable T>
+template<typename T>
 void DataHandler<T>::SaveToFile(const json& data)
 {
     std::ofstream outputFile(filepath_);
@@ -82,7 +66,7 @@ void DataHandler<T>::SaveToFile(const json& data)
     outputFile.close();
 }
 
-template<serializable T>
+template<typename T>
 json DataHandler<T>::ReadFromFile()
 {
     std::ifstream inputFile(filepath_);
@@ -97,128 +81,36 @@ json DataHandler<T>::ReadFromFile()
     return json();
 }
 
-template<serializable T>
-inline int DataHandler<T>::GetNextId(const json& data)
-{
-    int nextId = 0;
-    for (auto& [id, val] : data.items()) 
-    {
-        nextId = std::max(nextId, std::stoi(id) + 1);
-    }
-    return nextId;
-}
-
-template<serializable T>
-inline json DataHandler<T>::ResolvePrototype(json& item, json& data)
-{
-    std::string prototypeId = item[DataHandlingConstants::PrototypeFieldKey];
-    if (!data.contains(prototypeId))
-    {
-#ifdef _DEBUG
-        std::cout << std::format("prototype id `{}` not found!", prototypeId);
-#endif // _DEBUG
-        return json();
-    }
-
-    json resolved = data[prototypeId];
-    for (auto& [key, value] : item.items())
-    {
-        if (key == DataHandlingConstants::PrototypeFieldKey)
-        {
-            continue;
-        }
-        resolved[key] = value;
-    }
-
-    return resolved;
-}
-
-template<serializable T>
+template<typename T>
 inline DataHandler<T>::DataHandler(std::string filepath) : filepath_(filepath)
 {
     CreateTemplateJsonFile();
 }
 
-template<serializable T>
-T& DataHandler<T>::GetById(int id)
+template<typename T>
+inline T DataHandler<T>::GetBlueprint()
 {
-    auto result = data_.find(id);
-    if (result != data_.end())
-    {
-        return result->second;
-    }
+    T blueprint = ReadFromFile();
 
-    json data = ReadFromFile();
-
-    if (data.find(std::to_string(id)) == data.end())
-    {
-        return nullptr;
-    }
-
-    json item = data[std::to_string(id)];
-
-    bool isPrototype = item.contains(DataHandlingConstants::PrototypeFieldKey);
-    T entity = isPrototype ? ResolvePrototype(item, data) : item;
-    entity.Id = id;
-
-    data_[id] = entity;
-    return data_[id];
+    return blueprint;
 }
 
-template<serializable T>
-inline std::unordered_map<int, T>& DataHandler<T>::GetAll()
+template<typename T>
+void DataHandler<T>::SaveBlueprint(T newItem)
 {
-    return data_;
-}
-
-template<serializable T>
-void DataHandler<T>::Create(T& newItem)
-{
-    json oldData = ReadFromFile();
-
-    newItem.Id = GetNextId(oldData);    
-
-    data_[newItem.Id] = newItem;
-
     json data = newItem;
-    oldData[std::to_string(newItem.Id)] = data;
 
-    SaveToFile(oldData);
+    SaveToFile(data);
 }
 
-template<serializable T>
-inline void DataHandler<T>::DeleteById(int id)
+template<typename T>
+inline json DataHandler<T>::GetRawData()
 {
-    json data = ReadFromFile();
-
-    std::string key = std::to_string(id);
-    if (data.contains(key))
-    {
-        data.erase(key);
-        SaveToFile(data);  
-        return;
-    }
-
-#ifdef _DEBUG
-    std::cout << std::format("{}: entity with id `{}` not found for delete!", filepath_, id);
-#endif // _DEBUG
-
+    return ReadFromFile();
 }
 
-template<serializable T>
-inline void DataHandler<T>::UpdateById(const T& toItem)
+template<typename T>
+inline void DataHandler<T>::SaveRawData(json data)
 {
-    json data = ReadFromFile();
-
-    std::string key = std::to_string(toItem.Id);
-    if (data.contains(key))
-    {
-        data[key] = toItem;
-        SaveToFile(data);
-        return;
-    }
-
-#ifdef _DEBUG
-    std::cout << std::format("{}: entity with id `{}` not found for update!", filepath_, toItem.Id);
-#endif // _DEBUG
+    SaveToFile(data);
 }
