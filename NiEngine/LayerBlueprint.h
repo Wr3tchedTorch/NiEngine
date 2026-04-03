@@ -8,6 +8,8 @@
 
 using json = nlohmann::json;
 
+namespace ni {
+
 struct LayerBlueprint
 {
 	std::string name_ = "";
@@ -40,4 +42,6 @@ inline void from_json(const json& j, LayerBlueprint& lb)
 	j.at("opacity").get_to(lb.opacity_);
 	j.at("visible").get_to(lb.visible_);
 	j.at("data").get_to(lb.data_);
+}
+
 }

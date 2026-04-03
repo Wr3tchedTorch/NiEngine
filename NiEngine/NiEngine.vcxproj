@@ -150,6 +150,7 @@
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="LayerBlueprint.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TilemapBlueprint.h" />
     <ClInclude Include="TilesetReference.h" />
     <ClInclude Include="TransformComponent.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="GraphicsComponent.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="GameObjectTag.h" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="UpdateComponent.cpp" />
   </ItemGroup>

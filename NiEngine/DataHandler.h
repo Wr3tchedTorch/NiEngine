@@ -8,14 +8,16 @@
 
 using json = nlohmann::json;
 
+namespace ni {
+
 template <typename T>
 class DataHandler
 {
 private:
-	std::string filepath_; 
+    std::string filepath_;
 
     void CreateTemplateJsonFile();
-	
+
     void SaveToFile(const json& data);
 
     json ReadFromFile();
@@ -109,4 +111,6 @@ template<typename T>
 inline void DataHandler<T>::SaveRawData(json data)
 {
     SaveToFile(data);
+}
+
 }

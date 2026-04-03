@@ -96,6 +96,9 @@
     <ClInclude Include="TilesetReference.h">
       <Filter>Header Files\FileIO\References</Filter>
     </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="GameObjectTag.h">
       <Filter>Header Files\Ids\Tags</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
