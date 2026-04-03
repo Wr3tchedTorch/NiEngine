@@ -114,6 +114,15 @@
     <ClInclude Include="TilemapGraphicsComponent.h">
       <Filter>Header Files\Components\Tilemap</Filter>
     </ClInclude>
+    <ClInclude Include="TilesetBlueprint.h">
+      <Filter>Header Files\FileIO\Blueprints</Filter>
+    </ClInclude>
+    <ClInclude Include="TileBlueprint.h">
+      <Filter>Header Files\FileIO\Blueprints</Filter>
+    </ClInclude>
+    <ClInclude Include="FileUtility.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">

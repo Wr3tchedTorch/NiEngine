@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <string>
 
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>

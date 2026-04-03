@@ -1,5 +1,5 @@
 {
-    "activeFile": "maps/level_01/level_01.tmx",
+    "activeFile": "tilesets/kenney_1bit.tsx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -29,11 +29,11 @@
             }
         },
         "maps/level_01/level_01.tmx": {
-            "scale": 2,
+            "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 232,
-                "y": 152.5
+                "x": 251.33333333333331,
+                "y": 201.66666666666663
             }
         },
         "maps/rules/ground_autotile_rules.tmx": {
@@ -53,7 +53,7 @@
         "tilesets/kenney_1bit.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 2,
-            "scaleInEditor": 5.5
+            "scaleInEditor": 4
         },
         "tilesets/transparent_tiles.tsx": {
             "dynamicWrapping": true,
@@ -76,8 +76,8 @@
     "project": "game.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "tilesets/kenney_1bit.tsx",
         "maps/level_01/level_01.tmx",
+        "tilesets/kenney_1bit.tsx",
         "maps/rules/ground_autotile_rules.tmx",
         "tilesets/transparent_tiles.tsx",
         "maps/level_01.tmx",

@@ -149,10 +149,13 @@
     <ClInclude Include="Id.h" />
     <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="LayerBlueprint.h" />
+    <ClInclude Include="FileUtility.h" />
     <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="TileBlueprint.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TilemapBlueprint.h" />
     <ClInclude Include="TilemapGraphicsComponent.h" />
+    <ClInclude Include="TilesetBlueprint.h" />
     <ClInclude Include="TilesetReference.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UpdateComponent.h" />
