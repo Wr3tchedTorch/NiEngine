@@ -34,6 +34,15 @@
     <Filter Include="Header Files\Ids\Tags">
       <UniqueIdentifier>{e021c747-2e2c-43f1-a612-9921d1aa26b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FileIO">
+      <UniqueIdentifier>{d2d8751d-365a-4c89-9f32-cb383aa216a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO\Blueprints">
+      <UniqueIdentifier>{9eb369bd-1a7e-4dab-8179-6a369bf5525f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO\References">
+      <UniqueIdentifier>{dd5fa8a3-acf7-4909-9e10-0b793cb98378}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -75,6 +84,18 @@
     <ClInclude Include="GameModeTag.h">
       <Filter>Header Files\Ids\Tags</Filter>
     </ClInclude>
+    <ClInclude Include="DataHandler.h">
+      <Filter>Header Files\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapBlueprint.h">
+      <Filter>Header Files\FileIO\Blueprints</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerBlueprint.h">
+      <Filter>Header Files\FileIO\Blueprints</Filter>
+    </ClInclude>
+    <ClInclude Include="TilesetReference.h">
+      <Filter>Header Files\FileIO\References</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp">
@@ -113,5 +134,8 @@
     <ClCompile Include="GameObjectTag.h">
       <Filter>Header Files\Ids\Tags</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
