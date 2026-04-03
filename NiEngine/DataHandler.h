@@ -5,8 +5,6 @@
 #include <ios>
 
 #include <nlohmann/json.hpp>
-#include <format>
-#include <unordered_map>
 
 using json = nlohmann::json;
 
@@ -21,8 +19,6 @@ private:
     void SaveToFile(const json& data);
 
     json ReadFromFile();
-
-    json ResolvePrototype(json& item, json& data);
 
     static bool IsEmpty(std::ifstream& pFile)
     {
