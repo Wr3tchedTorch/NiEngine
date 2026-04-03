@@ -15,8 +15,8 @@ struct TilemapBlueprint
 	sf::Vector2i tile_size_ = {};
 	sf::Vector2i map_size_  = {};
 	
-	std::vector<TilesetReference> tileset_references_;
-	std::vector<LayerBlueprint>	  layers_;
+	std::vector<TilesetReference> tileset_references_ = {};
+	std::vector<LayerBlueprint>	  layers_ = {};
 };
 
 inline void to_json(json& j, const TilemapBlueprint& tb)
