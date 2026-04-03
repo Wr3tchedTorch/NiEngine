@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
@@ -39,8 +40,8 @@ inline void from_json(const json& j, TilemapBlueprint& tb)
 	j.at("height").get_to(tb.map_size_.y);
 	j.at("width").get_to(tb.map_size_.x);
 
-	j.at("tileWidth").get_to(tb.tile_size_.x);
-	j.at("tileHeight").get_to(tb.tile_size_.y);
+	j.at("tilewidth").get_to(tb.tile_size_.x);
+	j.at("tileheight").get_to(tb.tile_size_.y);
 
 	j.at("tilesets").get_to(tb.tileset_references_);
 	j.at("layers").get_to(tb.layers_);

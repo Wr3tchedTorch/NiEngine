@@ -14,6 +14,8 @@ template <typename T>
 class DataHandler
 {
 private:
+    inline static const int kIndentAmount = 4;
+
     std::string filepath_;
 
     void CreateTemplateJsonFile();
@@ -60,7 +62,7 @@ template<typename T>
 void DataHandler<T>::SaveToFile(const json& data)
 {
     std::ofstream outputFile(filepath_);
-    outputFile << data.dump(DataHandlingConstants::IndentAmount);
+    outputFile << data.dump(kIndentAmount);
     outputFile.close();
 }
 
