@@ -23,6 +23,11 @@ void ni::TilemapGraphicsComponent::UpdateVertices(int index, TilemapBlueprint& b
 			int index = x + y * blueprint.map_size_.x;
 
 			int tile_id = layer_blueprint.data_.at(index);
+
+			float top  = y * blueprint.tile_size_.y;
+			float left = x * blueprint.tile_size_.x;
+			float bottom = top  + blueprint.tile_size_.y;
+			float right  = left + blueprint.tile_size_.x;
 		}
 	}
 }
@@ -43,6 +48,6 @@ void ni::TilemapGraphicsComponent::LoadBlueprint(TilemapBlueprint& blueprint, st
 	}
 }
 
-void ni::TilemapGraphicsComponent::Render(sf::RenderTarget& target, sf::RenderStates states)
+void ni::TilemapGraphicsComponent::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
 }

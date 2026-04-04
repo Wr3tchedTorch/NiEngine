@@ -9,6 +9,7 @@
 
 #include "TilemapBlueprint.h"
 #include "TilesetBlueprint.h"
+#include "BitmapStore.h"
 
 namespace ni {
 
@@ -25,7 +26,7 @@ private:
 
 public:
 	void LoadBlueprint(TilemapBlueprint& blueprint, std::vector<TilesetBlueprint>& tileset_blueprints);
-	void Render(sf::RenderTarget& target, sf::RenderStates states);
+	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 };
 
 }

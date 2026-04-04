@@ -1,11 +1,12 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include <unordered_map>
 
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
 
+#include "MapUtility.h"
 #include "TileBlueprint.h"
 
 using json = nlohmann::json;
@@ -24,7 +25,7 @@ struct TilesetBlueprint
 	int columns_	= 0;
 	int tile_count_ = 0;
 
-	std::vector<TileBlueprint> tiles_ = {};
+	std::unordered_map<int, TileBlueprint> tiles_ = {};
 
 	int first_gid_ = 0;
 };
@@ -41,7 +42,7 @@ inline void to_json(json& j, const TilesetBlueprint& tb)
 		{"margin",     tb.margin_ },
 		{"columns",    tb.columns_},
 		{"tilecount",  tb.tile_count_ },
-		{"tiles",  tb.tiles_ }
+		{"tiles",      MapUtility::MapToVector<int, TileBlueprint>(tb.tiles_)}
 	};
 }
 
@@ -55,7 +56,13 @@ inline void from_json(const json& j, TilesetBlueprint& tb)
 	j.at("margin").get_to(tb.margin_);
 	j.at("columns").get_to(tb.columns_);
 	j.at("tilecount").get_to(tb.tile_count_);
-	j.at("tiles").get_to(tb.tiles_);
+
+	auto& tiles_json = j.at("tiles");
+	for (const auto& tile : tiles_json)
+	{
+		TileBlueprint tile_blueprint = tile;
+		tb.tiles_[tile_blueprint.id_] = tile_blueprint;
+	}
 }
 
 }

@@ -167,6 +167,9 @@
     <ClCompile Include="TilemapGraphicsComponent.cpp">
       <Filter>Source Files\Components\Tilemap</Filter>
     </ClCompile>
+    <ClCompile Include="MapUtility.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

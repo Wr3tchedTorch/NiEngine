@@ -169,6 +169,7 @@
     <ClCompile Include="GameModeController.cpp" />
     <ClCompile Include="GameObjectId.cpp" />
     <ClCompile Include="GraphicsComponent.cpp" />
+    <ClCompile Include="MapUtility.h" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="GameObjectTag.h" />
     <ClCompile Include="Tilemap.cpp" />

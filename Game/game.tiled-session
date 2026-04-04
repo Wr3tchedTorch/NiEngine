@@ -29,11 +29,11 @@
             }
         },
         "maps/level_01/level_01.tmx": {
-            "scale": 3,
+            "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 251.33333333333331,
-                "y": 201.66666666666663
+                "x": 244.66666666666663,
+                "y": 160
             }
         },
         "maps/rules/ground_autotile_rules.tmx": {
