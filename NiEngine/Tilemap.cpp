@@ -4,12 +4,16 @@
 #include <filesystem>
 #include <vector>
 
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include "DataHandler.h"
 #include "TilemapBlueprint.h"
 #include "TilesetBlueprint.h"
 #include "FileUtility.h"
 #include "TilesetReference.h"
 #include "LayerBlueprint.h"
+#include "BitmapStore.h"
 
 void ni::Tilemap::LoadTilesetBlueprints(const std::vector<TilesetReference>& tileset_references)
 {
@@ -67,4 +71,9 @@ bool ni::Tilemap::LoadFromFile(const std::string& filepath, bool collision_enabl
 	}
 
 	return true;
+}
+
+void ni::Tilemap::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
+{
+	graphics_.Render(target, states, store);
 }

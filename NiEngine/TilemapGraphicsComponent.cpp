@@ -1,44 +1,24 @@
 #include "TilemapGraphicsComponent.h"
 
 #include <vector>
+#include <cmath>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
-#include "TilemapBlueprint.h"
-#include "LayerBlueprint.h"
 #include "TilesetBlueprint.h"
-
-void ni::TilemapGraphicsComponent::UpdateVertices(int index, TilemapBlueprint& blueprint, std::vector<TilesetBlueprint>& tileset_blueprints)
-{
-	LayerBlueprint & layer_blueprint = blueprint.layers_.at(index);	
-	sf::VertexArray& layer_vertices  = layers_vertices_.at(index);
-
-	layers_vertices_.resize(blueprint.map_size_.x * blueprint.map_size_.y * kVerticesPerTile);
-	for (int y = 0; y < blueprint.map_size_.y; ++y)
-	{
-		for (int x = 0; x < blueprint.map_size_.x; ++x)
-		{
-			int index = x + y * blueprint.map_size_.x;
-
-			int tile_id = layer_blueprint.data_.at(index);
-
-			float top  = y * blueprint.tile_size_.y;
-			float left = x * blueprint.tile_size_.x;
-			float bottom = top  + blueprint.tile_size_.y;
-			float right  = left + blueprint.tile_size_.x;
-		}
-	}
-}
+#include "BitmapStore.h"
 
 const ni::TilesetBlueprint& ni::TilemapGraphicsComponent::GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid)
 {
 	int lowest_difference = 0;
 	bool found = false;
 
-	const TilesetBlueprint* resulting_tileset;
+	const TilesetBlueprint* resulting_tileset = nullptr;
 	for (auto& tileset : tileset_blueprints)
 	{
 		int result = gid - tileset.first_gid_;
@@ -57,7 +37,6 @@ const ni::TilesetBlueprint& ni::TilemapGraphicsComponent::GetTilesetByGid(const 
 			break;
 		}
 	}
-
 	return *resulting_tileset;
 }
 
@@ -66,12 +45,38 @@ void ni::TilemapGraphicsComponent::AddTile(const sf::Vector2i& grid_position, in
 	int x = grid_position.x;
 	int y = grid_position.y;
 
-	float top  = y * tileset_blueprints.tile_size_.y;
-	float left = x * tileset_blueprints.tile_size_.x;
-	float bottom = top + tileset_blueprints.tile_size_.y;
-	float right = left + tileset_blueprints.tile_size_.x;
+	const TilesetBlueprint& tileset = GetTilesetByGid(tileset_blueprints, tile_id);
+
+	float top    = y * tileset.tile_size_.y;
+	float left   = x * tileset.tile_size_.x;
+	float bottom = top  + tileset.tile_size_.y;
+	float right  = left + tileset.tile_size_.x;
+
+	int local_id = tile_id - tileset.first_gid_;
+
+	float uv_x = local_id % tileset.columns_;
+	float uv_y = std::floor(static_cast<float>(local_id) / tileset.columns_);
+
+	float uv_top    = uv_y    * (tileset.tile_size_.y + tileset.spacing_) + tileset.margin_;
+	float uv_left   = uv_x    * (tileset.tile_size_.x + tileset.spacing_) + tileset.margin_;
+	float uv_bottom = uv_top  + tileset.tile_size_.y;
+	float uv_right  = uv_left + tileset.tile_size_.x;
+
+	vertices_by_tileset_[tileset.texture_key_].append({ {top, left   }, sf::Color::White, {uv_top, uv_left}    });
+	vertices_by_tileset_[tileset.texture_key_].append({ {top, right  }, sf::Color::White, {uv_top, uv_right} });
+	vertices_by_tileset_[tileset.texture_key_].append({ {bottom, left}, sf::Color::White, {uv_bottom, uv_left} });
+
+	vertices_by_tileset_[tileset.texture_key_].append({ {top, right   }, sf::Color::White, {uv_top,    uv_right} });
+	vertices_by_tileset_[tileset.texture_key_].append({ {bottom, right}, sf::Color::White, {uv_bottom, uv_right} });
+	vertices_by_tileset_[tileset.texture_key_].append({ {bottom, left }, sf::Color::White, {uv_bottom, uv_left}  });
 }
 
 void ni::TilemapGraphicsComponent::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
+	for (const auto& [texture_key, vertices] : vertices_by_tileset_)
+	{
+		sf::Texture texture(store.GetTexture(texture_key));
+		states.texture = &texture;
+		target.draw(vertices, states);
+	}
 }

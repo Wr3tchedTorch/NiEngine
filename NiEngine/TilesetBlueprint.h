@@ -18,7 +18,8 @@ struct TilesetBlueprint
 	std::string name_ = "";
 	std::string texture_key_ = "";
 
-	sf::Vector2i tile_size_ = {};
+	sf::Vector2i tile_size_  = {};
+	sf::Vector2i image_size_ = {};
 
 	int spacing_	= 0;
 	int margin_		= 0;
@@ -38,6 +39,8 @@ inline void to_json(json& j, const TilesetBlueprint& tb)
 		{"image",      tb.texture_key_},
 		{"tilewidth",  tb.tile_size_.x },
 		{"tileheight", tb.tile_size_.y },
+		{"imagewidth",  tb.image_size_.x },
+		{"imageheight", tb.image_size_.y },
 		{"spacing",    tb.spacing_ },
 		{"margin",     tb.margin_ },
 		{"columns",    tb.columns_},
@@ -52,6 +55,8 @@ inline void from_json(const json& j, TilesetBlueprint& tb)
 	j.at("image").get_to(tb.texture_key_);
 	j.at("tilewidth").get_to(tb.tile_size_.x);
 	j.at("tileheight").get_to(tb.tile_size_.y);
+	j.at("imagewidth").get_to(tb.image_size_.x);
+	j.at("imageheight").get_to(tb.image_size_.y);
 	j.at("spacing").get_to(tb.spacing_);
 	j.at("margin").get_to(tb.margin_);
 	j.at("columns").get_to(tb.columns_);

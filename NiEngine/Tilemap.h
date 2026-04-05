@@ -11,6 +11,7 @@
 #include "TilesetBlueprint.h"
 #include "TilesetReference.h"
 #include "LayerBlueprint.h"
+#include "BitmapStore.h"
 
 namespace ni {
 
@@ -40,7 +41,7 @@ public:
 
 	bool LoadFromFile(const std::string& filepath, bool collision_enabled = true);
 
-	void Render(sf::RenderTarget& target, sf::RenderStates states);
+	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 };
 
 }
