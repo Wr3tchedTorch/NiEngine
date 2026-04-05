@@ -42,17 +42,12 @@ void ni::Tilemap::LoadTiles(const LayerBlueprint& layer_blueprint, bool collisio
 
 			int tile_id = layer_blueprint.data_.at(index);
 
-			graphics_.AddTile({ x, y }, tile_id);
+			graphics_.AddTile({ x, y }, tile_id, tileset_blueprints_);
 		}
 	}
 }
 
-ni::Tilemap::Tilemap(const std::string& filepath)
-{
-	LoadFromFile(filepath);
-}
-
-bool ni::Tilemap::LoadFromFile(const std::string& filepath, bool collision_enabled = true)
+bool ni::Tilemap::LoadFromFile(const std::string& filepath, bool collision_enabled)
 {
 	DataHandler<TilemapBlueprint> handler(filepath);
 

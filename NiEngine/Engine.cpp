@@ -20,7 +20,7 @@ ni::Engine::Engine(std::string window_name, sf::State start_state)
 	window_.create(sf::VideoMode::getDesktopMode(), window_name, start_state);
 }
 
-ni::GameModeController& ni::Engine::getGameModeController()
+ni::GameModeController& ni::Engine::GetGameModeController()
 {
 	return game_mode_controller_;
 }

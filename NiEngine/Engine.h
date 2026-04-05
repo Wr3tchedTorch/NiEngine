@@ -25,7 +25,7 @@ public:
 
 	Engine(std::string window_name, sf::State start_state);
 
-	GameModeController& getGameModeController();
+	GameModeController& GetGameModeController();
 
 	void Run();
 };

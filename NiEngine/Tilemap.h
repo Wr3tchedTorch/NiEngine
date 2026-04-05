@@ -37,8 +37,6 @@ private:
 public:
 	inline static const std::string kPrototypeLayerName = "prototype";
 
-	Tilemap(const std::string& filepath);
-
 	bool LoadFromFile(const std::string& filepath, bool collision_enabled = true);
 
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);

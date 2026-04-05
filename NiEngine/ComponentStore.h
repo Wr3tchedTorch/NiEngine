@@ -22,7 +22,7 @@ class ComponentStore
 private:
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>> transform_components_;
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>   physics_components_;
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>	  update_components_;
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>	   update_components_;
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<GraphicsComponent>>  graphics_components_;
 
 public:
