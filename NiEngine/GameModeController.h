@@ -18,7 +18,7 @@ class GameModeController
 private:
 	std::unordered_map<Id<GameModeTag>, std::unique_ptr<GameMode>> game_modes_;
 	
-	Id<GameModeTag> current_id;
+	Id<GameModeTag> current_game_mode;
 	Id<GameModeTag> next_id;
 
 public:

@@ -1,10 +1,11 @@
-
+#include <utility>
+#include <memory>
 
 #include <SFML/Window/WindowEnums.hpp>
 #include <Engine.h>
 #include <GameMode.h>
-#include <utility>
-#include <memory>
+#include <GameModeTag.h>
+#include <Id.h>
 
 int main()
 {
@@ -12,7 +13,9 @@ int main()
 
     auto my_mode = std::make_unique<ni::GameMode>();
     my_mode->RegisterTilemap("maps/level_01/map.json");
-    engine.GetGameModeController().Register(std::move(my_mode));
+    
+    ni::Id<GameModeTag> mode_id = engine.GetGameModeController().Register(std::move(my_mode));
+    engine.GetGameModeController().SwitchTo(mode_id);
 
     engine.Run();
 }

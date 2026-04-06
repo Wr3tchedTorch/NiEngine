@@ -22,13 +22,13 @@ struct Id
 	}
 };
 
-template<typename Tag>
-struct std::hash<Id<Tag>>
+}
+
+template <typename Tag>
+struct std::hash<ni::Id<Tag>>
 {
 	size_t operator()(const ni::Id<Tag>& id) const
 	{
 		return std::hash<uint32_t>{}(id.id_);
 	}
 };
-
-}

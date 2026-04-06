@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <cmath>
+#include <cassert>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -9,35 +10,27 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/PrimitiveType.hpp>
 
 #include "TilesetBlueprint.h"
 #include "BitmapStore.h"
 
 const ni::TilesetBlueprint& ni::TilemapGraphicsComponent::GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid)
 {
-	int lowest_difference = 0;
-	bool found = false;
-
-	const TilesetBlueprint* resulting_tileset = nullptr;
+	const TilesetBlueprint* result = nullptr;
 	for (auto& tileset : tileset_blueprints)
 	{
-		int result = gid - tileset.first_gid_;
-		if (result < 0)
-		{			
-			break;
-		}
-		if (!found || lowest_difference > result)
+		if (gid >= tileset.first_gid_)
 		{
-			resulting_tileset = &tileset;
-			lowest_difference = result;
-			found = true;
-		}
-		if (found && lowest_difference < result)
-		{
-			break;
+			result = &tileset;
 		}
 	}
-	return *resulting_tileset;
+	assert(result != nullptr);
+	return *result;
+}
+
+ni::TilemapGraphicsComponent::TilemapGraphicsComponent()
+{	
 }
 
 void ni::TilemapGraphicsComponent::AddTile(const sf::Vector2i& grid_position, int tile_id, const std::vector<TilesetBlueprint>& tileset_blueprints)
@@ -62,19 +55,21 @@ void ni::TilemapGraphicsComponent::AddTile(const sf::Vector2i& grid_position, in
 	float uv_bottom = uv_top  + tileset.tile_size_.y;
 	float uv_right  = uv_left + tileset.tile_size_.x;
 
-	vertices_by_tileset_[tileset.texture_key_].append({ {top, left   }, sf::Color::White, {uv_top, uv_left}    });
-	vertices_by_tileset_[tileset.texture_key_].append({ {top, right  }, sf::Color::White, {uv_top, uv_right} });
-	vertices_by_tileset_[tileset.texture_key_].append({ {bottom, left}, sf::Color::White, {uv_bottom, uv_left} });
+	vertices_by_tileset_[tileset.texture_key_].setPrimitiveType(sf::PrimitiveType::Triangles);
 
-	vertices_by_tileset_[tileset.texture_key_].append({ {top, right   }, sf::Color::White, {uv_top,    uv_right} });
-	vertices_by_tileset_[tileset.texture_key_].append({ {bottom, right}, sf::Color::White, {uv_bottom, uv_right} });
-	vertices_by_tileset_[tileset.texture_key_].append({ {bottom, left }, sf::Color::White, {uv_bottom, uv_left}  });
+	vertices_by_tileset_[tileset.texture_key_].append({ {left,  top   }, sf::Color::White, {uv_left,  uv_top   } });
+	vertices_by_tileset_[tileset.texture_key_].append({ {right, top   }, sf::Color::White, {uv_right, uv_top   } });
+	vertices_by_tileset_[tileset.texture_key_].append({ {left,  bottom}, sf::Color::White, {uv_left,  uv_bottom} });
+
+	vertices_by_tileset_[tileset.texture_key_].append({ {right, top   }, sf::Color::White, {uv_right, uv_top   } });
+	vertices_by_tileset_[tileset.texture_key_].append({ {right, bottom}, sf::Color::White, {uv_right, uv_bottom} });
+	vertices_by_tileset_[tileset.texture_key_].append({ {left,  bottom}, sf::Color::White, {uv_left,  uv_bottom} });
 }
 
 void ni::TilemapGraphicsComponent::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
 	for (const auto& [texture_key, vertices] : vertices_by_tileset_)
-	{
+	{		
 		sf::Texture texture(store.GetTexture(texture_key));
 		states.texture = &texture;
 		target.draw(vertices, states);

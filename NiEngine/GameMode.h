@@ -18,7 +18,7 @@ class GameModeController;
 class GameMode
 {
 private:
-	ComponentStore store_;
+	ComponentStore component_store_;
 
 	Id<GameObjectTag> current_game_object_id_;	
 
@@ -29,7 +29,7 @@ public:
 
 	ComponentStore& GetComponentStore()
 	{
-		return store_;
+		return component_store_;
 	}
 
 	Id<GameObjectTag> CreateGameObject()

@@ -51,14 +51,15 @@ inline void to_json(json& j, const TilesetBlueprint& tb)
 
 inline void from_json(const json& j, TilesetBlueprint& tb)
 {
-	std::string log = j.dump(4);
-
 	j.at("name").get_to(tb.name_);
-	j.at("image").get_to(tb.texture_key_);
+	if (j.contains("image"))
+	{
+		j.at("image").get_to(tb.texture_key_);
+		j.at("imagewidth").get_to(tb.image_size_.x);
+		j.at("imageheight").get_to(tb.image_size_.y);
+	}
 	j.at("tilewidth").get_to(tb.tile_size_.x);
 	j.at("tileheight").get_to(tb.tile_size_.y);
-	j.at("imagewidth").get_to(tb.image_size_.x);
-	j.at("imageheight").get_to(tb.image_size_.y);
 	j.at("spacing").get_to(tb.spacing_);
 	j.at("margin").get_to(tb.margin_);
 	j.at("columns").get_to(tb.columns_);

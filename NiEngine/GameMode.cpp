@@ -1,5 +1,7 @@
 #include "GameMode.h"
 
+#include <string>
+
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
@@ -19,19 +21,14 @@ void ni::GameMode::RegisterTilemap(const std::string& filepath, bool enable_coll
 
 void ni::GameMode::Update(GameModeController& controller)
 {	
-	if (Engine::time_elapsed.asSeconds() > 2)
-	{
-		controller.SwitchTo({ 2 });
-	}
+	component_store_.Update();
 
-	store_.Update();
-
-	store_.PhysicsUpdate();
+	component_store_.PhysicsUpdate();
 }
 
 void ni::GameMode::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	store_.Render(target, states, store);
+	component_store_.Render(target, states, store);
 
 	for (auto& map : tilemaps_)
 	{

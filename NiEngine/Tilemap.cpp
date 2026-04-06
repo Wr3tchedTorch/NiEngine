@@ -39,9 +39,11 @@ void ni::Tilemap::LoadTiles(const LayerBlueprint& layer_blueprint, bool collisio
 		for (int x = 0; x < blueprint_.map_size_.x; ++x)
 		{
 			int index = x + y * blueprint_.map_size_.x;
-
 			int tile_id = layer_blueprint.data_.at(index);
-
+			if (tile_id == 0)
+			{
+				continue;
+			}
 			graphics_.AddTile({ x, y }, tile_id, tileset_blueprints_);
 		}
 	}

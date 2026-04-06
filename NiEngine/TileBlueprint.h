@@ -38,6 +38,11 @@ inline void from_json(const json& j, TileBlueprint& tb)
 {
 	j.at("id").get_to(tb.id_);
 
+	if (!j.contains("properties"))
+	{
+		return;
+	}
+
 	for (auto& property : j.at("properties"))
 	{
 		if (property.at("name") == "oneSidedCollision")

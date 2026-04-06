@@ -1,11 +1,25 @@
 {
   "columns": 0,
-  "image": "",
+  "grid": {
+    "height": 1,
+    "orientation": "orthogonal",
+    "width": 1
+  },
   "margin": 0,
-  "name": "",
+  "name": "transparent_tiles",
   "spacing": 0,
-  "tilecount": 0,
-  "tileheight": 0,
-  "tiles": [],
-  "tilewidth": 0
+  "tilecount": 1,
+  "tiledversion": "1.12.1",
+  "tileheight": 16,
+  "tiles": [
+    {
+      "id": 0,
+      "image": "..\/graphics\/transparent_tile_16x16.png",
+      "imageheight": 16,
+      "imagewidth": 16
+    }
+  ],
+  "tilewidth": 16,
+  "type": "tileset",
+  "version": "1.10"
 }
