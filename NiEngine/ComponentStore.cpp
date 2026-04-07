@@ -7,12 +7,25 @@
 #include "Id.h"
 #include "TransformComponent.h"
 #include "GameObjectTag.h"
+#include "PhysicsComponent.h"
+#include <iostream>
 
 ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<GameObjectTag> id)
 {
 	auto it = transform_components_.find(id);
 
 	if (it == transform_components_.end())
+	{
+		return nullptr;
+	}
+	return it->second.get();
+}
+
+ni::PhysicsComponent* ni::ComponentStore::GetPhysicsComponent(Id<GameObjectTag> id)
+{
+	auto it = physics_components_.find(id);
+
+	if (it == physics_components_.end())
 	{
 		return nullptr;
 	}
@@ -45,12 +58,15 @@ void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates state
 {
 	for (auto& [id, component] : graphics_components_)
 	{
+		sf::RenderStates local_state = states;
+
 		TransformComponent* transform = GetTransformComponent(id);
 
 		if (transform)
 		{
-			states.transform *= transform->GetTransformable().getTransform();
-		}
-		component->Render(target, states, store);
+			local_state.transform *= transform->GetTransformable().getTransform();
+		}		
+
+		component->Render(target, local_state, store);
 	}
 }

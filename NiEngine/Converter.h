@@ -33,6 +33,11 @@ namespace converter
 		return b2Vec2(v.x / PIXELS_PER_METERS, v.y / PIXELS_PER_METERS);
 	}
 
+	inline b2Vec2 PixelsToMeters(const sf::Vector2i& v)
+	{
+		return b2Vec2(v.x / PIXELS_PER_METERS, v.y / PIXELS_PER_METERS);
+	}
+
 	inline sf::Angle RotToAngle(const b2Rot& v)
 	{
 		return sf::Angle(sf::radians(b2Rot_GetAngle(v)));

@@ -7,7 +7,6 @@
 
 #include "BitmapStore.h"
 #include "GameModeController.h"
-#include "Engine.h"
 #include "Tilemap.h"
 
 void ni::GameMode::RegisterTilemap(const std::string& filepath, bool enable_collision)
@@ -33,10 +32,9 @@ void ni::GameMode::Update(GameModeController& controller)
 
 void ni::GameMode::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	component_store_.Render(target, states, store);
-
 	for (auto& map : tilemaps_)
 	{
 		map.Render(target, states, store);
 	}
+	component_store_.Render(target, states, store);
 }

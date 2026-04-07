@@ -20,15 +20,14 @@ namespace ni {
 class ComponentStore
 {
 private:
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>> transform_components_;
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>   physics_components_;
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>	   update_components_;
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<GraphicsComponent>>  graphics_components_;
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>> transform_components_ = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>   physics_components_   = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>	   update_components_	 = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<GraphicsComponent>>  graphics_components_  = {};
 
 public:
-	ComponentStore() = default;
-
-	void AttachPhysicsComponent(Id<GameObjectTag> target, PhysicsComponent& component)
+	// Component Attaching/Removing
+		void AttachPhysicsComponent(Id<GameObjectTag> target, PhysicsComponent& component)
 	{		
 		physics_components_.emplace(target, std::make_unique<PhysicsComponent>(component));
 	}
@@ -69,6 +68,7 @@ public:
 	}
 
 	TransformComponent* GetTransformComponent(Id<GameObjectTag> id);
+	PhysicsComponent*	GetPhysicsComponent(Id<GameObjectTag> id);
 
 	void PhysicsUpdate();
 	void Update();

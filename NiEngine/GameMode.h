@@ -19,16 +19,16 @@ class GameModeController;
 class GameMode
 {
 private:
+	Id<GameObjectTag> current_game_object_id_{ 0 };
+
+
+protected:
+	std::vector<Tilemap> tilemaps_;
+
 	ComponentStore component_store_;
 	PhysicsEngine  physics_engine_;
 
-	Id<GameObjectTag> current_game_object_id_;	
-
-	std::vector<Tilemap> tilemaps_;
-
 public:
-	GameMode() = default;
-
 	ComponentStore& GetComponentStore()
 	{
 		return component_store_;
