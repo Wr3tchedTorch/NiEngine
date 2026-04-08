@@ -17,7 +17,6 @@
 #include <ShapeGraphicsComponent.h>
 #include <ComponentStore.h>
 #include <PhysicsComponent.h>
-#include <iostream>
 
 Ball::Ball(ni::Id<GameObjectTag> id, b2Vec2 starting_position, ni::ComponentStore& component_store, b2WorldId world_id, sf::Color color, float radius)
 {
@@ -32,6 +31,7 @@ Ball::Ball(ni::Id<GameObjectTag> id, b2Vec2 starting_position, ni::ComponentStor
     sf::CircleShape shape(converter::MetersToPixels(radius));
     shape.setFillColor(color);
     shape.setOrigin({ converter::MetersToPixels(radius), converter::MetersToPixels(radius) });
+
     auto ball_graphics = std::make_unique<ni::ShapeGraphicsComponent<sf::CircleShape>>(shape);
 
     component_store.AttachGraphicsComponent(id, std::move(ball_graphics));

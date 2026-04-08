@@ -3,13 +3,14 @@
 #include <vector>
 #include <cmath>
 #include <cassert>
+#include <algorithm>
+#include <limits>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
 
 #include "TilesetBlueprint.h"
@@ -29,7 +30,7 @@ const ni::TilesetBlueprint& ni::TilemapGraphicsComponent::GetTilesetByGid(const 
 	return *result;
 }
 
-void ni::TilemapGraphicsComponent::AddTile(const sf::Vector2i& grid_position, int tile_id, const std::vector<TilesetBlueprint>& tileset_blueprints)
+void ni::TilemapGraphicsComponent::AddTile(const sf::Vector2i& grid_position, int tile_id, const std::vector<TilesetBlueprint>& tileset_blueprints, const sf::Vector2f& layer_position_offset)
 {
 	int x = grid_position.x;
 	int y = grid_position.y;
@@ -51,24 +52,50 @@ void ni::TilemapGraphicsComponent::AddTile(const sf::Vector2i& grid_position, in
 	float uv_bottom = uv_top  + tileset.tile_size_.y;
 	float uv_right  = uv_left + tileset.tile_size_.x;
 
-	vertices_by_tileset_[tileset.texture_key_].setPrimitiveType(sf::PrimitiveType::Triangles);
+	if (tileset_drawables_[tileset.texture_key_].vertices_.getVertexCount() == 0)
+	{
+		tileset_drawables_[tileset.texture_key_].position_offset_ = layer_position_offset;
+		tileset_drawables_[tileset.texture_key_].vertices_.setPrimitiveType(sf::PrimitiveType::Triangles);
+	}
 
-	vertices_by_tileset_[tileset.texture_key_].append({ {left,  top   }, sf::Color::White, {uv_left,  uv_top   } });
-	vertices_by_tileset_[tileset.texture_key_].append({ {right, top   }, sf::Color::White, {uv_right, uv_top   } });
-	vertices_by_tileset_[tileset.texture_key_].append({ {left,  bottom}, sf::Color::White, {uv_left,  uv_bottom} });
+	tileset_drawables_[tileset.texture_key_].vertices_.append({ {left,  top   }, sf::Color::White, {uv_left,  uv_top   } });
+	tileset_drawables_[tileset.texture_key_].vertices_.append({ {right, top   }, sf::Color::White, {uv_right, uv_top   } });
+	tileset_drawables_[tileset.texture_key_].vertices_.append({ {left,  bottom}, sf::Color::White, {uv_left,  uv_bottom} });
 
-	vertices_by_tileset_[tileset.texture_key_].append({ {right, top   }, sf::Color::White, {uv_right, uv_top   } });
-	vertices_by_tileset_[tileset.texture_key_].append({ {right, bottom}, sf::Color::White, {uv_right, uv_bottom} });
-	vertices_by_tileset_[tileset.texture_key_].append({ {left,  bottom}, sf::Color::White, {uv_left,  uv_bottom} });
+	tileset_drawables_[tileset.texture_key_].vertices_.append({ {right, top   }, sf::Color::White, {uv_right, uv_top   } });
+	tileset_drawables_[tileset.texture_key_].vertices_.append({ {right, bottom}, sf::Color::White, {uv_right, uv_bottom} });
+	tileset_drawables_[tileset.texture_key_].vertices_.append({ {left,  bottom}, sf::Color::White, {uv_left,  uv_bottom} });
 }
 
 void ni::TilemapGraphicsComponent::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	for (const auto& [texture_key, vertices] : vertices_by_tileset_)
-	{		
-		sf::RenderStates local_state = states;
-		
-		local_state.texture = &store.GetTexture(texture_key);
-		target.draw(vertices, local_state);
+	for (const auto& [texture_key, tileset_drawable] : tileset_drawables_)
+	{
+		sf::RenderStates local_state = states;		
+		local_state.texture = &store.GetTexture(texture_key);		
+		local_state.transform.translate(tileset_drawable.position_offset_);
+		target.draw(tileset_drawable.vertices_, local_state);
 	}
+}
+
+sf::FloatRect ni::TilemapGraphicsComponent::GetBounds() const
+{
+	if (tileset_drawables_.empty()) return {};
+
+	sf::FloatRect result = {};
+	result.position = { std::numeric_limits<float>::max(), std::numeric_limits<float>::max() };
+
+	for (const auto& [texture_key, tileset_drawable] : tileset_drawables_)
+	{
+		sf::Vector2f vertices_size = tileset_drawable.vertices_.getBounds().size;
+
+		result.position.x = std::min(result.position.x, tileset_drawable.position_offset_.x);
+		result.position.y = std::min(result.position.y, tileset_drawable.position_offset_.y);
+
+		result.size.x = std::max(result.size.x, tileset_drawable.position_offset_.x + vertices_size.x);
+		result.size.y = std::max(result.size.y, tileset_drawable.position_offset_.y + vertices_size.y);
+	}
+
+	result.size -= result.position;
+	return result;
 }

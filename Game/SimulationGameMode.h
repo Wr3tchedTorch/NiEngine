@@ -4,8 +4,6 @@
 #include <unordered_map>
 
 #include <SFML/Window/Mouse.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <id.h>
 #include <GameMode.h>
 #include <GameModeController.h>
 

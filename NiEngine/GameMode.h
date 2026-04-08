@@ -11,6 +11,7 @@
 #include "GameObjectTag.h"
 #include "Tilemap.h"
 #include "PhysicsEngine.h"
+#include "Camera.h"
 
 namespace ni {
 
@@ -21,12 +22,12 @@ class GameMode
 private:
 	Id<GameObjectTag> current_game_object_id_{ 0 };
 
-
 protected:
 	std::vector<Tilemap> tilemaps_;
 
 	ComponentStore component_store_;
 	PhysicsEngine  physics_engine_;
+	Camera main_camera_;
 
 public:
 	ComponentStore& GetComponentStore()

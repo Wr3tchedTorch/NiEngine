@@ -3,15 +3,10 @@
 #include <types.h>
 
 #include <SFML/Window/Mouse.hpp>
-#include <SFML/Graphics/Color.hpp>
 #include <math_functions.h>
 #include <GameMode.h>
 #include <Converter.h>
 #include <GameModeController.h>
-#include <PhysicsComponent.h>
-#include <box2d.h>
-
-#include "Ball.h"
 
 SimulationGameMode::SimulationGameMode()
 {

@@ -13,7 +13,7 @@
 
 int main()
 {
-    ni::Engine engine("Shooter by Eric", sf::State::Fullscreen);
+    ni::Engine engine("Ni Engine, by Eric", sf::State::Fullscreen);
 
     auto mode = std::make_unique<SimulationGameMode>();
 
