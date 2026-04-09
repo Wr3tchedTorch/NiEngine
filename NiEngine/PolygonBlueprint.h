@@ -13,8 +13,8 @@ namespace ni {
 	{
 		int id_ = 0;
 
-		sf::Vector2i position_;
-		std::vector<sf::Vector2i> offset_points_;
+		sf::Vector2i position_ = {};
+		std::vector<sf::Vector2i> offset_points_ = {};
 	};
 
 	inline void to_json(json& j, const PolygonBlueprint& pb)

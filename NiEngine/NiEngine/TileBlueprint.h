@@ -1,6 +1,7 @@
 #pragma once
 
 #include <nlohmann/json.hpp>
+#include <PolygonBlueprint.h>
 
 using json = nlohmann::json;
 
@@ -12,6 +13,8 @@ struct TileBlueprint
 
 	bool is_hill_ = false;
 	bool one_sided_collision_ = false;
+
+	PolygonBlueprint polygon_blueprint_;
 };
 
 inline void to_json(json& j, const TileBlueprint& tb)
@@ -31,12 +34,25 @@ inline void to_json(json& j, const TileBlueprint& tb)
 	{
 		{"name", "isHill"},
 		{ "value" }, tb.is_hill_
-	};
+	};	
+
+	if (tb.polygon_blueprint_.id_ > 0)
+	{
+		j["objectgroup"]["objects"].push_back(tb.polygon_blueprint_);
+	}
 }
 
 inline void from_json(const json& j, TileBlueprint& tb)
 {
 	j.at("id").get_to(tb.id_);
+
+	if (j.contains("objectgroup") && j.at("objectgroup").contains("objects") && j.at("objectgroup").at("objects").size() > 0)
+	{
+		for (auto& polygon_json : j.at("objectgroup").at("objects"))
+		{
+			tb.polygon_blueprint_ = polygon_json;
+		}
+	}
 
 	if (!j.contains("properties"))
 	{
