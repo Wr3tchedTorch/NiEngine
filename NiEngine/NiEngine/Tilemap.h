@@ -1,5 +1,7 @@
 #pragma once
 
+#include <id.h>
+
 #include <string>
 #include <vector>
 
@@ -7,12 +9,13 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
-#include <NiEngine/TilemapBlueprint.h>
-#include <NiEngine/TilemapGraphicsComponent.h>
-#include <NiEngine/TilesetBlueprint.h>
-#include <NiEngine/TilesetReference.h>
-#include <NiEngine/LayerBlueprint.h>
-#include <NiEngine/BitmapStore.h>
+#include "TilemapBlueprint.h"
+#include "TilemapGraphicsComponent.h"
+#include "TilesetBlueprint.h"
+#include "TilesetReference.h"
+#include "LayerBlueprint.h"
+#include "BitmapStore.h"
+#include "TilemapCollisionComponent.h"
 
 namespace ni {
 
@@ -23,7 +26,8 @@ private:
 
 	std::vector<TilesetBlueprint> tileset_blueprints_ = {};
 
-	TilemapGraphicsComponent graphics_;
+	TilemapGraphicsComponent  graphics_;
+	TilemapCollisionComponent collision_;
 
 	std::string last_loaded_file_ = "";
 
@@ -37,6 +41,8 @@ private:
 
 public:
 	inline static const std::string kPrototypeLayerName = "prototype";
+
+	Tilemap(b2WorldId world_id);
 
 	bool LoadFromFile(const std::string& filepath, bool collision_enabled = true);
 

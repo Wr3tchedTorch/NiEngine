@@ -11,7 +11,7 @@
 
 void ni::GameMode::RegisterTilemap(const std::string& filepath, bool enable_collision)
 {
-	Tilemap map;
+	Tilemap map(physics_engine_.GetWorldId());
 
 	map.LoadFromFile(filepath, enable_collision);
 

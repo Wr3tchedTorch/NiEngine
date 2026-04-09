@@ -1,5 +1,7 @@
 #include <NiEngine/Tilemap.h>
 
+#include <id.h>
+
 #include <string>
 #include <filesystem>
 #include <vector>
@@ -47,8 +49,14 @@ void ni::Tilemap::LoadTiles(const LayerBlueprint& layer_blueprint, bool collisio
 				continue;
 			}
 			graphics_.AddTile({ x, y }, tile_id, tileset_blueprints_, layer_blueprint.position_);
+			collision_.AddTile(layer_blueprint, blueprint_.map_size_, { x, y });
 		}
 	}
+	collision_.CreateCollisionBody(blueprint_.tile_size_);
+}
+
+ni::Tilemap::Tilemap(b2WorldId world_id) : collision_(world_id)
+{
 }
 
 bool ni::Tilemap::LoadFromFile(const std::string& filepath, bool collision_enabled)

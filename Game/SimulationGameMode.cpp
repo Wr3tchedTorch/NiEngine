@@ -33,7 +33,7 @@ void SimulationGameMode::Update(ni::GameModeController& controller)
 
     if (IsMouseButtonJustPressed(sf::Mouse::Button::Right))
     {
-        ball_factory_.SpawnRandomizedBall(*this, ni::Converter::PixelsToMeters(current_mouse_position_), { 0, -10 });
+        ball_factory_.SpawnRandomizedBall(*this, ni::Converter::PixelsToMeters(current_mouse_position_), { 0, -20 });
     }
 }
 

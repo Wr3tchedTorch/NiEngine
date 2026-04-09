@@ -81,19 +81,19 @@ void ni::TilemapCollisionComponent::AddTile(const LayerBlueprint& layer, sf::Vec
 
 	if (IsTileExposed(layer.data_, map_size, top))
 	{
-		exposed_edges_[{gx + 1, gy}] = { gx, gy };
+		exposed_edges_[{gx, gy}] = { gx + 1, gy };
 	}
 	if (IsTileExposed(layer.data_, map_size, bottom))
 	{
-		exposed_edges_[{gx, gy + 1}] = { gx + 1, gy + 1 };
+		exposed_edges_[{gx + 1, gy + 1}] = { gx, gy + 1 };
 	}
 	if (IsTileExposed(layer.data_, map_size, left))
 	{
-		exposed_edges_[{gx, gy}] = { gx, gy + 1 };
+		exposed_edges_[{gx, gy + 1}] = { gx, gy };
 	}
 	if (IsTileExposed(layer.data_, map_size, right))
 	{
-		exposed_edges_[{gx + 1, gy + 1}] = { gx + 1, gy };
+		exposed_edges_[{gx + 1, gy}] = { gx + 1, gy + 1 };
 	}
 }
 
