@@ -64,30 +64,41 @@ std::vector<ni::LoopInformation> ni::TilemapCollisionComponent::GetCollisionLoop
 	return loops;
 }
 
-void ni::TilemapCollisionComponent::CreateFullCollisionForTile(const LayerBlueprint& layer, sf::Vector2i tile_grid_position, sf::Vector2i tile_position, sf::Vector2i map_size, sf::Vector2i tile_size) 
+void ni::TilemapCollisionComponent::CreateFullCollisionForTile(const LayerBlueprint& layer, sf::Vector2i tile_grid_position, sf::Vector2i tile_position, sf::Vector2i map_size, sf::Vector2i tile_size)
 {
-	struct EdgeDef {
-		sf::Vector2i start_offset;
-		sf::Vector2i end_offset;
-		sf::Vector2i neighbor_offset;
-	};
-	
-	const EdgeDef kEdges[] = {
-		{ {0,            0           }, {tile_size.x, 0           }, {0,  -1} },
-		{ {0,            tile_size.y }, {tile_size.x, tile_size.y }, {0,  +1} },
-		{ {0,            tile_size.y }, {0,           0           }, {-1,  0} },
-		{ {tile_size.x,  0           }, {tile_size.x, tile_size.y }, {+1,  0} },
-	};
+	sf::Vector2i top	= tile_grid_position; top.y	   -= 1;
+	sf::Vector2i bottom = tile_grid_position; bottom.y += 1;
+	sf::Vector2i left	= tile_grid_position; left.x   -= 1;
+	sf::Vector2i right	= tile_grid_position; right.x  += 1;
 
-	for (const auto& edge : kEdges) 
+	sf::Vector2i start(tile_position);
+	sf::Vector2i end(start);
+
+	if (IsTileEmpty(layer.data_, map_size, top))
 	{
-		sf::Vector2i neighbor = tile_grid_position + edge.neighbor_offset;
-		if (!IsTileEmpty(layer.data_, map_size, neighbor))
-		{
-			continue;
-		}
-		sf::Vector2i start = tile_position + edge.start_offset;
-		sf::Vector2i end   = tile_position + edge.end_offset;
+		end.x += tile_size.x;
+		exposed_edges_[start] = end;
+		end = tile_position;
+	}
+	if (IsTileEmpty(layer.data_, map_size, bottom))
+	{
+		start += tile_size;
+		end.y += tile_size.y;
+		exposed_edges_[start] = end;
+	
+		start = tile_position;
+		end   = tile_position;
+	}
+	if (IsTileEmpty(layer.data_, map_size, left))
+	{
+		start.y += tile_size.y;
+		exposed_edges_[start] = end;
+		start = tile_position;
+	}
+	if (IsTileEmpty(layer.data_, map_size, right))
+	{
+		start.x += tile_size.x;
+		end += tile_size;
 		exposed_edges_[start] = end;
 	}
 }
