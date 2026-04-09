@@ -4,7 +4,6 @@
 #include <math_functions.h>
 
 #include <vector>
-#include <unordered_set>
 #include <unordered_map>
 
 #include <SFML/System/Vector2.hpp>
@@ -13,6 +12,12 @@
 #include "Vector2iHash.h"
 
 namespace ni {
+
+struct LoopInformation
+{
+	bool is_closed_ = false;
+	std::vector<b2Vec2> data_;
+};
 
 class TilemapCollisionComponent
 {
@@ -24,7 +29,7 @@ private:
 	bool IsTileExposed(const std::vector<int>& map, sf::Vector2i map_size, sf::Vector2i tile_grid_position);
 	bool IsTileExposed(const std::vector<int>& map, int tile_index);
 
-	std::vector<std::vector<b2Vec2>> GetCollisionLoops(sf::Vector2i tile_size);
+	std::vector<LoopInformation> GetCollisionLoops(sf::Vector2i tile_size);
 
 public:
 	TilemapCollisionComponent(b2WorldId world_id);

@@ -26,22 +26,27 @@ bool ni::TilemapCollisionComponent::IsTileExposed(const std::vector<int>& map, i
 	return tile_index < 0 || tile_index >= (int)map.size() || map[tile_index] == 0;
 }
 
-std::vector<std::vector<b2Vec2>> ni::TilemapCollisionComponent::GetCollisionLoops(sf::Vector2i tile_size)
+std::vector<ni::LoopInformation> ni::TilemapCollisionComponent::GetCollisionLoops(sf::Vector2i tile_size)
 {
-	std::vector<std::vector<b2Vec2>> loops;
+	std::vector<LoopInformation> loops;
 
 	while (!exposed_edges_.empty())
 	{
 		sf::Vector2i starting_point = exposed_edges_.begin()->first;
 		sf::Vector2i current_point  = starting_point;
 
+		bool is_closed = true;
 		std::vector<b2Vec2> loop;
 		do
 		{
 			loop.push_back(Converter::PixelsToMeters(sf::Vector2i({ current_point.x * tile_size.x, current_point.y * tile_size.y })));
 
 			auto it = exposed_edges_.find(current_point);
-			if (it == exposed_edges_.end()) break;
+			if (it == exposed_edges_.end())
+			{
+				is_closed = false;
+				break;
+			}
 
 			sf::Vector2i nextPoint = it->second;
 
@@ -50,7 +55,7 @@ std::vector<std::vector<b2Vec2>> ni::TilemapCollisionComponent::GetCollisionLoop
 
 		} while (current_point != starting_point);
 
-		loops.push_back(loop);
+		loops.push_back({ is_closed, loop });
 	}
 
 	return loops;
@@ -94,5 +99,16 @@ void ni::TilemapCollisionComponent::AddTile(const LayerBlueprint& layer, sf::Vec
 
 void ni::TilemapCollisionComponent::CreateCollisionBody(sf::Vector2i tile_size)
 {	
-	b2ChainDef shape = b2DefaultChainDef();
+	std::vector<LoopInformation> loops = GetCollisionLoops(tile_size);
+
+	for (const auto& loop : loops)
+	{
+		b2ChainDef shape = b2DefaultChainDef();
+
+		shape.points = loop.data_.data();
+		shape.count  = loop.data_.size();
+		shape.isLoop = loop.is_closed_;
+
+		b2CreateChain(body_id_, &shape);
+	}
 }
