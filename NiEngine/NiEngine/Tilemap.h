@@ -7,12 +7,12 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
-#include "TilemapBlueprint.h"
-#include "TilemapGraphicsComponent.h"
-#include "TilesetBlueprint.h"
-#include "TilesetReference.h"
-#include "LayerBlueprint.h"
-#include "BitmapStore.h"
+#include <NiEngine/TilemapBlueprint.h>
+#include <NiEngine/TilemapGraphicsComponent.h>
+#include <NiEngine/TilesetBlueprint.h>
+#include <NiEngine/TilesetReference.h>
+#include <NiEngine/LayerBlueprint.h>
+#include <NiEngine/BitmapStore.h>
 
 namespace ni {
 
@@ -43,6 +43,8 @@ public:
 	sf::FloatRect GetBounds() const;
 
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
+
+	static const TilesetBlueprint& GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid);
 };
 
 }

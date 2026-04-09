@@ -1,4 +1,4 @@
-#include "Engine.h"
+#include <NiEngine/Engine.h>
 
 #include <optional>
 #include <string>
@@ -12,7 +12,7 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#include "GameModeController.h"
+#include <NiEngine/GameModeController.h>
 
 sf::Time     ni::Engine::time_elapsed		= sf::Time();
 sf::Vector2u ni::Engine::window_resolution  = {};

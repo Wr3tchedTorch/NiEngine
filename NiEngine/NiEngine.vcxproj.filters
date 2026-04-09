@@ -9,186 +9,192 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Header Files\Components">
-      <UniqueIdentifier>{2eb5379b-3316-4362-af6a-8dee68d7eabb}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{62620a0b-5500-4582-8ef3-2fa50ea5b0f4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Components">
-      <UniqueIdentifier>{585406dd-c933-439f-bc17-d7094f5a17e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine">
-      <UniqueIdentifier>{ea6e9d37-3717-4874-823d-dd86fee059a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine">
-      <UniqueIdentifier>{8258d4d6-4dd9-4f31-809d-517d6c671e88}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Utility">
-      <UniqueIdentifier>{aaacebf8-af5f-4f75-9ada-08ae924c815d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Ids">
-      <UniqueIdentifier>{c0751c6e-49e2-4ac3-b744-2e037394c447}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Ids\Tags">
-      <UniqueIdentifier>{e021c747-2e2c-43f1-a612-9921d1aa26b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\FileIO">
-      <UniqueIdentifier>{d2d8751d-365a-4c89-9f32-cb383aa216a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\FileIO\Blueprints">
-      <UniqueIdentifier>{9eb369bd-1a7e-4dab-8179-6a369bf5525f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\FileIO\References">
-      <UniqueIdentifier>{dd5fa8a3-acf7-4909-9e10-0b793cb98378}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components\Tilemap">
-      <UniqueIdentifier>{1e1159df-b93b-4199-a492-f8fe7ea6b815}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components\Entities">
-      <UniqueIdentifier>{f09d5a6c-c76f-4d3f-8879-b8499fe43449}</UniqueIdentifier>
+      <UniqueIdentifier>{9ac5a910-107e-417f-8668-ddeb1d3c4094}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Components\Entities">
-      <UniqueIdentifier>{7eb983a3-65f0-449b-9df8-0b19d7b0bbd9}</UniqueIdentifier>
+      <UniqueIdentifier>{9d68ae7c-b8e8-499f-a0e0-2e8395a0a8b9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Components\Tilemap">
-      <UniqueIdentifier>{187974a3-16d7-465d-8364-67697ad6993b}</UniqueIdentifier>
+      <UniqueIdentifier>{fc07fcd5-2f01-43dd-a386-7f9d36334d53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{432a4a3b-1020-4926-a8dd-831efaa50860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{8a97655f-b77c-4122-9242-4d1067d336da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Tilemap">
+      <UniqueIdentifier>{515bdfea-0bbd-43ea-8027-1a10ffc7f0db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Entity">
+      <UniqueIdentifier>{2e01dede-8e04-4df0-9e72-e3ac29859fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{73efe3c5-4070-40d0-8a17-0457128776f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO">
+      <UniqueIdentifier>{b7938ed1-f6db-482a-a1ba-c0026c854f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tags">
+      <UniqueIdentifier>{4524a3e4-e45c-40bc-a4de-7555a738fb54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO\Blueprints">
+      <UniqueIdentifier>{2feddb9a-e8cd-4992-b06f-4a06026e1574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FileIO\References">
+      <UniqueIdentifier>{f08de629-59fe-41be-bf17-a232d9de32af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Hashes">
+      <UniqueIdentifier>{cc0c52bc-1435-4bde-a91c-ea8186b04926}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine.h">
+    <ClInclude Include="NiEngine\BitmapStore.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="BitmapStore.h">
+    <ClInclude Include="NiEngine\Camera.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameMode.h">
-      <Filter>Header Files\Engine</Filter>
+    <ClInclude Include="NiEngine\Component.h">
+      <Filter>Header Files\Components\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Converter.h">
+    <ClInclude Include="NiEngine\ComponentStore.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Converter.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="GameModeController.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Id.h">
-      <Filter>Header Files\Ids</Filter>
-    </ClInclude>
-    <ClInclude Include="GameModeTag.h">
-      <Filter>Header Files\Ids\Tags</Filter>
-    </ClInclude>
-    <ClInclude Include="DataHandler.h">
+    <ClInclude Include="NiEngine\DataHandler.h">
       <Filter>Header Files\FileIO</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapBlueprint.h">
-      <Filter>Header Files\FileIO\Blueprints</Filter>
-    </ClInclude>
-    <ClInclude Include="LayerBlueprint.h">
-      <Filter>Header Files\FileIO\Blueprints</Filter>
-    </ClInclude>
-    <ClInclude Include="TilesetReference.h">
-      <Filter>Header Files\FileIO\References</Filter>
-    </ClInclude>
-    <ClInclude Include="Tilemap.h">
+    <ClInclude Include="NiEngine\Engine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\Components\Entities</Filter>
+    <ClInclude Include="NiEngine\FileUtility.h">
+      <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentStore.h">
-      <Filter>Header Files\Components\Entities</Filter>
+    <ClInclude Include="NiEngine\GameMode.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsComponent.h">
-      <Filter>Header Files\Components\Entities</Filter>
+    <ClInclude Include="NiEngine\GameModeController.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsComponent.h">
-      <Filter>Header Files\Components\Entities</Filter>
+    <ClInclude Include="NiEngine\GameModeTag.h">
+      <Filter>Header Files\Tags</Filter>
     </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Header Files\Components\Entities</Filter>
+    <ClInclude Include="NiEngine\GameObjectTag.h">
+      <Filter>Header Files\Tags</Filter>
     </ClInclude>
-    <ClInclude Include="UpdateComponent.h">
-      <Filter>Header Files\Components\Entities</Filter>
+    <ClInclude Include="NiEngine\Id.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapGraphicsComponent.h">
+    <ClInclude Include="NiEngine\GraphicsComponent.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\PhysicsComponent.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\ShapeGraphicsComponent.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\StandardGraphicsComponent.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\TransformComponent.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\UpdateComponent.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\TilemapCollisionComponent.h">
       <Filter>Header Files\Components\Tilemap</Filter>
     </ClInclude>
-    <ClInclude Include="TilesetBlueprint.h">
+    <ClInclude Include="NiEngine\TilemapGraphicsComponent.h">
+      <Filter>Header Files\Components\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\LayerBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
-    <ClInclude Include="TileBlueprint.h">
+    <ClInclude Include="NiEngine\TileBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
-    <ClInclude Include="FileUtility.h">
+    <ClInclude Include="NiEngine\TilemapBlueprint.h">
+      <Filter>Header Files\FileIO\Blueprints</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\TilesetBlueprint.h">
+      <Filter>Header Files\FileIO\Blueprints</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\TilesetReference.h">
+      <Filter>Header Files\FileIO\References</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\MapUtility.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="ShapeGraphicsComponent.h">
-      <Filter>Header Files\Components\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsEngine.h">
+    <ClInclude Include="NiEngine\PhysicsEngine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="StandardGraphicsComponent.h">
-      <Filter>Header Files\Components\Entities</Filter>
+    <ClInclude Include="NiEngine\Tilemap.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Vector2iHash.h">
+      <Filter>Header Files\Hashes</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="BitmapStore.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GameModeController.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectTag.h">
-      <Filter>Header Files\Ids\Tags</Filter>
-    </ClCompile>
-    <ClCompile Include="Tilemap.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentStore.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectId.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsComponent.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="UpdateComponent.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="TilemapGraphicsComponent.cpp">
-      <Filter>Source Files\Components\Tilemap</Filter>
-    </ClCompile>
-    <ClCompile Include="MapUtility.h">
-      <Filter>Header Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsEngine.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="StandardGraphicsComponent.cpp">
-      <Filter>Source Files\Components\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BitmapStore.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Component.cpp">
+      <Filter>Source Files\Components\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComponentStore.cpp">
+      <Filter>Source Files\Components\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameModeController.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameMode.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TilemapCollisionComponent.cpp">
+      <Filter>Source Files\Components\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TilemapGraphicsComponent.cpp">
+      <Filter>Source Files\Components\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TransformComponent.cpp">
+      <Filter>Source Files\Components\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UpdateComponent.cpp">
+      <Filter>Source Files\Components\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StandardGraphicsComponent.cpp">
+      <Filter>Source Files\Components\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GraphicsComponent.cpp">
+      <Filter>Source Files\Components\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsComponent.cpp">
+      <Filter>Source Files\Components\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tilemap.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

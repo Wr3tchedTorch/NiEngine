@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Id.h"
-#include "GameObjectTag.h"
+#include <NiEngine/Id.h>
+#include <NiEngine/GameObjectTag.h>
 
 namespace ni {
 

@@ -7,13 +7,13 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "Id.h"
-#include "GameObjectTag.h"
-#include "GraphicsComponent.h"
-#include "UpdateComponent.h"
-#include "PhysicsComponent.h"
-#include "BitmapStore.h"
-#include "TransformComponent.h"
+#include <NiEngine/Id.h>
+#include <NiEngine/GameObjectTag.h>
+#include <NiEngine/GraphicsComponent.h>
+#include <NiEngine/UpdateComponent.h>
+#include <NiEngine/PhysicsComponent.h>
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/TransformComponent.h>
 
 namespace ni {
 

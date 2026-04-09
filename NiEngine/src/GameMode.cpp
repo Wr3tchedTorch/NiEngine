@@ -1,13 +1,13 @@
-#include "GameMode.h"
+#include <NiEngine/GameMode.h>
 
 #include <string>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "BitmapStore.h"
-#include "GameModeController.h"
-#include "Tilemap.h"
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/GameModeController.h>
+#include <NiEngine/Tilemap.h>
 
 void ni::GameMode::RegisterTilemap(const std::string& filepath, bool enable_collision)
 {

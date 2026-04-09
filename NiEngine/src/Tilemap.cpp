@@ -1,20 +1,21 @@
-#include "Tilemap.h"
+#include <NiEngine/Tilemap.h>
 
 #include <string>
 #include <filesystem>
 #include <vector>
+#include <cassert>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
-#include "DataHandler.h"
-#include "TilemapBlueprint.h"
-#include "TilesetBlueprint.h"
-#include "FileUtility.h"
-#include "TilesetReference.h"
-#include "LayerBlueprint.h"
-#include "BitmapStore.h"
+#include <NiEngine/DataHandler.h>
+#include <NiEngine/TilemapBlueprint.h>
+#include <NiEngine/TilesetBlueprint.h>
+#include <NiEngine/FileUtility.h>
+#include <NiEngine/TilesetReference.h>
+#include <NiEngine/LayerBlueprint.h>
+#include <NiEngine/BitmapStore.h>
 
 void ni::Tilemap::LoadTilesetBlueprints(const std::vector<TilesetReference>& tileset_references)
 {
@@ -79,4 +80,18 @@ sf::FloatRect ni::Tilemap::GetBounds() const
 void ni::Tilemap::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
 	graphics_.Render(target, states, store);
+}
+
+const ni::TilesetBlueprint& ni::Tilemap::GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid)
+{
+	const TilesetBlueprint* result = nullptr;
+	for (auto& tileset : tileset_blueprints)
+	{
+		if (gid >= tileset.first_gid_)
+		{
+			result = &tileset;
+		}
+	}
+	assert(result != nullptr);
+	return *result;
 }

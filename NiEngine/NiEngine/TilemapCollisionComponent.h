@@ -1,0 +1,36 @@
+#pragma once
+
+#include <id.h>
+#include <math_functions.h>
+
+#include <vector>
+#include <unordered_set>
+#include <unordered_map>
+
+#include <SFML/System/Vector2.hpp>
+
+#include "LayerBlueprint.h"
+#include "Vector2iHash.h"
+
+namespace ni {
+
+class TilemapCollisionComponent
+{
+private:
+	b2BodyId body_id_ = {};
+
+	std::unordered_map<sf::Vector2i, sf::Vector2i, Vector2iHash> exposed_edges_ = {};
+
+	bool IsTileExposed(const std::vector<int>& map, sf::Vector2i map_size, sf::Vector2i tile_grid_position);
+	bool IsTileExposed(const std::vector<int>& map, int tile_index);
+
+	std::vector<std::vector<b2Vec2>> GetCollisionLoops(sf::Vector2i tile_size);
+
+public:
+	TilemapCollisionComponent(b2WorldId world_id);
+
+	void AddTile(const LayerBlueprint& layer, sf::Vector2i map_size, sf::Vector2i grid_position);
+	void CreateCollisionBody(sf::Vector2i tile_size);
+};
+
+}

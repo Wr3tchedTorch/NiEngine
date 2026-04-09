@@ -6,8 +6,8 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "BitmapStore.h"
-#include "GraphicsComponent.h"
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/GraphicsComponent.h>
 
 namespace ni {
 

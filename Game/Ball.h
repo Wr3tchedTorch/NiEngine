@@ -3,9 +3,9 @@
 #include <math_functions.h>
 
 #include <SFML/Graphics/Color.hpp>
-#include <ComponentStore.h>
-#include <GameObjectTag.h>
-#include <Id.h>
+#include <NiEngine/ComponentStore.h>
+#include <NiEngine/GameObjectTag.h>
+#include <NiEngine/Id.h>
 
 class Ball
 {

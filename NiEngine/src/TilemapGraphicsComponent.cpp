@@ -1,4 +1,4 @@
-#include "TilemapGraphicsComponent.h"
+#include <NiEngine/TilemapGraphicsComponent.h>
 
 #include <vector>
 #include <cmath>
@@ -13,29 +13,16 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/PrimitiveType.hpp>
 
-#include "TilesetBlueprint.h"
-#include "BitmapStore.h"
-
-const ni::TilesetBlueprint& ni::TilemapGraphicsComponent::GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid)
-{
-	const TilesetBlueprint* result = nullptr;
-	for (auto& tileset : tileset_blueprints)
-	{
-		if (gid >= tileset.first_gid_)
-		{
-			result = &tileset;
-		}
-	}
-	assert(result != nullptr);
-	return *result;
-}
+#include <NiEngine/TilesetBlueprint.h>
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/Tilemap.h>
 
 void ni::TilemapGraphicsComponent::AddTile(const sf::Vector2i& grid_position, int tile_id, const std::vector<TilesetBlueprint>& tileset_blueprints, const sf::Vector2f& layer_position_offset)
 {
 	int x = grid_position.x;
 	int y = grid_position.y;
 
-	const TilesetBlueprint& tileset = GetTilesetByGid(tileset_blueprints, tile_id);
+	const TilesetBlueprint& tileset = Tilemap::GetTilesetByGid(tileset_blueprints, tile_id);
 
 	float top    = y * tileset.tile_size_.y;
 	float left   = x * tileset.tile_size_.x;

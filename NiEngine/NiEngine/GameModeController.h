@@ -6,10 +6,10 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "GameModeTag.h"
-#include "GameMode.h"
-#include "BitmapStore.h"
-#include "Id.h"
+#include <NiEngine/GameModeTag.h>
+#include <NiEngine/GameMode.h>
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/Id.h>
 
 namespace ni {
 

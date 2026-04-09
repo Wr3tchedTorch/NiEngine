@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 
-#include "Component.h"
+#include <NiEngine/Component.h>
 
 namespace ni {
 

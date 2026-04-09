@@ -6,8 +6,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
 
-#include "MapUtility.h"
-#include "TileBlueprint.h"
+#include <NiEngine/MapUtility.h>
+#include <NiEngine/TileBlueprint.h>
 
 using json = nlohmann::json;
 

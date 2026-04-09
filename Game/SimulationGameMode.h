@@ -7,10 +7,11 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <BitmapStore.h>
-#include <GameMode.h>
-#include <GameModeController.h>
-#include <Camera.h>
+
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/GameMode.h>
+#include <NiEngine/GameModeController.h>
+#include <NiEngine/Camera.h>
 
 #include "Ball.h"
 #include "BallFactory.h"

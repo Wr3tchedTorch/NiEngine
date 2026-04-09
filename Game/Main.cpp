@@ -4,11 +4,10 @@
 
 #include <SFML/Window/WindowEnums.hpp>
 
-#include <Id.h>
-#include <Engine.h>
-#include <GameMode.h>
-#include <GameModeTag.h>
-#include <Converter.h>
+#include <NiEngine/Id.h>
+#include <NiEngine/Engine.h>
+#include <NiEngine/GameModeTag.h>
+#include <NiEngine/Converter.h>
 
 #include "SimulationGameMode.h"
 

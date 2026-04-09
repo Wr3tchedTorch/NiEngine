@@ -1,12 +1,14 @@
 #include "BallFactory.h"
 
-#include <random>
-
-#include <SFML/Graphics/Color.hpp>
 #include <math_functions.h>
 #include <box2d.h>
-#include <GameMode.h>
-#include <PhysicsComponent.h>
+
+#include <random>
+#include <cstdint>
+
+#include <SFML/Graphics/Color.hpp>
+#include <NiEngine/GameMode.h>
+#include <NiEngine/PhysicsComponent.h>
 
 #include "Ball.h"
 
@@ -18,11 +20,11 @@ void BallFactory::SpawnRandomizedBall(ni::GameMode& mode, b2Vec2 starting_positi
 {
     std::uniform_real_distribution<float> dist(100, 255);
 
-    float red   = dist(rng_);
-    float green = dist(rng_);
-    float blue  = dist(rng_);
+    uint8_t red   = dist(rng_);
+    uint8_t green = dist(rng_);
+    uint8_t blue  = dist(rng_);
 
-    Ball ball(mode.CreateGameObject(), starting_position, mode.GetComponentStore(), mode.GetPhysicsEngine().GetWorldId(), sf::Color(red, green, blue), 0.5df);
+    Ball ball(mode.CreateGameObject(), starting_position, mode.GetComponentStore(), mode.GetPhysicsEngine().GetWorldId(), sf::Color(red, green, blue), 0.5f);
 
     ni::PhysicsComponent* component = mode.GetComponentStore().GetPhysicsComponent(ball.GetId());
 

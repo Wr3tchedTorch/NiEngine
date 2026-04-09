@@ -2,8 +2,8 @@
 
 #include <id.h>
 
-#include "Component.h"
-#include "TransformComponent.h"
+#include <NiEngine/Component.h>
+#include <NiEngine/TransformComponent.h>
 
 namespace ni {
 

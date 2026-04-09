@@ -1,14 +1,13 @@
-#include "ComponentStore.h"
+#include <NiEngine/ComponentStore.h>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "BitmapStore.h"
-#include "Id.h"
-#include "TransformComponent.h"
-#include "GameObjectTag.h"
-#include "PhysicsComponent.h"
-#include <iostream>
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/Id.h>
+#include <NiEngine/TransformComponent.h>
+#include <NiEngine/GameObjectTag.h>
+#include <NiEngine/PhysicsComponent.h>
 
 ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<GameObjectTag> id)
 {

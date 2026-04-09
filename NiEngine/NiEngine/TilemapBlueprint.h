@@ -5,8 +5,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
 
-#include "LayerBlueprint.h"
-#include "TilesetReference.h"
+#include <NiEngine/LayerBlueprint.h>
+#include <NiEngine/TilesetReference.h>
 
 using json = nlohmann::json;
 

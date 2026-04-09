@@ -1,15 +1,14 @@
 #include "SimulationGameMode.h"
 
 #include <types.h>
-
-#include <SFML/Window/Mouse.hpp>
 #include <math_functions.h>
-#include <GameMode.h>
-#include <Converter.h>
-#include <GameModeController.h>
+#include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include <BitmapStore.h>
+#include <NiEngine/GameMode.h>
+#include <NiEngine/Converter.h>
+#include <NiEngine/GameModeController.h>
+#include <NiEngine/BitmapStore.h>
 
 SimulationGameMode::SimulationGameMode()
 {

@@ -1,5 +1,8 @@
 #include "Ball.h"
 
+#include <box2d.h>
+#include <types.h>
+#include <collision.h>
 #include <math_functions.h>
 
 #include <memory>
@@ -7,16 +10,13 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <collision.h>
-#include <GameObjectTag.h>
-#include <Id.h>
-#include <box2d.h>
-#include <types.h>
-#include <Converter.h>
-#include <TransformComponent.h>
-#include <ShapeGraphicsComponent.h>
-#include <ComponentStore.h>
-#include <PhysicsComponent.h>
+#include <NiEngine/GameObjectTag.h>
+#include <NiEngine/Converter.h>
+#include <NiEngine/TransformComponent.h>
+#include <NiEngine/ShapeGraphicsComponent.h>
+#include <NiEngine/ComponentStore.h>
+#include <NiEngine/PhysicsComponent.h>
+#include <NiEngine/Id.h>
 
 Ball::Ball(ni::Id<GameObjectTag> id, b2Vec2 starting_position, ni::ComponentStore& component_store, b2WorldId world_id, sf::Color color, float size)
 {

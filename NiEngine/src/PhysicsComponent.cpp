@@ -1,10 +1,10 @@
-#include "PhysicsComponent.h"
+#include <NiEngine/PhysicsComponent.h>
 
 #include <box2d.h>
 #include <math_functions.h>
 #include <id.h>
 
-#include "TransformComponent.h"
+#include <NiEngine/TransformComponent.h>
 
 ni::PhysicsComponent::PhysicsComponent(b2BodyId body) : body_(body)
 {

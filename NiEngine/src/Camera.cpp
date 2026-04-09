@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include <NiEngine/Camera.h>
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>

@@ -5,13 +5,12 @@
 #include <vector>
 #include <string>
 
-#include "BitmapStore.h"
-#include "ComponentStore.h"
-#include "Id.h"
-#include "GameObjectTag.h"
-#include "Tilemap.h"
-#include "PhysicsEngine.h"
-#include "Camera.h"
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/ComponentStore.h>
+#include <NiEngine/Id.h>
+#include <NiEngine/GameObjectTag.h>
+#include <NiEngine/Tilemap.h>
+#include <NiEngine/PhysicsEngine.h>
 
 namespace ni {
 

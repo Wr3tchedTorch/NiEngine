@@ -1,10 +1,10 @@
-#include "TransformComponent.h"
+#include <NiEngine/TransformComponent.h>
 
 #include <math_functions.h>
 
 #include <SFML/System/Angle.hpp>
 
-#include "Converter.h"
+#include <NiEngine/Converter.h>
 
 void ni::TransformComponent::SetPositionInMeters(b2Vec2 position)
 {

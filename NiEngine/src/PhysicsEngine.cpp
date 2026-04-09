@@ -1,4 +1,4 @@
-#include "PhysicsEngine.h"
+#include <NiEngine/PhysicsEngine.h>
 
 #include <types.h>
 #include <box2d.h>

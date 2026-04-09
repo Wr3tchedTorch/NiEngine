@@ -107,7 +107,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\SFML\include;C:\Box2D\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SFML\include;C:\Box2D\include;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,7 +126,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\SFML\include;C:\Box2D\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SFML\include;C:\Box2D\include;$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,55 +137,57 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BitmapStore.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentStore.h" />
-    <ClInclude Include="Converter.h" />
-    <ClInclude Include="DataHandler.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="GameMode.h" />
-    <ClInclude Include="GameModeController.h" />
-    <ClInclude Include="GameModeTag.h" />
-    <ClInclude Include="Id.h" />
-    <ClInclude Include="GraphicsComponent.h" />
-    <ClInclude Include="LayerBlueprint.h" />
-    <ClInclude Include="FileUtility.h" />
-    <ClInclude Include="PhysicsComponent.h" />
-    <ClInclude Include="PhysicsEngine.h" />
-    <ClInclude Include="ShapeGraphicsComponent.h" />
-    <ClInclude Include="StandardGraphicsComponent.h" />
-    <ClInclude Include="TileBlueprint.h" />
-    <ClInclude Include="Tilemap.h" />
-    <ClInclude Include="TilemapBlueprint.h" />
-    <ClInclude Include="TilemapGraphicsComponent.h" />
-    <ClInclude Include="TilesetBlueprint.h" />
-    <ClInclude Include="TilesetReference.h" />
-    <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="UpdateComponent.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="BitmapStore.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="ComponentStore.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="GameMode.cpp" />
-    <ClCompile Include="GameModeController.cpp" />
-    <ClCompile Include="GameObjectId.cpp" />
-    <ClCompile Include="GraphicsComponent.cpp" />
-    <ClCompile Include="MapUtility.h" />
-    <ClCompile Include="PhysicsComponent.cpp" />
-    <ClCompile Include="GameObjectTag.h" />
-    <ClCompile Include="PhysicsEngine.cpp" />
-    <ClCompile Include="StandardGraphicsComponent.cpp" />
-    <ClCompile Include="Tilemap.cpp" />
-    <ClCompile Include="TilemapGraphicsComponent.cpp" />
-    <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="UpdateComponent.cpp" />
+    <ClInclude Include="NiEngine\BitmapStore.h" />
+    <ClInclude Include="NiEngine\Camera.h" />
+    <ClInclude Include="NiEngine\Component.h" />
+    <ClInclude Include="NiEngine\ComponentStore.h" />
+    <ClInclude Include="NiEngine\Converter.h" />
+    <ClInclude Include="NiEngine\DataHandler.h" />
+    <ClInclude Include="NiEngine\Engine.h" />
+    <ClInclude Include="NiEngine\FileUtility.h" />
+    <ClInclude Include="NiEngine\GameMode.h" />
+    <ClInclude Include="NiEngine\GameModeController.h" />
+    <ClInclude Include="NiEngine\GameModeTag.h" />
+    <ClInclude Include="NiEngine\GameObjectTag.h" />
+    <ClInclude Include="NiEngine\GraphicsComponent.h" />
+    <ClInclude Include="NiEngine\Id.h" />
+    <ClInclude Include="NiEngine\LayerBlueprint.h" />
+    <ClInclude Include="NiEngine\MapUtility.h" />
+    <ClInclude Include="NiEngine\PhysicsComponent.h" />
+    <ClInclude Include="NiEngine\PhysicsEngine.h" />
+    <ClInclude Include="NiEngine\ShapeGraphicsComponent.h" />
+    <ClInclude Include="NiEngine\StandardGraphicsComponent.h" />
+    <ClInclude Include="NiEngine\TileBlueprint.h" />
+    <ClInclude Include="NiEngine\Tilemap.h" />
+    <ClInclude Include="NiEngine\TilemapBlueprint.h" />
+    <ClInclude Include="NiEngine\TilemapCollisionComponent.h" />
+    <ClInclude Include="NiEngine\TilemapGraphicsComponent.h" />
+    <ClInclude Include="NiEngine\TilesetBlueprint.h" />
+    <ClInclude Include="NiEngine\TilesetReference.h" />
+    <ClInclude Include="NiEngine\TransformComponent.h" />
+    <ClInclude Include="NiEngine\UpdateComponent.h" />
+    <ClInclude Include="Vector2iHash.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BitmapStore.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Component.cpp" />
+    <ClCompile Include="src\ComponentStore.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\GameMode.cpp" />
+    <ClCompile Include="src\GameModeController.cpp" />
+    <ClCompile Include="src\GraphicsComponent.cpp" />
+    <ClCompile Include="src\PhysicsComponent.cpp" />
+    <ClCompile Include="src\PhysicsEngine.cpp" />
+    <ClCompile Include="src\StandardGraphicsComponent.cpp" />
+    <ClCompile Include="src\Tilemap.cpp" />
+    <ClCompile Include="src\TilemapCollisionComponent.cpp" />
+    <ClCompile Include="src\TilemapGraphicsComponent.cpp" />
+    <ClCompile Include="src\TransformComponent.cpp" />
+    <ClCompile Include="src\UpdateComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

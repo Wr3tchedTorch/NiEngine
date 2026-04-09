@@ -1,4 +1,4 @@
-#include "GameModeController.h"
+#include <NiEngine/GameModeController.h>
 
 #include <memory>
 #include <utility>
@@ -6,10 +6,10 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "BitmapStore.h"
-#include "GameMode.h"
-#include "GameModeTag.h"
-#include "Id.h"
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/GameMode.h>
+#include <NiEngine/GameModeTag.h>
+#include <NiEngine/Id.h>
 
 ni::GameModeController::GameModeController()
 {

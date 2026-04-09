@@ -1,4 +1,4 @@
-#include "BitmapStore.h"
+#include <NiEngine/BitmapStore.h>
 
 #include <cassert>
 #include <string>

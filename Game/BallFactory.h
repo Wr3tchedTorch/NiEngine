@@ -1,9 +1,9 @@
 #pragma once
 
-#include <box2d.h>
-#include <math_functions.h>
-#include <GameMode.h>
 #include <random>
+
+#include <math_functions.h>
+#include <NiEngine/GameMode.h>
 
 class BallFactory
 {

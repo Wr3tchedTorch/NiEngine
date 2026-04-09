@@ -7,8 +7,8 @@
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#include "BitmapStore.h"
-#include "GameModeController.h"
+#include <NiEngine/BitmapStore.h>
+#include <NiEngine/GameModeController.h>
 
 namespace ni {
 

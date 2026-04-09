@@ -1,4 +1,4 @@
-#include "StandardGraphicsComponent.h"
+#include <NiEngine/StandardGraphicsComponent.h>
 
 #include <string>
 
@@ -7,7 +7,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include "BitmapStore.h"
+#include <NiEngine/BitmapStore.h>
 
 ni::StandardGraphicsComponent::StandardGraphicsComponent(std::string texture_key, sf::IntRect frame_rect) : texture_key_(texture_key), first_frame_rect_(frame_rect)
 {
