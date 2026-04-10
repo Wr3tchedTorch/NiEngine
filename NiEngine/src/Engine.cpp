@@ -23,7 +23,7 @@ ni::Engine::Engine(std::string window_name, sf::State start_state)
 	window_resolution = sf::VideoMode::getDesktopMode().size;
 
 	window_.create(sf::VideoMode::getDesktopMode(), window_name, start_state);
-
+	window_.setKeyRepeatEnabled(false);
 	window_.setFramerateLimit(60);
 }
 
