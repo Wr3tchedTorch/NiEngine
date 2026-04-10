@@ -152,6 +152,9 @@
     <ClInclude Include="NiEngine\Vector2iHash.h">
       <Filter>Header Files\Hashes</Filter>
     </ClInclude>
+    <ClInclude Include="NiEngine\ServiceLocator.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

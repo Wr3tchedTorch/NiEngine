@@ -10,15 +10,15 @@ namespace ni {
 template <typename ...Args>
 class Subject
 {
+private:
+	std::vector<std::pair<int, std::function<void(Args...)>>> observers_;
+	int next_id_ = 0;
+
 public:
 	int Subscribe(std::function<void(Args...)> on_event);
 	
 	void Remove(int id);
 	void Notify(Args&&... args);
-
-private:
-	std::vector<std::pair<int, std::function<void(Args...)>>> observers_;
-	int next_id_ = 0;
 };
 
 template<typename ...Args>

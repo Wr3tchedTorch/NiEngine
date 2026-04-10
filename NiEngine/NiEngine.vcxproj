@@ -170,6 +170,7 @@
     <ClInclude Include="NiEngine\TransformComponent.h" />
     <ClInclude Include="NiEngine\UpdateComponent.h" />
     <ClInclude Include="NiEngine\Vector2iHash.h" />
+    <ClInclude Include="NiEngine\ServiceLocator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

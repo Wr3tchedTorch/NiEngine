@@ -1,18 +1,18 @@
 #include <NiEngine/Engine.h>
 
-#include <optional>
 #include <string>
 
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/WindowEnums.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include <NiEngine/GameModeController.h>
+#include <NiEngine/ServiceLocator.h>
 
 sf::Time     ni::Engine::time_elapsed		= sf::Time();
 sf::Vector2u ni::Engine::window_resolution  = {};
@@ -36,13 +36,12 @@ void ni::Engine::Run()
 	sf::Clock deltaClock;
 	while (window_.isOpen())
 	{
-		while (std::optional<sf::Event> event = window_.pollEvent())
+		window_.handleEvents(ServiceLocator::Instance().GetEventDispatcher());
+
+		ServiceLocator::Instance().GetEventDispatcher().OnClosed([&window = this->window_](const sf::Event::Closed& event)
 		{
-			if (event->is<sf::Event::Closed>())
-			{
-				window_.close();
-			}
-		}
+			window.close();
+		});
 
 		time_elapsed += deltaClock.restart();
 
