@@ -13,21 +13,7 @@
 #include <NiEngine/LayerBlueprint.h>
 #include <NiEngine/TilesetBlueprint.h>
 #include <NiEngine/TileBlueprint.h>
-
-bool ni::TilemapCollisionComponent::IsTileEmpty(const std::vector<int>& map, sf::Vector2i map_size, sf::Vector2i tile_grid_position)
-{
-	if (tile_grid_position.x < 0 || tile_grid_position.x >= map_size.x ||
-		tile_grid_position.y < 0 || tile_grid_position.y >= map_size.y)
-	{
-		return true;
-	}
-	return IsTileEmpty(map, tile_grid_position.x + tile_grid_position.y * map_size.x);
-}
-
-bool ni::TilemapCollisionComponent::IsTileEmpty(const std::vector<int>& map, int tile_index)
-{
-	return tile_index < 0 || tile_index >= (int)map.size() || map[tile_index] == 0;
-}
+#include <NiEngine/Tilemap.h>
 
 std::vector<ni::LoopInformation> ni::TilemapCollisionComponent::GetCollisionLoops(EdgesMap& map)
 {
@@ -64,41 +50,36 @@ std::vector<ni::LoopInformation> ni::TilemapCollisionComponent::GetCollisionLoop
 	return loops;
 }
 
-void ni::TilemapCollisionComponent::CreateFullCollisionForTile(const LayerBlueprint& layer, sf::Vector2i tile_grid_position, sf::Vector2i tile_position, sf::Vector2i map_size, sf::Vector2i tile_size)
+void ni::TilemapCollisionComponent::AddFullCollisionForTile(
+	const LayerBlueprint& layer,
+	sf::Vector2i tile_grid_position,
+	sf::Vector2i tile_position,
+	sf::Vector2i map_size,
+	sf::Vector2i tile_size) 
 {
-	sf::Vector2i top	= tile_grid_position; top.y	   -= 1;
-	sf::Vector2i bottom = tile_grid_position; bottom.y += 1;
-	sf::Vector2i left	= tile_grid_position; left.x   -= 1;
-	sf::Vector2i right	= tile_grid_position; right.x  += 1;
 
-	sf::Vector2i start(tile_position);
-	sf::Vector2i end(start);
+	struct EdgeDef 
+	{
+		sf::Vector2i start_offset;
+		sf::Vector2i end_offset;
+		sf::Vector2i neighbor_offset;
+	};
 
-	if (IsTileEmpty(layer.data_, map_size, top))
+	const EdgeDef kEdges[] = 
 	{
-		end.x += tile_size.x;
-		exposed_edges_[start] = end;
-		end = tile_position;
-	}
-	if (IsTileEmpty(layer.data_, map_size, bottom))
+		{ {0,            0           }, {tile_size.x, 0           }, {0,  -1} }, // Top
+		{ {tile_size.x,  tile_size.y }, {0,			  tile_size.y }, {0,  +1} }, // Bottom
+		{ {0,            tile_size.y }, {0,           0           }, {-1,  0} }, // Left
+		{ {tile_size.x,  0           }, {tile_size.x, tile_size.y }, {+1,  0} }, // Right
+	};
+
+	for (const auto& edge : kEdges) 
 	{
-		start += tile_size;
-		end.y += tile_size.y;
-		exposed_edges_[start] = end;
-	
-		start = tile_position;
-		end   = tile_position;
-	}
-	if (IsTileEmpty(layer.data_, map_size, left))
-	{
-		start.y += tile_size.y;
-		exposed_edges_[start] = end;
-		start = tile_position;
-	}
-	if (IsTileEmpty(layer.data_, map_size, right))
-	{
-		start.x += tile_size.x;
-		end += tile_size;
+		sf::Vector2i neighbor = tile_grid_position + edge.neighbor_offset;
+		if (!Tilemap::IsTileEmpty(layer.data_, map_size, neighbor)) continue;
+
+		sf::Vector2i start = tile_position + edge.start_offset;
+		sf::Vector2i end = tile_position + edge.end_offset;
 		exposed_edges_[start] = end;
 	}
 }
@@ -143,7 +124,13 @@ ni::TilemapCollisionComponent::TilemapCollisionComponent(b2WorldId world_id)
 	body_id_ = b2CreateBody(world_id, &body_def);
 }
 
-void ni::TilemapCollisionComponent::AddTile(sf::Vector2i grid_position, int tile_gid, const TilesetBlueprint& tileset, const LayerBlueprint& layer, sf::Vector2i map_size, sf::Vector2i tile_size)
+void ni::TilemapCollisionComponent::AddTile(
+	sf::Vector2i grid_position, 
+	int tile_gid, 
+	const TilesetBlueprint& tileset, 
+	const LayerBlueprint& layer, 
+	sf::Vector2i map_size, 
+	sf::Vector2i tile_size)
 {
 	int gx = grid_position.x;
 	int gy = grid_position.y;
@@ -151,38 +138,39 @@ void ni::TilemapCollisionComponent::AddTile(sf::Vector2i grid_position, int tile
 	int x = grid_position.x * tile_size.x;
 	int y = grid_position.y * tile_size.y;
 
-	bool is_top_empty = IsTileEmpty(layer.data_, map_size, { gx, gy - 1 });
-
 	auto it = tileset.tiles_.find(tile_gid);
-	if (it != tileset.tiles_.end())
+	if (it == tileset.tiles_.end())
 	{
-		const TileBlueprint& tile = tileset.tiles_.at(tile_gid);
+		AddFullCollisionForTile(layer, grid_position, { x, y }, map_size, tile_size);
+		return;
+	}
+		
+	const TileBlueprint& tile = tileset.tiles_.at(tile_gid);
 
-		if (is_top_empty && tile.one_sided_collision_)
-		{
-			one_sided_edges_[{x, y}] = { x + tile_size.x, y };
-			return;
-		}
-
-		if (tile.is_hill_)
-		{
-			sf::Vector2i target_vertice = tile.polygon_blueprint_.position_;
-			
-			sf::Vector2i top_left = target_vertice + tile.polygon_blueprint_.offset_points_.at(0);
-			top_left.x += x;
-			top_left.y += y;
-
-			sf::Vector2i top_right = target_vertice + tile.polygon_blueprint_.offset_points_.at(1);
-			top_right.x += x;
-			top_right.y += y;
-
-			exposed_edges_[top_left] = top_right;
-
-			return;
-		}
+	// One sided (above only) collision
+	bool is_top_empty = Tilemap::IsTileEmpty(layer.data_, map_size, { gx, gy - 1 });
+	if (is_top_empty && tile.one_sided_collision_)
+	{
+		one_sided_edges_[{x, y}] = { x + tile_size.x, y };
+		return;
 	}
 
-	CreateFullCollisionForTile(layer, grid_position, {x, y}, map_size, tile_size);
+	// Hill Collision
+	if (tile.is_hill_)
+	{
+		sf::Vector2i target_vertice = tile.polygon_blueprint_.position_;
+			
+		sf::Vector2i top_left = target_vertice + tile.polygon_blueprint_.offset_points_.at(0);
+		top_left.x += x;
+		top_left.y += y;
+
+		sf::Vector2i top_right = target_vertice + tile.polygon_blueprint_.offset_points_.at(1);
+		top_right.x += x;
+		top_right.y += y;
+
+		exposed_edges_[top_left] = top_right;
+		return;
+	}
 }
 
 void ni::TilemapCollisionComponent::CreateCollision()

@@ -1,5 +1,5 @@
 {
-    "activeFile": "maps/level_01/level_01.tmx",
+    "activeFile": "tilesets/karsioriart_tiles_and_backgrounds.tsx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -67,7 +67,9 @@
             "dynamicWrapping": true
         },
         "tilesets/karsioriart_tiles_and_backgrounds.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1.5,
+            "scaleInEditor": 2
         },
         "tilesets/kenney_1bit.tsx": {
             "dynamicWrapping": false,
@@ -81,7 +83,7 @@
         },
         "tilesets/transparent_tiles.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 1,
+            "scaleInDock": 4,
             "scaleInEditor": 8
         }
     },
@@ -96,13 +98,14 @@
     "map.tileWidth": 32,
     "map.width": 50,
     "openFiles": [
-        "tilesets/kenney_1bit.tsx",
-        "tilesets/transparent_tiles.tsx",
-        "maps/level_01/level_01.tmx"
+        "tilesets/karsioriart_tiles_and_backgrounds.tsx",
+        "maps/level_02/level_02.tmx"
     ],
     "project": "game.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "maps/level_02/level_02.tmx",
+        "tilesets/karsioriart_tiles_and_backgrounds.tsx",
         "maps/rules/ground_autotile_rules.tmx",
         "tilesets/transparent_tiles.tsx",
         "maps/rules/ground_autotile_rules_karsioriart.tmx",

@@ -8,6 +8,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include "TilemapBlueprint.h"
 #include "TilemapGraphicsComponent.h"
@@ -45,11 +46,11 @@ public:
 	Tilemap(b2WorldId world_id);
 
 	bool LoadFromFile(const std::string& filepath, bool collision_enabled = true);
+	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 
 	sf::FloatRect GetBounds() const;
 
-	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
-
+	static bool IsTileEmpty(const std::vector<int>& map, sf::Vector2i map_size, sf::Vector2i tile_grid_position);
 	static const TilesetBlueprint& GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid);
 };
 

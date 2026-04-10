@@ -84,14 +84,27 @@ bool ni::Tilemap::LoadFromFile(const std::string& filepath, bool collision_enabl
 	return true;
 }
 
+void ni::Tilemap::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
+{
+	graphics_.Render(target, states, store);
+}
+
 sf::FloatRect ni::Tilemap::GetBounds() const
 {
 	return graphics_.GetBounds(blueprint_.map_size_, blueprint_.tile_size_);
 }
 
-void ni::Tilemap::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
+bool ni::Tilemap::IsTileEmpty(const std::vector<int>& map, sf::Vector2i map_size, sf::Vector2i tile_grid_position)
 {
-	graphics_.Render(target, states, store);
+	bool is_out_of_bounds = tile_grid_position.x < 0 || tile_grid_position.x >= map_size.x ||
+		tile_grid_position.y < 0 || tile_grid_position.y >= map_size.y;
+	if (is_out_of_bounds)
+	{
+		return true;
+	}
+	int tile_index = tile_grid_position.x + tile_grid_position.y * map_size.x;
+
+	return tile_index < 0 || tile_index >= (int)map.size() || map[tile_index] == 0;
 }
 
 const ni::TilesetBlueprint& ni::Tilemap::GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid)

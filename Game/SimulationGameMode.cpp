@@ -1,10 +1,11 @@
 #include "SimulationGameMode.h"
 
+#include <types.h>
+#include <math_functions.h>
+
 #include <format>
 #include <string>
 
-#include <types.h>
-#include <math_functions.h>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -20,7 +21,7 @@ SimulationGameMode::SimulationGameMode()
 
     GetPhysicsEngine().CreateWorld(world_def);
 
-    std::string level_to_load = "level_01";
+    std::string level_to_load = "level_02";
 
     ni::Converter::PIXELS_PER_METERS = 32.0f;
     RegisterTilemap(std::format("maps/{}/{}.json", level_to_load, level_to_load));

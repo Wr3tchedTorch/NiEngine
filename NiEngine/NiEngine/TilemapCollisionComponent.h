@@ -30,13 +30,9 @@ private:
 	EdgesMap exposed_edges_   = {};
 	EdgesMap one_sided_edges_ = {};
 
-	bool IsTileEmpty(const std::vector<int>& map, sf::Vector2i map_size, sf::Vector2i tile_grid_position);
-	bool IsTileEmpty(const std::vector<int>& map, int tile_index);
-
 	std::vector<LoopInformation> GetCollisionLoops(EdgesMap& map);
 
-
-	void CreateFullCollisionForTile(const LayerBlueprint& layer, sf::Vector2i tile_grid_position, sf::Vector2i tile_position, sf::Vector2i map_size, sf::Vector2i tile_size);
+	void AddFullCollisionForTile(const LayerBlueprint& layer, sf::Vector2i tile_grid_position, sf::Vector2i tile_position, sf::Vector2i map_size, sf::Vector2i tile_size);
 
 	void CreateOnesidedCollision();
 
