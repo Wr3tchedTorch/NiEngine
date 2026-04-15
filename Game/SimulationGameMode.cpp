@@ -2,17 +2,29 @@
 
 #include <types.h>
 #include <math_functions.h>
+#include <collision.h>
 
+#include <memory>
+#include <utility>
 #include <format>
 #include <string>
 
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <NiEngine/GameMode.h>
 #include <NiEngine/Converter.h>
 #include <NiEngine/GameModeController.h>
 #include <NiEngine/BitmapStore.h>
+#include <NiEngine/PlatformerCharacterPhysicsComponent.h>
+#include <NiEngine/GameObjectTag.h>
+#include <NiEngine/Id.h>
+#include <NiEngine/ShapeGraphicsComponent.h>
+#include <NiEngine/TransformComponent.h>
+#include "PlayerUpdateComponent.h"
 
 SimulationGameMode::SimulationGameMode()
 {
@@ -27,6 +39,8 @@ SimulationGameMode::SimulationGameMode()
     RegisterTilemap(std::format("maps/{}/{}.json", level_to_load, level_to_load));
 
     main_camera_.FitTo(tilemaps_.front().GetBounds());
+
+    SpawnPlayer();
 }
 
 void SimulationGameMode::Update(ni::GameModeController& controller)
@@ -62,4 +76,50 @@ bool SimulationGameMode::IsMouseButtonJustPressed(sf::Mouse::Button button)
     mouse_pressed_history_[button] = is_pressed;
 
     return is_just_pressed;
+}
+
+void SimulationGameMode::SpawnPlayer()
+{
+    ni::Id<GameObjectTag> player;
+
+    ni::TransformComponent transform_comp;
+
+    auto physics_comp = std::make_unique<ni::PlatformerCharacterPhysicsComponent>(b2Vec2({ 4, 4 }), b2Capsule({ { 0.0f, -0.4f }, { 0.0f, 0.4f }, 0.3f }));
+    auto update_comp  = std::make_unique<PlayerUpdateComponent>(player, *physics_comp.get());
+
+    float radius_px = ni::Converter::MetersToPixels(0.3f);
+    auto shapes = GetPlayerShape(radius_px);
+
+    auto graphics_comp = std::make_unique<ni::ShapeGraphicsComponent<sf::CircleShape>>(shapes.first);
+    auto graphics_comp2 = std::make_unique<ni::ShapeGraphicsComponent<sf::CircleShape>>(shapes.second);
+    
+    GetComponentStore().AttachUpdateComponent(player, std::move(update_comp));
+    GetComponentStore().AttachTransformComponent(player, transform_comp);
+    GetComponentStore().AttachPhysicsComponent(player, std::move(physics_comp));
+    GetComponentStore().AttachGraphicsComponent(player, std::move(graphics_comp));
+    GetComponentStore().AttachGraphicsComponent(player, std::move(graphics_comp2));
+}
+
+std::pair<sf::CircleShape, sf::CircleShape> SimulationGameMode::GetPlayerShape(float radius)
+{
+    std::pair<sf::CircleShape, sf::CircleShape> result;
+
+    sf::CircleShape player_shape(ni::Converter::MetersToPixels(0.3f));
+    player_shape.setFillColor(sf::Color::White);
+
+    player_shape.setOrigin({ 
+        radius, 
+        radius + ni::Converter::MetersToPixels(0.4f)
+    });
+
+    result.first = player_shape;
+
+    player_shape.setOrigin({
+        radius,
+        radius - ni::Converter::MetersToPixels(0.4f)
+    });
+
+    result.second = player_shape;
+
+    return result;
 }

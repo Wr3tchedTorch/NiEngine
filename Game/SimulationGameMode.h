@@ -2,11 +2,13 @@
 
 #include <vector>
 #include <unordered_map>
+#include <utility>
 
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
 
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/GameMode.h>
@@ -37,5 +39,8 @@ public:
 
 	virtual void Update(ni::GameModeController& controller) override;
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;
+
+	void SpawnPlayer();
+	std::pair<sf::CircleShape, sf::CircleShape> GetPlayerShape(float radius);
 };
 

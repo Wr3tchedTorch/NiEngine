@@ -13,7 +13,6 @@
 
 #include <NiEngine/GameModeController.h>
 #include <NiEngine/ServiceLocator.h>
-#include <iostream>
 
 sf::Time     ni::Engine::time_elapsed		= sf::Time();
 sf::Vector2u ni::Engine::window_resolution  = {};

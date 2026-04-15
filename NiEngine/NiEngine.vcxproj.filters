@@ -158,6 +158,9 @@
     <ClInclude Include="NiEngine\BodyPhysicsComponent.h">
       <Filter>Header Files\Components\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="NiEngine\PlatformerCharacterPhysicsComponent.h">
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -218,6 +221,9 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\BodyPhysicsComponent.cpp">
+      <Filter>Source Files\Components\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlatformerCharacterPhysicsComponent.cpp">
       <Filter>Source Files\Components\Entity</Filter>
     </ClCompile>
   </ItemGroup>

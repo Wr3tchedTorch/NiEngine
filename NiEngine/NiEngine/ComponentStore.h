@@ -23,7 +23,7 @@ private:
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>> transform_components_ = {};
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>   physics_components_   = {};
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>	   update_components_	 = {};
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<GraphicsComponent>>  graphics_components_  = {};
+	std::unordered_map<Id<GameObjectTag>, std::vector<std::unique_ptr<GraphicsComponent>>> graphics_components_  = {};
 
 public:
 	// Component Attaching/Removing
@@ -40,7 +40,7 @@ public:
 
 	void AttachGraphicsComponent(Id<GameObjectTag> target, std::unique_ptr<GraphicsComponent> component)
 	{
-		graphics_components_.emplace(target, std::move(component));
+		graphics_components_[target].emplace_back(std::move(component));
 	}
 
 	void AttachTransformComponent(Id<GameObjectTag> target, TransformComponent& component)

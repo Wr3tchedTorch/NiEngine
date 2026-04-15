@@ -55,17 +55,20 @@ void ni::ComponentStore::Update()
 
 void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	for (auto& [id, component] : graphics_components_)
+	for (auto& [id, components] : graphics_components_)
 	{
 		sf::RenderStates local_state = states;
 
 		TransformComponent* transform = GetTransformComponent(id);
-
 		if (transform)
 		{
 			local_state.transform *= transform->GetTransformable().getTransform();
 		}		
 
-		component->Render(target, local_state, store);
+		for (auto& component : components)
+		{
+			component->Render(target, local_state, store);
+		}
+
 	}
 }
