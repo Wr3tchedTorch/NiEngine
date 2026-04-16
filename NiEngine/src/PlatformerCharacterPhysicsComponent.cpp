@@ -28,7 +28,7 @@ void ni::PlatformerCharacterPhysicsComponent::SolveMove(float throttle)
         velocity_.x = 0.0f;
         velocity_.y = 0.0f;
     }
-    if (on_ground_)
+    else if (on_ground_)
     {
         ApplyFriction();
     }    
@@ -57,14 +57,19 @@ ni::CastResult ni::PlatformerCharacterPhysicsComponent::CastPogo(b2WorldId world
 
     b2Vec2 origin = b2TransformPoint(transform_, capsule_.center1);
 
+    b2Vec2 segmentOffset = { 0.75f * capsule_.radius, 0.0f };
+    b2Segment segment = {
+        .point1 = origin - segmentOffset,
+        .point2 = origin + segmentOffset,
+    };
+
     b2ShapeProxy proxy = {};
     b2Vec2 translation;
-
-    proxy = b2MakeProxy(&origin, 1, 0.0f);
-    translation = { 0.0f, -ray_length };
-
     b2QueryFilter pogo_filter = { MoverBit, StaticBit | DynamicBit };
     CastResult result = {};
+
+    proxy = b2MakeProxy(&segment.point1, 2, 0.0f);
+    translation = { 0.0f, -ray_length };
 
     b2World_CastShape(world_id, &proxy, translation, pogo_filter, CastCallback, &result);
 
@@ -77,11 +82,12 @@ ni::CastResult ni::PlatformerCharacterPhysicsComponent::CastPogo(b2WorldId world
 void ni::PlatformerCharacterPhysicsComponent::ApplyFriction()
 {
     float speed = b2Length(velocity_);
-    {
-        float drop = speed * friction_ * delta;
-        float new_speed = b2MaxFloat(0.0f, speed - drop);
-        velocity_ *= new_speed / speed;
-    }
+
+    float control = speed < stop_speed_ ? stop_speed_ : speed;
+
+    float drop = control * friction_ * delta;
+    float new_speed = b2MaxFloat(0.0f, speed - drop);
+    velocity_ *= new_speed / speed;
 }
 
 void ni::PlatformerCharacterPhysicsComponent::Accelerate(b2Vec2 desired_velocity)
@@ -113,8 +119,8 @@ void ni::PlatformerCharacterPhysicsComponent::Accelerate(b2Vec2 desired_velocity
 
         velocity_ += accel_speed * desired_direction;
     }
-
-    velocity_.y += gravity_ * delta;
+    
+    velocity_.y -= gravity_ * delta;
 }
 
 void ni::PlatformerCharacterPhysicsComponent::PhysicsUpdate(TransformComponent& transform_component, b2WorldId world_id)
@@ -124,14 +130,15 @@ void ni::PlatformerCharacterPhysicsComponent::PhysicsUpdate(TransformComponent& 
     // POGO COLLISION
     CastResult cast_result = CastPogo(world_id);
 
-    // Avoid snapping to ground if still going up
-    if (on_ground_ == false)
+    // Avoid snapping to ground if still going up    
+
+    if (cast_result.hit) 
     {
-        on_ground_ = cast_result.hit && velocity_.y <= 0.01f;
+        on_ground_ = true && velocity_.y <= 0.01f;
     }
     else
     {
-        on_ground_ = cast_result.hit;
+        on_ground_ = false; // Only lose ground if moving UP
     }
 
     if (cast_result.hit)
@@ -194,8 +201,10 @@ void ni::PlatformerCharacterPhysicsComponent::PhysicsUpdate(TransformComponent& 
 
     velocity_ = b2ClipVector(velocity_, planes_, plane_count_);
 
-    std::cout << std::format("\nvelocity: {}, {}", velocity_.x, velocity_.y);
+    std::cout << std::format("\n\nvelocity: {}, {}", velocity_.x, velocity_.y);
     std::cout << std::format("\non_ground: {}", on_ground_);
+    std::cout << std::format("\npogo_hit: {}", cast_result.hit);
+    std::cout << std::format("\npogo_point: {}, {}", cast_result.point.x, cast_result.point.y);
 
     transform_component.SetPositionInMeters(transform_.p);
     transform_component.SetRotation(b2Rot_GetAngle(transform_.q));

@@ -79,9 +79,10 @@ private:
     float max_speed_  = 6.0f;
     float accelerate_ = 20.0f;
     float friction_   = 8.0f;
-    float gravity_    = 9.8f;
+    float gravity_    = 30.0f;
     float air_steer_  = 0.2f;
     float min_speed_  = 0.1f;
+    int   stop_speed_ = 3.0f;
     int throttle_ = 0;
     
     // Pogo attributes

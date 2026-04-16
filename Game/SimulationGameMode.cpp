@@ -84,7 +84,7 @@ void SimulationGameMode::SpawnPlayer()
 
     ni::TransformComponent transform_comp;
 
-    auto physics_comp = std::make_unique<ni::PlatformerCharacterPhysicsComponent>(b2Vec2({ 20, 10 }), b2Capsule({ { 0.0f, -0.4f }, { 0.0f, 0.4f }, 0.3f }));
+    auto physics_comp = std::make_unique<ni::PlatformerCharacterPhysicsComponent>(b2Vec2({ 30, 15 }), b2Capsule({ { 0.0f, -0.4f }, { 0.0f, 0.4f }, 0.3f }));
     auto update_comp  = std::make_unique<PlayerUpdateComponent>(player, GetComponentStore());
 
     float radius_px = ni::Converter::MetersToPixels(0.3f);
