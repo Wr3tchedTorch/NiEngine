@@ -4,20 +4,20 @@
 #include <math_functions.h>
 #include <box2d.h>
 #include <types.h>
-
-#include <iostream>
-#include <format>
+#include <id.h>
 
 #include <NiEngine/TransformComponent.h>
 #include <NiEngine/CollisionBits.h>
 
 
-ni::PlatformerCharacterPhysicsComponent::PlatformerCharacterPhysicsComponent(b2Vec2 start_position, b2Capsule shape)
+ni::PlatformerCharacterPhysicsComponent::PlatformerCharacterPhysicsComponent(b2Vec2 start_position, b2Capsule shape, float pogo_length_multiplier)
 {
     transform_ = { start_position, b2Rot_identity };
     velocity_  = { 0.0f, 0.0f };
 
     capsule_ = shape;
+
+    pogo_length_multiplier_ = pogo_length_multiplier;
 }
 
 void ni::PlatformerCharacterPhysicsComponent::SolveMove(float throttle)
@@ -52,7 +52,7 @@ void ni::PlatformerCharacterPhysicsComponent::Jump()
 
 ni::CastResult ni::PlatformerCharacterPhysicsComponent::CastPogo(b2WorldId world_id)
 {
-    float pogo_rest_length = 3.0f * capsule_.radius;
+    float pogo_rest_length = pogo_length_multiplier_ * capsule_.radius;
     float ray_length = pogo_rest_length + capsule_.radius;
 
     b2Vec2 origin = b2TransformPoint(transform_, capsule_.center2);

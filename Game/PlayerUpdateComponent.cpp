@@ -9,7 +9,7 @@
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/UpdateComponent.h>
 
-PlayerUpdateComponent::PlayerUpdateComponent(ni::Id<GameObjectTag> owner_id, ni::ComponentLocator& component_locator) : ni::UpdateComponent(component_locator)
+PlayerUpdateComponent::PlayerUpdateComponent(ni::Id<GameObjectTag> owner_id, ni::ComponentLocator& component_locator) : ni::UpdateComponent(component_locator), physics_component_(nullptr)
 {
 	owner_id_ = owner_id;
 	
@@ -32,11 +32,15 @@ void PlayerUpdateComponent::Update()
 
 	float throttle = (int)(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) - (int)(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A));
 
+	auto graphics = component_locator_.GetFirstAnimatedGraphicsComponent(owner_id_);
 	if (throttle != 0)
 	{
-		auto graphics = component_locator_.GetFirstAnimatedGraphicsComponent(owner_id_);
-		
-		graphics->PlayAnimation(12, .2, true);
+		graphics->PlayAnimation(12, .2, true, 2, 1);
+		graphics->FlipH(throttle == -1);
+	}
+	else
+	{
+		graphics->SetFrame(12, 0);
 	}
 
 	physics_component_->Move(throttle);

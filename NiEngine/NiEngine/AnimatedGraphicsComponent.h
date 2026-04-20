@@ -6,6 +6,7 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include "StandardGraphicsComponent.h"
 #include "BitmapStore.h"
@@ -15,9 +16,10 @@ namespace ni {
 class AnimatedGraphicsComponent : public StandardGraphicsComponent
 {
 public:
-	AnimatedGraphicsComponent(std::string texture_key, sf::IntRect first_frame_rect, int frame_count, int animation_count, int frame_spacing = 0);
+	AnimatedGraphicsComponent(std::string texture_key, sf::Vector2i sprite_size, int frame_spacing = 0);
 
-	void PlayAnimation(int animation_row, float delay_in_seconds, bool loop = false);
+	void PlayAnimation(int animation_row, float delay_in_seconds, bool loop = false, int frame_count = 0, int initial_animation_frame = 0);
+	void SetFrame(int row, int index);
 	bool IsPlaying() const;
 
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;
@@ -31,6 +33,7 @@ private:
 
 	int current_animation_ = -1;
 	int current_frame_	   = 0;
+	int initial_animation_frame_ = 0;
 
 	bool loop_    = false;
 	bool playing_ = false;

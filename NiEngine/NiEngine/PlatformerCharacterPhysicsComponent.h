@@ -38,7 +38,7 @@ static float CastCallback(b2ShapeId shapeId, b2Vec2 point, b2Vec2 normal, float 
 class PlatformerCharacterPhysicsComponent : public PhysicsComponent
 {
 public:
-    PlatformerCharacterPhysicsComponent(b2Vec2 start_position, b2Capsule shape);
+    PlatformerCharacterPhysicsComponent(b2Vec2 start_position, b2Capsule shape, float pogo_length_multiplier = 3.0f);
 
     void Move(int throttle);
     void Jump();
@@ -75,7 +75,7 @@ private:
     bool  jump_released_ = true;
 
     float delta = 1 / 60.0f;
-    float jump_speed_ = 30.0f;
+    float jump_speed_ = 20.0f;
     float max_speed_  = 6.0f;
     float accelerate_ = 20.0f;
     float friction_   = 8.0f;
@@ -89,6 +89,7 @@ private:
     float pogo_velocity_ = 0.0f;
     float pogo_hertz_ = 5.0f;
     float pogo_damping_ratio_ = 0.8f;
+    float pogo_length_multiplier_ = 3.0f;
 
     // Collision
     int total_iterations_ = 0;

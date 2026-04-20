@@ -86,16 +86,28 @@ void SimulationGameMode::SpawnPlayer()
 
     ni::TransformComponent transform_comp;
 
-    auto physics_comp = std::make_unique<ni::PlatformerCharacterPhysicsComponent>(b2Vec2({ 5, 5 }), b2Capsule({ { 0.0f, -0.4f }, { 0.0f, 0.4f }, 0.3f }));
     auto update_comp  = std::make_unique<PlayerUpdateComponent>(player, GetComponentStore());
 
     float radius_px = ni::Converter::MetersToPixels(0.3f);
     auto shapes = GetPlayerShape(radius_px);
 
     auto graphics_comp  = std::make_unique<ni::ShapeGraphicsComponent<sf::CircleShape>>(shapes.first);
-    auto graphics_comp2 = std::make_unique<ni::ShapeGraphicsComponent<sf::CircleShape>>(shapes.second);
+    auto graphics_comp2 = std::make_unique<ni::ShapeGraphicsComponent<sf::CircleShape>>(shapes.second);    
 
-    auto graphics_comp3 = std::make_unique<ni::AnimatedGraphicsComponent>("graphics/tilemap.png", sf::IntRect({{17, 204}, {16, 16}}), 2, 1, 1);
+    auto graphics_comp3 = std::make_unique<ni::AnimatedGraphicsComponent>("graphics/tilemap.png", sf::Vector2i({16, 16}), 1);
+    graphics_comp3->CenterOrigin(true);
+
+    float half_w = ni::Converter::PixelsToMeters(graphics_comp3->GetSpriteSize().x / 2.0f);
+    b2Capsule capsule{};
+    capsule.center1 = { 0.0f,  0.0f };   // same point = circle
+    capsule.center2 = { 0.0f,  0.0f };
+    capsule.radius = half_w;
+
+    auto physics_comp = std::make_unique<ni::PlatformerCharacterPhysicsComponent>(
+        b2Vec2({ 5, 5 }), 
+        capsule,
+        1.0f
+    );
     
     GetComponentStore().AttachUpdateComponent(player, std::move(update_comp));
     GetComponentStore().AttachTransformComponent(player, transform_comp);
