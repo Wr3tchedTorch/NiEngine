@@ -140,7 +140,6 @@
     <ClInclude Include="NiEngine\AnimatedGraphicsComponent.h" />
     <ClInclude Include="NiEngine\ComponentLocator.h" />
     <ClInclude Include="NiEngine\CollisionBits.h" />
-    <ClInclude Include="NiEngine\PlatformerCharacterPhysicsComponent.h" />
     <ClInclude Include="NiEngine\BitmapStore.h" />
     <ClInclude Include="NiEngine\Camera.h" />
     <ClInclude Include="NiEngine\Component.h" />
@@ -175,15 +174,12 @@
     <ClInclude Include="NiEngine\UpdateComponent.h" />
     <ClInclude Include="NiEngine\Vector2iHash.h" />
     <ClInclude Include="NiEngine\ServiceLocator.h" />
-    <ClInclude Include="NiEngine\BodyPhysicsComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AnimatedGraphicsComponent.cpp" />
-    <ClCompile Include="src\PlatformerCharacterPhysicsComponent.cpp" />
-    <ClCompile Include="src\BodyPhysicsComponent.cpp" />
     <ClCompile Include="src\BitmapStore.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Component.cpp" />

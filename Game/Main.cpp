@@ -1,23 +1,17 @@
-
-#include <utility>
 #include <memory>
+#include <utility>
 
 #include <SFML/Window/WindowEnums.hpp>
-
-#include <NiEngine/Id.h>
 #include <NiEngine/Engine.h>
-#include <NiEngine/GameModeTag.h>
 
-#include "SimulationGameMode.h"
+#include "GameMode.h"
 
 int main()
 {
-    ni::Engine engine("Ni Engine, by Eric", sf::State::Windowed);
+    ni::Engine engine("Cat Mario clone, by Eric", sf::State::Windowed);
 
-    auto mode = std::make_unique<SimulationGameMode>();
-
-    ni::Id<GameModeTag> mode_id = engine.GetGameModeController().Register(std::move(mode));
-    engine.GetGameModeController().SwitchTo(mode_id);
+    auto mode = std::make_unique<GameMode>();
+    engine.GetGameModeController().Register(std::move(mode));
 
     engine.Run();
 }

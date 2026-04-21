@@ -17,23 +17,26 @@ ni::GameModeController::GameModeController()
 	next_id = { 0 };
 }
 
-ni::Id<GameModeTag> ni::GameModeController::Register(std::unique_ptr<GameMode> mode)
+ni::Id<ni::GameModeTag> ni::GameModeController::Register(std::unique_ptr<GameMode> mode)
 {
 	game_modes_.emplace(++next_id, std::move(mode));
+
+	current_game_mode = next_id;
+
 	return next_id;
 }
 
-void ni::GameModeController::SwitchTo(Id<GameModeTag> id)
+void ni::GameModeController::SwitchTo(Id<ni::GameModeTag> id)
 {
 	current_game_mode = id;
 }
 
-void ni::GameModeController::Remove(Id<GameModeTag> id)
+void ni::GameModeController::Remove(Id<ni::GameModeTag> id)
 {
 	game_modes_.erase(id);
 }
 
-ni::GameMode& ni::GameModeController::Get(Id<GameModeTag> id)
+ni::GameMode& ni::GameModeController::Get(Id<ni::GameModeTag> id)
 {
 	return *game_modes_.at(id).get();
 }

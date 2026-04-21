@@ -40,6 +40,7 @@ void ni::AnimatedGraphicsComponent::SetFrame(int row, int index)
 {
 	current_animation_ = row;
 	current_frame_	   = index;
+	frame_count_       = index + 1;
 	playing_ = false;
 
 	NextFrame();

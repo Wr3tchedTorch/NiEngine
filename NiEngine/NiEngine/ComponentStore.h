@@ -19,6 +19,7 @@
 #include <NiEngine/TransformComponent.h>
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
+#include "Tilemap.h"
 
 namespace ni {
 
@@ -78,7 +79,7 @@ public:
 	PhysicsComponent*	GetPhysicsComponent(Id<GameObjectTag> id)   override;
 	AnimatedGraphicsComponent* GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) override;
 
-	void PhysicsUpdate(b2WorldId world_id);
+	void PhysicsUpdate(b2WorldId world_id, const Tilemap* current_tilemap);
 	void Update();
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 

@@ -1,6 +1,7 @@
 #include <NiEngine/ComponentStore.h>
 
 #include <id.h>
+
 #include <vector>
 
 #include <SFML/Graphics/RenderStates.hpp>
@@ -13,8 +14,9 @@
 #include <NiEngine/PhysicsComponent.h>
 #include <NiEngine/GraphicsComponent.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
+#include <NiEngine/Tilemap.h>
 
-ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<GameObjectTag> id)
+ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<ni::GameObjectTag> id)
 {
 	auto it = transform_components_.find(id);
 
@@ -25,7 +27,7 @@ ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<GameObjectT
 	return it->second.get();
 }
 
-ni::PhysicsComponent* ni::ComponentStore::GetPhysicsComponent(Id<GameObjectTag> id)
+ni::PhysicsComponent* ni::ComponentStore::GetPhysicsComponent(Id<ni::GameObjectTag> id)
 {
 	auto it = physics_components_.find(id);
 
@@ -36,7 +38,7 @@ ni::PhysicsComponent* ni::ComponentStore::GetPhysicsComponent(Id<GameObjectTag> 
 	return it->second.get();
 }
 
-ni::AnimatedGraphicsComponent* ni::ComponentStore::GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id)
+ni::AnimatedGraphicsComponent* ni::ComponentStore::GetFirstAnimatedGraphicsComponent(Id<ni::GameObjectTag> id)
 {
 	std::vector<ni::GraphicsComponent*> components = GetGraphicsComponents(id);
 	for (auto& component : components)
@@ -51,7 +53,7 @@ ni::AnimatedGraphicsComponent* ni::ComponentStore::GetFirstAnimatedGraphicsCompo
 	return nullptr;
 }
 
-void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id)
+void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id, const Tilemap* current_tilemap)
 {
 	for (auto& [id, component] : physics_components_)
 	{
@@ -61,7 +63,7 @@ void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id)
 		{
 			continue;
 		}
-		component->PhysicsUpdate(*transform, world_id);
+		component->PhysicsUpdate(*transform, world_id, current_tilemap);
 	}
 }
 
@@ -93,7 +95,7 @@ void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates state
 	}
 }
 
-std::vector<ni::GraphicsComponent*> ni::ComponentStore::GetGraphicsComponents(Id<GameObjectTag> id)
+std::vector<ni::GraphicsComponent*> ni::ComponentStore::GetGraphicsComponents(Id<ni::GameObjectTag> id)
 {
 	std::vector<ni::GraphicsComponent*> result = {};
 

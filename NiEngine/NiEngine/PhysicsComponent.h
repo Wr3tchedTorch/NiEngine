@@ -1,8 +1,8 @@
 #pragma once
 
-#include <id.h>
-
 #include <NiEngine/Component.h>
+#include <NiEngine/Tilemap.h>
+#include <id.h>
 
 namespace ni {
 
@@ -10,9 +10,8 @@ class TransformComponent;
 
 class PhysicsComponent : public Component
 {
-
 public:
-	virtual void PhysicsUpdate(TransformComponent& transform_component, b2WorldId world_id) = 0;
+	virtual void PhysicsUpdate(TransformComponent& transform_component, b2WorldId world_id, const Tilemap* current_tilemap) = 0;
 };
 
 }

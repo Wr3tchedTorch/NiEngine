@@ -22,7 +22,8 @@ void ni::GameMode::PhysicsUpdate()
 {
 	physics_engine_.PhysicsUpdate();
 
-	component_store_.PhysicsUpdate(physics_engine_.GetWorldId());
+	auto* tilemap = tilemaps_.empty() ? nullptr : &tilemaps_.front();
+	component_store_.PhysicsUpdate(physics_engine_.GetWorldId(), tilemap);
 }
 
 void ni::GameMode::Update(GameModeController& controller)

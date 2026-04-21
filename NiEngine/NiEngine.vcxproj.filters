@@ -155,12 +155,6 @@
     <ClInclude Include="NiEngine\ServiceLocator.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="NiEngine\BodyPhysicsComponent.h">
-      <Filter>Header Files\Components\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\PlatformerCharacterPhysicsComponent.h">
-      <Filter>Header Files\Components\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="NiEngine\CollisionBits.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -168,7 +162,7 @@
       <Filter>Header Files\Components\Entity</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\AnimatedGraphicsComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -229,14 +223,8 @@
     <ClCompile Include="src\Signal.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\BodyPhysicsComponent.cpp">
-      <Filter>Source Files\Components\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PlatformerCharacterPhysicsComponent.cpp">
-      <Filter>Source Files\Components\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="src\AnimatedGraphicsComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components\Entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
