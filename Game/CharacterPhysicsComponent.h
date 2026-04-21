@@ -18,8 +18,6 @@ public:
 	void Move(float dir_x);
 
 private:
-	sf::FloatRect bottom_rect_;
-
 	sf::Vector2f velocity_;
 	sf::Vector2i size_;
 
@@ -28,5 +26,7 @@ private:
 	bool is_falling_ = true;
 
 	void HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap);
+
+	sf::FloatRect GetFeetBounds(sf::Vector2f position) const;
 };
 
