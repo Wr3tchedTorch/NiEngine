@@ -15,7 +15,8 @@ public:
 
 	CharacterPhysicsComponent(sf::Vector2i character_size);
 	void PhysicsUpdate(ni::TransformComponent& transform_component, b2WorldId world_id, const ni::Tilemap* current_tilemap) override;
-	void Move(float dir_x);
+
+	virtual void Move();
 
 private:
 	sf::Vector2f velocity_;
@@ -24,7 +25,7 @@ private:
 	float speed_ = 16;
 
 	bool is_falling_ = true;
-
+	
 	void HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap);
 
 	sf::FloatRect GetFeetBounds(sf::Vector2f position) const;

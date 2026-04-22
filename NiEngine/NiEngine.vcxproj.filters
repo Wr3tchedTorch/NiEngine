@@ -226,5 +226,8 @@
     <ClCompile Include="src\AnimatedGraphicsComponent.cpp">
       <Filter>Source Files\Components\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="NiEngine\MathUtility.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

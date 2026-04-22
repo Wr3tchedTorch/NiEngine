@@ -3,31 +3,50 @@
 #include <id.h>
 
 #include <iostream>
+#include <cstdlib>
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <NiEngine/TransformComponent.h>
 #include <NiEngine/Tilemap.h>
-#include <SFML/Graphics/Rect.hpp>
+#include <NiEngine/MathUtility.h>
 
 CharacterPhysicsComponent::CharacterPhysicsComponent(sf::Vector2i character_size) : size_(character_size)
 {
 }
 
-void CharacterPhysicsComponent::PhysicsUpdate(ni::TransformComponent& transform_component, b2WorldId world_id, const ni::Tilemap* current_tilemap)
+void CharacterPhysicsComponent::PhysicsUpdate(ni::TransformComponent& transform_component, b2WorldId _, const ni::Tilemap* current_tilemap)
 {
 	if (!current_tilemap)
 	{
 		std::cout << "ERROR! Tilemap not provided!";
 		return;
-	}	
+	}
 
+	Move();
 	HandleCollisions(transform_component, current_tilemap);
-	
 	if (is_falling_)
 	{
 		velocity_.y += GRAVITY / 10.0f;
 	}
+
+	sf::Vector2f new_scale = transform_component.GetTransformable().getScale();
+	
+	int movement_sign = ni::MathUtility::GetSign(velocity_.x);
+	if (movement_sign != 0)
+	{
+		new_scale.x = abs(new_scale.x) * movement_sign;
+	}
+	transform_component.GetTransformable().setScale(new_scale);
 	transform_component.GetTransformable().move(velocity_);
+}
+
+void CharacterPhysicsComponent::Move()
+{
+	float x_dir = sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A);
+
+	velocity_.x = x_dir * speed_ / 10.0f;
 }
 
 void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap)
@@ -59,7 +78,7 @@ void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transfo
 			collision_block.position.x = x * size_.x;
 			collision_block.position.y = y * size_.y;
 
-			if (is_falling_ && collision_block.findIntersection(GetFeetBounds(character_position)))
+			if (collision_block.findIntersection(GetFeetBounds(character_position)))
 			{
 				velocity_.y = 0;
 
@@ -69,6 +88,10 @@ void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transfo
 				transform_component.GetTransformable().setPosition(snap_position);
 
 				is_falling_ = false;
+			}
+			else
+			{
+				is_falling_ = true;
 			}
 		}
 	}
