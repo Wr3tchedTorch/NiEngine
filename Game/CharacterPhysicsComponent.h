@@ -29,5 +29,6 @@ private:
 	void HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap);
 
 	sf::FloatRect GetFeetBounds(sf::Vector2f position) const;
+	sf::FloatRect GetFrontBounds(sf::Vector2f position) const;
 };
 
