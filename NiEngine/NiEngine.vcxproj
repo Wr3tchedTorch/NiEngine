@@ -137,6 +137,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NiEngine\Animation.h" />
     <ClInclude Include="NiEngine\AnimatedGraphicsComponent.h" />
     <ClInclude Include="NiEngine\ComponentLocator.h" />
     <ClInclude Include="NiEngine\CollisionBits.h" />

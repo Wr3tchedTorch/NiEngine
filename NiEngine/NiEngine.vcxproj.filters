@@ -164,6 +164,9 @@
     <ClInclude Include="NiEngine\AnimatedGraphicsComponent.h">
       <Filter>Header Files\Components\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="NiEngine\Animation.h">
+      <Filter>Source Files\Components\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

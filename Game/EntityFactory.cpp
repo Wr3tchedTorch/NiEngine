@@ -18,14 +18,13 @@ ni::Id<ni::GameObjectTag> EntityFactory::CreatePlatformerCharacter(ni::GameMode&
 	ni::Id<ni::GameObjectTag> id = game_mode.CreateGameObject();
 
 	auto physics  = std::make_unique<CharacterPhysicsComponent>(character_size);
-	auto update   = std::make_unique<PlayerUpdateComponent>(game_mode.GetComponentStore(), id);
-
-	auto graphics = std::make_unique<ni::AnimatedGraphicsComponent>("graphics/tilemap.png", sf::Vector2i(16, 16), 1);
-	graphics->SetFrame(animation_row, 0);
+	auto graphics = std::make_unique<ni::AnimatedGraphicsComponent>("graphics/tilemap.png", sf::Vector2i(16, 16), 1);	
 
 	ni::TransformComponent transform;
 	transform.GetTransformable().setPosition({100, 100});
 	transform.GetTransformable().setOrigin({ character_size.x / 2.0f, character_size.x / 2.0f });
+
+	auto update   = std::make_unique<PlayerUpdateComponent>(game_mode.GetComponentStore(), *graphics.get(), id);
 	
 	game_mode.GetComponentStore().AttachPhysicsComponent(  id, std::move(physics));
 	game_mode.GetComponentStore().AttachUpdateComponent(   id, std::move(update));
