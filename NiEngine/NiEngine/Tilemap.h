@@ -44,6 +44,8 @@ private:
 
 public:
 	inline static const std::string kPrototypeLayerName = "prototype";
+	inline static const std::string kTerrainLayerName   = "terrain";
+
 	inline static const std::string kTransparentTilesTilesetName = "transparent_tiles";
 
 	void EnableCollision(b2WorldId world_id);
@@ -54,9 +56,12 @@ public:
 
 	sf::Vector2i GlobalToGridPosition(sf::Vector2f position) const;
 
-	TileBlueprint GetTileInfo(sf::Vector2i tile_grid_position, int layer_index) const;
+	TileBlueprint GetTileInfo(sf::Vector2i tile_grid_position, const std::string& layer_name) const;
+	const LayerBlueprint* GetLayerByName(const std::string& layer_name) const;
+
 	bool IsTileEmpty(sf::Vector2i tile_grid_position) const;
 	static bool IsTileEmpty(const std::vector<int>& map, sf::Vector2i map_size, sf::Vector2i tile_grid_position);
+
 	static const TilesetBlueprint& GetTilesetByGid(const std::vector<TilesetBlueprint>& tileset_blueprints, int gid);
 };
 

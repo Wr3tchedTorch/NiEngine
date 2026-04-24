@@ -73,6 +73,11 @@ void CharacterPhysicsComponent::Jump()
 	on_jumping_.Notify();
 }
 
+void CharacterPhysicsComponent::FallFromPlatform()
+{
+	fall_through_platform_ = true;
+}
+
 void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap)
 {
 	sf::Vector2f character_position = transform_component.GetTransformable().getPosition();
@@ -103,20 +108,35 @@ void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transfo
 			collision_block.position.x = x * size_.x;
 			collision_block.position.y = y * size_.y;
 			
-			ni::TileBlueprint tile = current_tilemap->GetTileInfo({ x, y }, 1);
+			ni::TileBlueprint tile = current_tilemap->GetTileInfo({ x, y }, ni::Tilemap::kTerrainLayerName);
 
-			if (collision_block.findIntersection(GetHeadBounds(transform_component.GetTransformable().getPosition())) && !tile.one_sided_collision_)
+			if (collision_block.findIntersection(GetHeadBounds(transform_component.GetTransformable().getPosition())))
 			{
-				velocity_.y = 0;
+				if (!tile.one_sided_collision_)
+				{
+					velocity_.y = 0;
 
-				sf::Vector2f snap_position = transform_component.GetTransformable().getPosition();
+					sf::Vector2f snap_position = transform_component.GetTransformable().getPosition();
 
-				snap_position.y = collision_block.position.y + collision_block.size.y + size_.y / 2.0f + 1;
+					snap_position.y = collision_block.position.y + collision_block.size.y + size_.y / 2.0f + 1;
 
-				transform_component.GetTransformable().setPosition(snap_position);
+					transform_component.GetTransformable().setPosition(snap_position);
+				}
+				else
+				{
+					falling_through_platform_ = false;
+				}
 			}
 
-			if (collision_block.findIntersection(GetFeetBounds(transform_component.GetTransformable().getPosition())) && !(tile.one_sided_collision_ && velocity_.y < 0))
+			if (fall_through_platform_ && tile.one_sided_collision_)
+			{
+				falling_through_platform_ = true;
+				fall_through_platform_ = false;
+			}
+
+			bool pass_through = tile.one_sided_collision_ && velocity_.y < 0;
+			bool below_the_block  = GetFeetBounds(transform_component.GetTransformable().getPosition()).position.y > collision_block.position.y + collision_block.size.y / 3.0f;
+			if (collision_block.findIntersection(GetFeetBounds(transform_component.GetTransformable().getPosition())) && !below_the_block && !pass_through && !falling_through_platform_)
 			{
 				sf::Vector2f snap_position = transform_component.GetTransformable().getPosition();
 				snap_position.y = collision_block.position.y - size_.y / 2.0f;
@@ -144,7 +164,8 @@ void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transfo
 				transform_component.GetTransformable().setPosition(snap_position);
 			}			
 		}
-	}	
+	}
+	fall_through_platform_ = false;
 
 	if (is_falling && state_ != CharacterState::Falling)
 	{

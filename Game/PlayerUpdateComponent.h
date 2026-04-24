@@ -27,5 +27,6 @@ private:
 	bool airborne_ = false;
 
 	void Jump();
+	void FallFromPlatform();
 };
 

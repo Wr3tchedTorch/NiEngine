@@ -27,6 +27,7 @@ public:
 
 	void Move(float dir);
 	void Jump();
+	void FallFromPlatform();
 
 	int OnFalling(std::function<void()> callback) { return on_falling_.Subscribe(callback); }
 	int OnJumping(std::function<void()> callback) { return on_jumping_.Subscribe(callback); }
@@ -44,6 +45,9 @@ private:
 	float jump_force_ = 400;
 	
 	CharacterState state_ = CharacterState::Falling;
+
+	bool fall_through_platform_    = false;
+	bool falling_through_platform_ = false;
 	
 	void HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap);
 

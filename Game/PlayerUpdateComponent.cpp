@@ -28,6 +28,10 @@ void PlayerUpdateComponent::Init(ni::AnimatedGraphicsComponent& graphics, Charac
 		{
 			Jump();
 		}
+		else if (event.scancode == sf::Keyboard::Scancode::S)
+		{
+			FallFromPlatform();
+		}
 	});
 
 	physics.OnFalling([this]() {
@@ -92,5 +96,14 @@ void PlayerUpdateComponent::Jump()
 	if (physics)
 	{
 		physics->Jump();
+	}
+}
+
+void PlayerUpdateComponent::FallFromPlatform()
+{
+	auto physics = static_cast<CharacterPhysicsComponent*>(component_locator_.GetPhysicsComponent(owner_id_));
+	if (physics)
+	{
+		physics->FallFromPlatform();
 	}
 }

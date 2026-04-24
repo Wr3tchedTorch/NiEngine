@@ -115,7 +115,7 @@ sf::Vector2i ni::Tilemap::GlobalToGridPosition(sf::Vector2f position) const
 	return result;
 }
 
-ni::TileBlueprint ni::Tilemap::GetTileInfo(sf::Vector2i tile_grid_position, int layer_index) const
+ni::TileBlueprint ni::Tilemap::GetTileInfo(sf::Vector2i tile_grid_position, const std::string& layer_name) const
 {
 	bool out_of_bounds = tile_grid_position.x < 0 || tile_grid_position.x >= blueprint_.map_size_.x ||
 						 tile_grid_position.y < 0 || tile_grid_position.y >= blueprint_.map_size_.y;
@@ -123,12 +123,17 @@ ni::TileBlueprint ni::Tilemap::GetTileInfo(sf::Vector2i tile_grid_position, int 
 	{
 		return TileBlueprint();
 	}
-	const LayerBlueprint& layer = blueprint_.layers_.at(layer_index);
+
+	const LayerBlueprint* layer = GetLayerByName(layer_name);
+	if (!layer)
+	{
+		return TileBlueprint();
+	}
 
 	int tile_index = tile_grid_position.x + tile_grid_position.y * blueprint_.map_size_.x;
-	if (tile_index > 0 && tile_index < (int)layer.data_.size() && layer.data_[tile_index] != 0)
+	if (tile_index > 0 && tile_index < (int)layer->data_.size() && layer->data_[tile_index] != 0)
 	{
-		int tile_gid = layer.data_[tile_index];
+		int tile_gid = layer->data_[tile_index];
 		const TilesetBlueprint& tileset = GetTilesetByGid(tileset_blueprints_, tile_gid);
 
 		auto it = tileset.tiles_.find(tile_gid - tileset.first_gid_);
@@ -139,6 +144,18 @@ ni::TileBlueprint ni::Tilemap::GetTileInfo(sf::Vector2i tile_grid_position, int 
 	}
 
 	return TileBlueprint();
+}
+
+const ni::LayerBlueprint* ni::Tilemap::GetLayerByName(const std::string& layer_name) const
+{
+	for (auto& layer : blueprint_.layers_)
+	{
+		if (layer.name_ == layer_name)
+		{
+			return &layer;
+		}
+	}
+	return nullptr;
 }
 
 bool ni::Tilemap::IsTileEmpty(sf::Vector2i tile_grid_position) const
