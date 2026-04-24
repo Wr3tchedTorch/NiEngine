@@ -22,6 +22,9 @@ private:
 	inline static const std::string kJumpAnimationKey = "jump";
 	inline static const std::string kWalkAnimationKey = "walk";
 
+	inline static const std::string kJumpSoundKey = "sounds/jump.wav";
+	inline static const std::string kLandSoundKey = "sounds/land.wav";
+
 	bool airborne_ = false;
 
 	void Jump();

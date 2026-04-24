@@ -11,6 +11,7 @@
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Tilemap.h>
 #include <NiEngine/PhysicsEngine.h>
+#include <NiEngine/SoundEngine.h>
 
 namespace ni {
 

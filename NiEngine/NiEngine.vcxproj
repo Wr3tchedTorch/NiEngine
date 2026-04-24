@@ -175,12 +175,16 @@
     <ClInclude Include="NiEngine\UpdateComponent.h" />
     <ClInclude Include="NiEngine\Vector2iHash.h" />
     <ClInclude Include="NiEngine\ServiceLocator.h" />
+    <ClInclude Include="NiEngine\SoundBufferStore.h" />
+    <ClInclude Include="NiEngine\SoundEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NiEngine\MathUtility.h" />
+    <ClCompile Include="src\SoundBufferStore.cpp" />
+    <ClCompile Include="src\SoundEngine.cpp" />
     <ClCompile Include="src\AnimatedGraphicsComponent.cpp" />
     <ClCompile Include="src\BitmapStore.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -193,7 +197,6 @@
     <ClCompile Include="src\GraphicsComponent.cpp" />
     <ClCompile Include="src\PhysicsComponent.cpp" />
     <ClCompile Include="src\PhysicsEngine.cpp" />
-    <ClCompile Include="src\Signal.cpp" />
     <ClCompile Include="src\StandardGraphicsComponent.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
     <ClCompile Include="src\TilemapCollisionComponent.cpp" />

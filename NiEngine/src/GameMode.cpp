@@ -9,6 +9,7 @@
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/GameModeController.h>
 #include <NiEngine/Tilemap.h>
+#include <NiEngine/SoundEngine.h>
 
 void ni::GameMode::RegisterTilemap(const std::string& filepath, bool enable_collision)
 {	
@@ -36,7 +37,7 @@ void ni::GameMode::PhysicsUpdate(float delta)
 }
 
 void ni::GameMode::Update(GameModeController& controller)
-{	
+{
 	component_store_.Update();
 }
 

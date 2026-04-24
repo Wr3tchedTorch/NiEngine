@@ -51,14 +51,32 @@
     <Filter Include="Source Files\Components\Entity">
       <UniqueIdentifier>{9d68ae7c-b8e8-499f-a0e0-2e8395a0a8b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Sound">
+      <UniqueIdentifier>{55bc7469-95ab-4301-89e3-c61457ab3b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Sound">
+      <UniqueIdentifier>{1be0fd15-f59c-4faf-9b0d-10e5d45199a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Core">
+      <UniqueIdentifier>{735ac33a-3f63-4016-ac20-acf8e4a29f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Rendering">
+      <UniqueIdentifier>{b0f54e59-c671-4ce7-98e5-80f4882386f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Physics and Collision">
+      <UniqueIdentifier>{d257c0bd-6d95-4481-8536-a1c29cdd761b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Rendering">
+      <UniqueIdentifier>{c79e4c66-b8dd-41cb-b5a0-1a13b83ab894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Core">
+      <UniqueIdentifier>{b829d8f7-5039-43d0-91b9-9f9841b63fe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Physics and Collision">
+      <UniqueIdentifier>{78d10d8b-9f85-475d-a005-9743b15bee94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NiEngine\BitmapStore.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\Camera.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="NiEngine\Component.h">
       <Filter>Header Files\Components\Entity</Filter>
     </ClInclude>
@@ -71,26 +89,14 @@
     <ClInclude Include="NiEngine\DataHandler.h">
       <Filter>Header Files\FileIO</Filter>
     </ClInclude>
-    <ClInclude Include="NiEngine\Engine.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="NiEngine\FileUtility.h">
       <Filter>Header Files\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\GameMode.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\GameModeController.h">
-      <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\GameModeTag.h">
       <Filter>Header Files\Tags</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\GameObjectTag.h">
       <Filter>Header Files\Tags</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\Id.h">
-      <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\GraphicsComponent.h">
       <Filter>Header Files\Components\Entity</Filter>
@@ -134,29 +140,11 @@
     <ClInclude Include="NiEngine\MapUtility.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="NiEngine\PhysicsEngine.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\Tilemap.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\EventDispatcher.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="NiEngine\PolygonBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
-    <ClInclude Include="NiEngine\Subject.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="NiEngine\Vector2iHash.h">
       <Filter>Header Files\Hashes</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\ServiceLocator.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="NiEngine\CollisionBits.h">
-      <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\ComponentLocator.h">
       <Filter>Header Files\Components\Entity</Filter>
@@ -165,19 +153,55 @@
       <Filter>Header Files\Components\Entity</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\Animation.h">
-      <Filter>Source Files\Components\Entity</Filter>
+      <Filter>Header Files\Components\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\SoundBufferStore.h">
+      <Filter>Header Files\Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\SoundEngine.h">
+      <Filter>Header Files\Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\EventDispatcher.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\BitmapStore.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Id.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\ServiceLocator.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Subject.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Tilemap.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Camera.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Engine.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\CollisionBits.h">
+      <Filter>Header Files\Engine\Physics and Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\PhysicsEngine.h">
+      <Filter>Header Files\Engine\Physics and Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\GameMode.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\GameModeController.h">
+      <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BitmapStore.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Component.cpp">
       <Filter>Source Files\Components\Entity</Filter>
     </ClCompile>
@@ -214,23 +238,32 @@
     <ClCompile Include="src\PhysicsComponent.cpp">
       <Filter>Source Files\Components\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tilemap.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PhysicsEngine.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EventDispatcher.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Signal.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\AnimatedGraphicsComponent.cpp">
       <Filter>Source Files\Components\Entity</Filter>
     </ClCompile>
     <ClCompile Include="NiEngine\MathUtility.h">
       <Filter>Header Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundBufferStore.cpp">
+      <Filter>Source Files\Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundEngine.cpp">
+      <Filter>Source Files\Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tilemap.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventDispatcher.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BitmapStore.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsEngine.cpp">
+      <Filter>Source Files\Engine\Physics and Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

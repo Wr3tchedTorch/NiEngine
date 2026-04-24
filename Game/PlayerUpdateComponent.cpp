@@ -1,10 +1,13 @@
 #include "PlayerUpdateComponent.h"
 
+#include <iostream>
+
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/UpdateComponent.h>
 #include <NiEngine/ServiceLocator.h>
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Id.h>
+#include <NiEngine/SoundEngine.h>
 #include <NiEngine/Animation.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
 #include <SFML/Window/Event.hpp>
@@ -37,10 +40,14 @@ void PlayerUpdateComponent::Init(ni::AnimatedGraphicsComponent& graphics, Charac
 		graphics->SetFrame(kAnimationRow, 3);
 
 		airborne_ = true;
+
+		ni::ServiceLocator::Instance().GetSoundEngine().PlaySound(kJumpSoundKey);
 	});
 
 	physics.OnLanding([this]() {
 		airborne_ = false;
+
+		ni::ServiceLocator::Instance().GetSoundEngine().PlaySound(kLandSoundKey);
 	});
 
 	ni::Animation jump_animation;

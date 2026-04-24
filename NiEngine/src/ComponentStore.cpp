@@ -15,6 +15,7 @@
 #include <NiEngine/GraphicsComponent.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
 #include <NiEngine/Tilemap.h>
+#include <NiEngine/SoundEngine.h>
 
 ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<ni::GameObjectTag> id)
 {

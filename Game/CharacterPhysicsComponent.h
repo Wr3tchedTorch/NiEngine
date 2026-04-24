@@ -9,6 +9,13 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
+enum CharacterState
+{
+	Jumping,
+	Falling,
+	Idle
+};
+
 class CharacterPhysicsComponent : public ni::PhysicsComponent
 {
 public:
@@ -35,8 +42,7 @@ private:
 	float speed_ = 100;
 	float jump_force_ = 400;
 	
-	bool is_jumping_ = true;
-	bool is_falling_ = true;
+	CharacterState state_;
 	
 	void HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap);
 

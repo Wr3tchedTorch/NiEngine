@@ -22,12 +22,13 @@ void CharacterPhysicsComponent::PhysicsUpdate(ni::TransformComponent& transform_
 		return;
 	}
 
-	if (is_falling_)
+	if (state_ == CharacterState::Falling || state_ == CharacterState::Jumping)
 	{
 		velocity_.y += GRAVITY;
 
-		if (velocity_.y > 0)
+		if (velocity_.y > 0 && state_ != CharacterState::Falling)
 		{
+			state_ = CharacterState::Falling;
 			on_falling_.Notify();
 		}
 	}
@@ -57,12 +58,12 @@ void CharacterPhysicsComponent::Move(float dir)
 
 void CharacterPhysicsComponent::Jump()
 {
-	if (is_falling_)
+	if (state_ == CharacterState::Falling || state_ == CharacterState::Jumping)
 	{
 		return;
 	}
 	velocity_.y = -jump_force_;
-	is_falling_ = true;
+	state_ == CharacterState::Jumping;
 
 	on_jumping_.Notify();
 }
@@ -84,7 +85,7 @@ void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transfo
 	int end_x   = collision_area.position.x / size_.x + 1;
 	int end_y   = collision_area.position.y / size_.y + 1;
 
-	is_falling_ = true;
+	bool is_falling = true;	
 	for (int x = start_x; x <= end_x; ++x)
 	{
 		for (int y = start_y; y <= end_y; ++y)
@@ -117,8 +118,18 @@ void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transfo
 
 				transform_component.GetTransformable().setPosition(snap_position);
 
-				is_falling_ = false;
-				on_landing_.Notify();
+				is_falling = false;
+				if (state_ == CharacterState::Falling)
+				{
+					on_landing_.Notify();
+					state_ = CharacterState::Idle;
+				}
+			}
+
+			if (is_falling && state_ != CharacterState::Falling)
+			{
+				state_ = CharacterState::Falling;
+				on_falling_.Notify();
 			}
 
 			if (collision_block.findIntersection(GetFrontBounds(transform_component.GetTransformable().getPosition())) && !tile.one_sided_collision_)
@@ -131,7 +142,7 @@ void CharacterPhysicsComponent::HandleCollisions(ni::TransformComponent& transfo
 				snap_position.x = block_center_x + size_.x * -movement_sign;
 
 				transform_component.GetTransformable().setPosition(snap_position);
-			}
+			}			
 		}
 	}
 }

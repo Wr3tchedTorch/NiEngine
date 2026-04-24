@@ -20,6 +20,7 @@
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
 #include "Tilemap.h"
+#include "SoundEngine.h"
 
 namespace ni {
 
@@ -74,10 +75,10 @@ public:
 	}
 
 	// Inherited via ComponentLocator
-	std::vector<GraphicsComponent*> GetGraphicsComponents(Id<GameObjectTag> id) override;
-	TransformComponent* GetTransformComponent(Id<GameObjectTag> id) override;
-	PhysicsComponent*	GetPhysicsComponent(Id<GameObjectTag> id)   override;
-	AnimatedGraphicsComponent* GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) override;
+	std::vector<GraphicsComponent*> GetGraphicsComponents(Id<GameObjectTag> id)				override;
+	TransformComponent*             GetTransformComponent(Id<GameObjectTag> id)				override;
+	PhysicsComponent*	            GetPhysicsComponent(Id<GameObjectTag> id)               override;
+	AnimatedGraphicsComponent*      GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) override;
 
 	void PhysicsUpdate(b2WorldId world_id, const Tilemap* current_tilemap, float delta);
 	void Update();

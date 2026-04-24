@@ -8,6 +8,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include <NiEngine/BitmapStore.h>
+#include <NiEngine/SoundBufferStore.h>
 #include <NiEngine/GameModeController.h>
 
 namespace ni {
@@ -19,7 +20,9 @@ private:
 	sf::RenderWindow window_;
 
 	GameModeController game_mode_controller_;
-	BitmapStore store_;
+
+	BitmapStore		 bitmap_store_;
+	SoundBufferStore sound_buffer_store_;
 
 public:
 	static sf::Time		time_elapsed;
