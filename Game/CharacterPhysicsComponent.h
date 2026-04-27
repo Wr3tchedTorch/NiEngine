@@ -2,12 +2,13 @@
 
 #include <functional>
 
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <NiEngine/TransformComponent.h>
 #include <NiEngine/PhysicsComponent.h>
 #include <NiEngine/Tilemap.h>
 #include <NiEngine/Subject.h>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics/Rect.hpp>
+#include <NiEngine/TileBlueprint.h>
 
 enum CharacterState
 {
@@ -50,6 +51,10 @@ private:
 	bool falling_through_platform_ = false;
 	
 	void HandleCollisions(ni::TransformComponent& transform_component, const ni::Tilemap* current_tilemap);
+
+	bool CollideTop(   ni::TransformComponent& transform_component, const ni::TileBlueprint& tile, const sf::FloatRect& collision_block);
+	bool CollideBottom(ni::TransformComponent& transform_component, const ni::TileBlueprint& tile, const sf::FloatRect& collision_block);
+	bool CollideFront( ni::TransformComponent& transform_component, const ni::TileBlueprint& tile, const sf::FloatRect& collision_block);
 
 	sf::FloatRect GetFeetBounds(sf::Vector2f position) const;
 	sf::FloatRect GetHeadBounds(sf::Vector2f position) const;

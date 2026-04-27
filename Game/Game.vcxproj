@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CharacterPhysicsComponent.cpp" />
+    <ClCompile Include="CharacterPhysicsComponentCollision.cpp" />
     <ClCompile Include="EntityFactory.cpp" />
     <ClCompile Include="PlatformerGameMode.cpp" />
     <ClCompile Include="Main.cpp" />

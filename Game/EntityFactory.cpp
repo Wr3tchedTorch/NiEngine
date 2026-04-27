@@ -23,7 +23,7 @@ ni::Id<ni::GameObjectTag> EntityFactory::CreatePlatformerCharacter(ni::GameMode&
 
 	ni::TransformComponent transform;
 	transform.GetTransformable().setPosition({100, 100});
-	transform.GetTransformable().setOrigin({ character_size.x / 2.0f, character_size.x / 2.0f });
+	transform.GetTransformable().setOrigin({ character_size.x / 2.0f, character_size.y / 2.0f });	
 
 	update->Init(*graphics.get(), *physics.get());
 	
