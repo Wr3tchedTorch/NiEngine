@@ -7,6 +7,7 @@
 #include <NiEngine/Converter.h>
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/GameMode.h>
+#include <NiEngine/TilemapUtility.h>
 
 PlatformerGameMode::PlatformerGameMode()
 {
@@ -16,13 +17,13 @@ PlatformerGameMode::PlatformerGameMode()
 	world_def.gravity = { 0.0f, 9.8f };
 	GetPhysicsEngine().CreateWorld(world_def);
 
-	RegisterTilemap("maps/level_01/level_01.json");
+	RegisterTilemap("maps/level_00/level_00.json");
 
 	camera_.FitTo(tilemaps_.front().GetBounds());
 
 	entity_factory_.CreatePlatformerCharacter(*this, { 16, 16 }, 12);
 
-	entity_factory_.CreateObstacle(*this, { 16, 16 }, { 3, 9 }, true, true);
+	entity_factory_.CreateObstacle(*this, {14*16, 16*16}, ni::TilemapUtility::GetTextureBounds({ 3, 9 }, 16, 1), true, true);
 }
 
 void PlatformerGameMode::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)

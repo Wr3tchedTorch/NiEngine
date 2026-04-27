@@ -177,7 +177,7 @@
     <ClInclude Include="NiEngine\ServiceLocator.h" />
     <ClInclude Include="NiEngine\SoundBufferStore.h" />
     <ClInclude Include="NiEngine\SoundEngine.h" />
-    <ClInclude Include="TilemapUtility.h" />
+    <ClInclude Include="NiEngine\TilemapUtility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

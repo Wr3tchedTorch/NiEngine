@@ -197,7 +197,7 @@
     <ClInclude Include="NiEngine\GameModeController.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapUtility.h">
+    <ClInclude Include="NiEngine\TilemapUtility.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
   </ItemGroup>

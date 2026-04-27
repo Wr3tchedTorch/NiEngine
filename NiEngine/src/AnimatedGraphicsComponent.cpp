@@ -10,6 +10,7 @@
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/Engine.h>
 #include <NiEngine/Animation.h>
+#include <NiEngine/TilemapUtility.h>
 
 ni::AnimatedGraphicsComponent::AnimatedGraphicsComponent(std::string texture_key, sf::Vector2i sprite_size, int frame_spacing) :
 	ni::StandardGraphicsComponent(texture_key, { {0, 0}, sprite_size })
@@ -86,9 +87,7 @@ void ni::AnimatedGraphicsComponent::NextFrame()
 	current_frame_++;
 	if (current_frame_ < current_animation_.GetEndFrame())
 	{
-		current_frame_rect_ = initial_frame_rect_;
-		current_frame_rect_.position.x = (current_frame_rect_.size.x + frame_spacing_) * current_frame_;
-		current_frame_rect_.position.y = (current_frame_rect_.size.y + frame_spacing_) * current_animation_.animation_row;
+		current_frame_rect_ = TilemapUtility::GetTextureBounds({current_frame_, current_animation_.animation_row}, current_frame_rect_.size.x, 1);
 		
 		time_since_last_animation_frame_ = ni::Engine::time_elapsed;
 		return;
