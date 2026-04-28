@@ -1,5 +1,8 @@
 #include "ObstacleUpdateComponent.h"
 
+#include <memory>
+#include <utility>
+
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Id.h>
@@ -8,6 +11,7 @@
 #include <SFML/Graphics/Rect.hpp>
 
 #include "CharacterPhysicsComponent.h"
+#include "ObstacleCollisionComponent.h"
 
 ObstacleUpdateComponent::ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id) : ni::UpdateComponent(component_locator),
 	player_id_(player_id)
@@ -15,25 +19,38 @@ ObstacleUpdateComponent::ObstacleUpdateComponent(ni::ComponentLocator& component
 	owner_id_ = id;
 }
 
+void ObstacleUpdateComponent::RegisterCollisionComponent(std::unique_ptr<ObstacleCollisionComponent> collision_component)
+{
+	collision_components_.push_back(std::move(collision_component));
+}
+
 void ObstacleUpdateComponent::Update()
 {
 	HandleCollisions();
 }
 
-void ObstacleUpdateComponent::CollideTop(sf::FloatRect collision_box, ni::TransformComponent* player_transform, CharacterPhysicsComponent* player_physics)
+void ObstacleUpdateComponent::CollideTop(sf::FloatRect collision_box)
 {
-	player_physics->CollideBottom(*player_transform, collision_box);
-	player_physics->SetIsOnGround(true);
+	for (auto& collision : collision_components_)
+	{
+		collision->SolveTopCollision(collision_box, component_locator_, player_id_);
+	}
 }
 
-void ObstacleUpdateComponent::CollideBottom(sf::FloatRect collision_box, ni::TransformComponent* player_transform, CharacterPhysicsComponent* player_physics)
+void ObstacleUpdateComponent::CollideBottom(sf::FloatRect collision_box)
 {
-	player_physics->CollideTop(*player_transform, collision_box);
+	for (auto& collision : collision_components_)
+	{
+		collision->SolveBottomCollision(collision_box, component_locator_, player_id_);
+	}
 }
 
-void ObstacleUpdateComponent::CollideFront(sf::FloatRect collision_box, ni::TransformComponent* player_transform, CharacterPhysicsComponent* player_physics)
+void ObstacleUpdateComponent::CollideFront(sf::FloatRect collision_box)
 {
-	player_physics->CollideFront(*player_transform, collision_box);
+	for (auto& collision : collision_components_)
+	{
+		collision->SolveFrontCollision(collision_box, component_locator_, player_id_);
+	}
 }
 
 void ObstacleUpdateComponent::HandleCollisions()
@@ -47,21 +64,24 @@ void ObstacleUpdateComponent::HandleCollisions()
 	collision_box.size     = { 16, 16 };
 
 	if (collision_box.findIntersection(player_physics->GetFeetBounds(player_transform->GetTransformable().getPosition())))
-	{
-		CollideTop(collision_box, player_transform, player_physics);
+	{		
+		CollideTop(collision_box);
 	}
 	else
 	{
-		player_physics->SetIsOnGround(false);
+		for (auto& collision : collision_components_)
+		{
+			collision->SolveTopCollisionLost(collision_box, component_locator_, player_id_);
+		}
 	}
 
 	if (collision_box.findIntersection(player_physics->GetFrontBounds(player_transform->GetTransformable().getPosition())))
 	{
-		CollideFront(collision_box, player_transform, player_physics);
+		CollideFront(collision_box);
 	}
 
 	if (collision_box.findIntersection(player_physics->GetHeadBounds(player_transform->GetTransformable().getPosition())))
 	{
-		CollideBottom(collision_box, player_transform, player_physics);
+		CollideBottom(collision_box);
 	}
 }

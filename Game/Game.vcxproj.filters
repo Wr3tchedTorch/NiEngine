@@ -58,6 +58,12 @@
       <Filter>Source Files\Components\ObstacleCollision</Filter>
     </ClCompile>
     <ClCompile Include="ObstacleSolidCollisionComponent.cpp">
+      <Filter>Source Files\Components\ObstacleCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleHarmfulCollisionComponent.cpp">
+      <Filter>Source Files\Components\ObstacleCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingObstacleUpdateComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,6 +90,12 @@
       <Filter>Header Files\Components\Obstacle Collision</Filter>
     </ClInclude>
     <ClInclude Include="ObstacleSolidCollisionComponent.h">
+      <Filter>Header Files\Components\Obstacle Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleHarmfulCollisionComponent.h">
+      <Filter>Header Files\Components\Obstacle Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingObstacleUpdateComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
