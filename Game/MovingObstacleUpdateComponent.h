@@ -12,12 +12,22 @@
 class MovingObstacleUpdateComponent : public ObstacleUpdateComponent
 {
 public:
-	MovingObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::TransformComponent& transform, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id, sf::Vector2i position_offset, float delay_in_seconds);
+	MovingObstacleUpdateComponent(
+		ni::ComponentLocator& component_locator, 
+		ni::TransformComponent& transform, 
+		ni::Id<ni::GameObjectTag> id, 
+		ni::Id<ni::GameObjectTag> player_id, 
+		sf::Vector2i position_movement_offset,
+		float movement_trigger_distance,
+		sf::Vector2f collision_box_size,
+		float delay_in_seconds
+	);
 	
 	void Update() override;
 
 private:
-	sf::Vector2i position_offset_ = {};
+	sf::Vector2i movement_position_offset_ = {};
+	float movement_trigger_distance_;
 
 	sf::Vector2f target_position_ = {};
 	sf::Vector2f start_position_  = {};

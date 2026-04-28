@@ -17,14 +17,20 @@ protected:
 	std::string texture_key_;
 	sf::IntRect current_frame_rect_;
 
-	bool flip_h_  = false;
-	bool centered = false;
+	bool flip_h_   = false;
+	bool centered_ = false;
+	bool repeat_   = false;
+
+	sf::Vector2i repeat_amount_;
 
 public:
 	StandardGraphicsComponent(std::string texture_key, sf::IntRect frame_rect = {});
 
 	void FlipH(bool new_value);
-	void CenterOrigin(bool center);
+	void SetOriginCentered(bool center);
+	void SetTiled(bool value);
+
+	void SetRepeating(sf::Vector2i amount);
 	
 	sf::Vector2i GetSpriteSize() const;
 

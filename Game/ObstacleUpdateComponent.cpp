@@ -3,21 +3,25 @@
 #include <memory>
 #include <utility>
 
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Id.h>
 #include <NiEngine/UpdateComponent.h>
 #include <NiEngine/TransformComponent.h>
-#include <SFML/Graphics/Rect.hpp>
 
 #include "CharacterPhysicsComponent.h"
 #include "ObstacleCollisionComponent.h"
 
-ObstacleUpdateComponent::ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id) : ni::UpdateComponent(component_locator),
-	player_id_(player_id)
+ObstacleUpdateComponent::ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id, sf::Vector2f collision_box_size) 
+	: ni::UpdateComponent(component_locator),
+	  player_id_(player_id)
 {
 	owner_id_ = id;
+	collision_box_size_ = collision_box_size;
 }
+
 
 void ObstacleUpdateComponent::RegisterCollisionComponent(std::unique_ptr<ObstacleCollisionComponent> collision_component)
 {
@@ -61,7 +65,7 @@ void ObstacleUpdateComponent::HandleCollisions()
 
 	sf::FloatRect collision_box;
 	collision_box.position = transform->GetTransformable().getPosition();
-	collision_box.size     = { 16, 16 };
+	collision_box.size     = collision_box_size_;
 
 	if (collision_box.findIntersection(player_physics->GetFeetBounds(player_transform->GetTransformable().getPosition())))
 	{		

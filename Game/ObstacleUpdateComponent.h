@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <NiEngine/UpdateComponent.h>
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/ComponentLocator.h>
@@ -14,13 +15,14 @@
 class ObstacleUpdateComponent : public ni::UpdateComponent
 {
 public:
-	ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id);
+	ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id, sf::Vector2f collision_box_size);
 	
 	void RegisterCollisionComponent(std::unique_ptr<ObstacleCollisionComponent> collision_component);
 	virtual void Update() override;
 
 protected:
 	ni::Id<ni::GameObjectTag> player_id_;
+	sf::Vector2f collision_box_size_;
 	
 	virtual void CollideTop	  (sf::FloatRect collision_box);
 	virtual void CollideBottom(sf::FloatRect collision_box);

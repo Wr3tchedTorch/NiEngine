@@ -18,9 +18,15 @@ void ni::StandardGraphicsComponent::FlipH(bool new_value)
 	flip_h_ = new_value;
 }
 
-void ni::StandardGraphicsComponent::CenterOrigin(bool center)
+void ni::StandardGraphicsComponent::SetOriginCentered(bool center)
 {
-	centered = true;
+	centered_ = true;
+}
+
+void ni::StandardGraphicsComponent::SetRepeating(sf::Vector2i amount)
+{
+	repeat_ = true;
+	repeat_amount_ = amount;
 }
 
 sf::Vector2i ni::StandardGraphicsComponent::GetSpriteSize() const
@@ -30,24 +36,35 @@ sf::Vector2i ni::StandardGraphicsComponent::GetSpriteSize() const
 
 void ni::StandardGraphicsComponent::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
-	sf::Sprite sprite(store.GetTexture(texture_key_));
-
-	sprite.scale({ flip_h_ ? -1.0f : 1.0f, 1.0f });
-
-	if (centered)
-	{
-		sprite.setOrigin(
-		{
-			current_frame_rect_.size.x / 2.0f,
-			current_frame_rect_.size.y / 2.0f
-		});
-	}
-
 	bool isFrameRectValid = current_frame_rect_.size.x > 0 && current_frame_rect_.size.y > 0;
-	if (isFrameRectValid)
+	for (int x = 0; x <= repeat_amount_.x; ++x)
 	{
-		sprite.setTextureRect(current_frame_rect_);
-	}
+		for (int y = 0; y <= repeat_amount_.y; ++y)
+		{
+			sf::Sprite sprite(store.GetTexture(texture_key_));
 
-	target.draw(sprite, states);
+			sprite.scale({ flip_h_ ? -1.0f : 1.0f, 1.0f });	
+
+			sprite.setOrigin(
+			{
+				-static_cast<float>(current_frame_rect_.size.x * x),
+				-static_cast<float>(current_frame_rect_.size.y * y)
+			});
+
+			if (centered_)
+			{
+				sprite.setOrigin(
+				{
+					current_frame_rect_.size.x / 2.0f,
+					current_frame_rect_.size.y / 2.0f
+				});
+			}
+
+			if (isFrameRectValid)
+			{
+				sprite.setTextureRect(current_frame_rect_);
+			}
+			target.draw(sprite, states);
+		}
+	}
 }
