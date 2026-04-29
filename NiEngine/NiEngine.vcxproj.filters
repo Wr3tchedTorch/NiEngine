@@ -128,7 +128,7 @@
     <ClInclude Include="NiEngine\TileBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
-    <ClInclude Include="NiEngine\TilemapBlueprint.h">
+    <ClInclude Include="NiEngine\LevelBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\TilesetBlueprint.h">
@@ -209,6 +209,12 @@
     <ClInclude Include="NiEngine\ObjectLayerBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
+    <ClInclude Include="NiEngine\Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\ObjectMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -279,6 +285,15 @@
     </ClCompile>
     <ClCompile Include="NiEngine\ObjectTemplateBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NiEngine\TiledUtility.h">
+      <Filter>Header Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

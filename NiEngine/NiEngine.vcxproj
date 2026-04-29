@@ -137,6 +137,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NiEngine\Level.h" />
     <ClInclude Include="NiEngine\Animation.h" />
     <ClInclude Include="NiEngine\AnimatedGraphicsComponent.h" />
     <ClInclude Include="NiEngine\ComponentLocator.h" />
@@ -168,7 +169,7 @@
     <ClInclude Include="NiEngine\StandardGraphicsComponent.h" />
     <ClInclude Include="NiEngine\TileBlueprint.h" />
     <ClInclude Include="NiEngine\Tilemap.h" />
-    <ClInclude Include="NiEngine\TilemapBlueprint.h" />
+    <ClInclude Include="NiEngine\LevelBlueprint.h" />
     <ClInclude Include="NiEngine\TilemapCollisionComponent.h" />
     <ClInclude Include="NiEngine\TilemapGraphicsComponent.h" />
     <ClInclude Include="NiEngine\TilesetBlueprint.h" />
@@ -180,12 +181,15 @@
     <ClInclude Include="NiEngine\SoundBufferStore.h" />
     <ClInclude Include="NiEngine\SoundEngine.h" />
     <ClInclude Include="NiEngine\TilemapUtility.h" />
+    <ClInclude Include="NiEngine\ObjectMap.h" />
     <ClInclude Include="PropertyBlueprint.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ObjectMap.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="NiEngine\MathUtility.h" />
     <ClCompile Include="NiEngine\ObjectTemplateBlueprint.h" />
     <ClCompile Include="src\SoundBufferStore.cpp" />
@@ -208,6 +212,7 @@
     <ClCompile Include="src\TilemapGraphicsComponent.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\UpdateComponent.cpp" />
+    <ClCompile Include="NiEngine\TiledUtility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

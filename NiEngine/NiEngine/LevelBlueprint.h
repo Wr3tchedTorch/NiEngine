@@ -12,7 +12,7 @@ using json = nlohmann::json;
 
 namespace ni {
 
-struct TilemapBlueprint
+struct LevelBlueprint
 {
 	sf::Vector2i tile_size_ = {};
 	sf::Vector2i map_size_ = {};
@@ -21,7 +21,7 @@ struct TilemapBlueprint
 	std::vector<LayerBlueprint>	  layers_ = {};
 };
 
-inline void to_json(json& j, const TilemapBlueprint& tb)
+inline void to_json(json& j, const LevelBlueprint& tb)
 {
 	j =
 	{
@@ -34,7 +34,7 @@ inline void to_json(json& j, const TilemapBlueprint& tb)
 	};	
 }
 
-inline void from_json(const json& j, TilemapBlueprint& tb)
+inline void from_json(const json& j, LevelBlueprint& tb)
 {
 	j.at("height").get_to(tb.map_size_.y);
 	j.at("width").get_to(tb.map_size_.x);
