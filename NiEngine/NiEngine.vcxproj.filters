@@ -209,10 +209,10 @@
     <ClInclude Include="NiEngine\ObjectLayerBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
-    <ClInclude Include="NiEngine\ObjectMap.h">
+    <ClInclude Include="NiEngine\Level.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="NiEngine\Level.h">
+    <ClInclude Include="NiEngine\ObjectFactory.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
@@ -289,10 +289,10 @@
     <ClCompile Include="NiEngine\TiledUtility.h">
       <Filter>Header Files\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="src\ObjectMap.cpp">
+    <ClCompile Include="src\Level.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Level.cpp">
+    <ClCompile Include="src\ObjectFactory.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>

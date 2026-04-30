@@ -2,15 +2,15 @@
 
 #include <string>
 #include <unordered_map>
+#include <algorithm>
+#include <type_traits>
+#include <vector>
 
 #include <SFML/System/Vector2.hpp>
 #include <nlohmann/json.hpp>
 
 #include <NiEngine/MapUtility.h>
 #include <NiEngine/TileBlueprint.h>
-#include <algorithm>
-#include <type_traits>
-#include <vector>
 
 using json = nlohmann::json;
 

@@ -8,8 +8,6 @@
 #include "Id.h"
 #include "GraphicsComponent.h"
 #include "AnimatedGraphicsComponent.h"
-#include <string>
-#include "UpdateComponent.h"
 
 namespace ni {
 
@@ -20,7 +18,6 @@ public:
 	virtual PhysicsComponent*   GetPhysicsComponent(Id<GameObjectTag> id)   = 0;
 	virtual std::vector<GraphicsComponent*> GetGraphicsComponents(Id<GameObjectTag> id) = 0;
 	virtual AnimatedGraphicsComponent* GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) = 0;
-	virtual UpdateComponent* GetFirstUpdateByTag(const std::string& tag) = 0;
 };
 
 }

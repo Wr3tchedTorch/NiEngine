@@ -15,8 +15,6 @@
 #include <NiEngine/GraphicsComponent.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
 #include <NiEngine/Tilemap.h>
-#include <string>
-#include <NiEngine/UpdateComponent.h>
 
 ni::TransformComponent* ni::ComponentStore::GetTransformComponent(Id<ni::GameObjectTag> id)
 {
@@ -72,12 +70,9 @@ void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id, const Tilemap& curren
 
 void ni::ComponentStore::Update()
 {
-	for (auto& [tag, components] : update_components_)
+	for (auto& [id, component] : update_components_)
 	{
-		for (auto& component : components)
-		{
-			component->Update();
-		}
+		component->Update();
 	}
 }
 
@@ -99,18 +94,6 @@ void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates state
 		}
 
 	}
-}
-
-ni::UpdateComponent* ni::ComponentStore::GetFirstUpdateByTag(const std::string& tag)
-{
-	for (auto& [group_tag, components] : update_components_)
-	{
-		if (group_tag == tag)
-		{
-			return components.front().get();
-		}
-	}
-	return nullptr;
 }
 
 std::vector<ni::GraphicsComponent*> ni::ComponentStore::GetGraphicsComponents(Id<ni::GameObjectTag> id)

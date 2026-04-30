@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <unordered_map>
 
 #include <nlohmann/json.hpp>
 
@@ -19,7 +19,7 @@ struct ObjectTemplateBlueprint
 	int width_ = 16;
 	std::string name_ = "";
 
-	std::vector<PropertyBlueprint> properties_;
+	std::unordered_map<std::string, PropertyBlueprint> properties_map_;
 
 	TilesetReference tileset_reference_ = {};
 };
@@ -30,9 +30,13 @@ inline void to_json(json& j, const ObjectTemplateBlueprint& lb)
 		{ "name", lb.name_ },
 		{ "id", lb.id_ },
 		{ "gid", lb.tile_gid_ },
-		{ "width", lb.width_ },
-		{ "properties", lb.properties_ }
+		{ "width", lb.width_ }
 	};
+
+	for (auto& [key, value] : lb.properties_map_)
+	{
+		j["properties"] += value;
+	}
 
 	j =
 	{
@@ -42,12 +46,16 @@ inline void to_json(json& j, const ObjectTemplateBlueprint& lb)
 
 inline void from_json(const json& j, ObjectTemplateBlueprint& lb)
 {
-	j.at("name").get_to(lb.name_);
-	j.at("id").get_to(lb.id_);
-	j.at("gid").get_to(lb.tile_gid_);
-	j.at("width").get_to(lb.width_);
+	j.at("object").at("name")   .get_to(lb.name_);
+	j.at("object").at("id")     .get_to(lb.id_);
+	j.at("object").at("gid")    .get_to(lb.tile_gid_);
+	j.at("object").at("width")  .get_to(lb.width_);
 	j.at("tileset").get_to(lb.tileset_reference_);
-	j.at("properties").get_to(lb.properties_);
+
+	for (auto& property : j.at("object").at("properties"))
+	{
+		lb.properties_map_[property.at("name")] = property;
+	}
 }
 
 }

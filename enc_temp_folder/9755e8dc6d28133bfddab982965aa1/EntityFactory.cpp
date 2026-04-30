@@ -4,6 +4,8 @@
 #include <utility>
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <NiEngine/StandardGraphicsComponent.h>
 #include <NiEngine/Id.h>
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/GameMode.h>
@@ -12,6 +14,8 @@
 
 #include "CharacterPhysicsComponent.h"
 #include "PlayerUpdateComponent.h"
+#include "ObstacleHarmfulCollisionComponent.h"
+#include "MovingObstacleUpdateComponent.h"
 
 ni::Id<ni::GameObjectTag> EntityFactory::CreatePlatformerCharacter(ni::GameMode& game_mode, sf::Vector2i character_size, int animation_row)
 {

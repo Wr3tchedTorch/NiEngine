@@ -44,8 +44,8 @@
             "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 800,
-                "y": 559
+                "x": 754,
+                "y": 505
             }
         },
         "maps/rules/ground_autotile_rules.tmx": {

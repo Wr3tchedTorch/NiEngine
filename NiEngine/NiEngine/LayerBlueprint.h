@@ -81,11 +81,7 @@ inline void from_json(const json& j, LayerBlueprint& lb)
 	j.at("name").get_to(lb.name_);
 	j.at("opacity").get_to(lb.opacity_);
 	j.at("visible").get_to(lb.visible_);
-
-	if (j.contains("data"))
-	{
-		j.at("data").get_to(lb.data_);
-	}
+	j.at("data").get_to(lb.data_);
 }
 
 }

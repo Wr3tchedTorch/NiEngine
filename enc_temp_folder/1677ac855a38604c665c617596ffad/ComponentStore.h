@@ -20,7 +20,6 @@
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
 #include "Tilemap.h"
-#include <string>
 
 namespace ni {
 
@@ -29,8 +28,8 @@ class ComponentStore : public ComponentLocator
 private:
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>> transform_components_ = {};
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>   physics_components_   = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>	   update_components_	 = {};
 	std::unordered_map<Id<GameObjectTag>, std::vector<std::unique_ptr<GraphicsComponent>>> graphics_components_  = {};
-	std::unordered_map<std::string, std::vector<std::unique_ptr<UpdateComponent>>> update_components_ = {};
 
 public:
 	// Component Attaching/Removing
@@ -39,9 +38,9 @@ public:
 		physics_components_.emplace(target, std::move(component));
 	}
 
-	void AttachUpdateComponent(std::string tag, std::unique_ptr<UpdateComponent> component)
+	void AttachUpdateComponent(Id<GameObjectTag> target, std::unique_ptr<UpdateComponent> component)
 	{
-		update_components_[tag].push_back(std::move(component));
+		update_components_.emplace(target, std::move(component));
 	}
 
 	void AttachGraphicsComponent(Id<GameObjectTag> target, std::unique_ptr<GraphicsComponent> component)
@@ -59,6 +58,11 @@ public:
 		physics_components_.erase(target);
 	}
 
+	void RemoveUpdateComponent(Id<GameObjectTag> target)
+	{
+		update_components_.erase(target);
+	}
+
 	void RemoveGraphicsComponent(Id<GameObjectTag> target)
 	{
 		graphics_components_.erase(target);
@@ -73,8 +77,7 @@ public:
 	std::vector<GraphicsComponent*> GetGraphicsComponents(Id<GameObjectTag> id)				override;
 	TransformComponent*             GetTransformComponent(Id<GameObjectTag> id)				override;
 	PhysicsComponent*	            GetPhysicsComponent(Id<GameObjectTag> id)               override;
-	AnimatedGraphicsComponent*      GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) override;	
-	UpdateComponent* GetFirstUpdateByTag(const std::string& tag) override;
+	AnimatedGraphicsComponent*      GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) override;
 
 	void PhysicsUpdate(b2WorldId world_id, const Tilemap& current_tilemap, float delta);
 	void Update();

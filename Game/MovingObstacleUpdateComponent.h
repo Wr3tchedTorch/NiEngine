@@ -16,7 +16,6 @@ public:
 		ni::ComponentLocator& component_locator, 
 		ni::TransformComponent& transform, 
 		ni::Id<ni::GameObjectTag> id, 
-		ni::Id<ni::GameObjectTag> player_id, 
 		sf::Vector2i position_movement_offset,
 		float movement_trigger_distance,
 		sf::Vector2f collision_box_size,

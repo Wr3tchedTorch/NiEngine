@@ -37,10 +37,10 @@ inline void from_json(const json& j, PropertyBlueprint& pb)
 	j.at("name") .get_to(pb.name_);
 	j.at("type") .get_to(pb.type_);
 	
-	if (pb.type_ == "float") pb.value_ = j.at("value").get<float>();
-	if (pb.type_ == "int")   pb.value_ = j.at("value").get<int>  ();
-	if (pb.type_ == "bool")  pb.value_ = j.at("value").get<bool> ();
-	else                     pb.value_ = j.at("value").get<std::string>();
+	if      (pb.type_ == "float") pb.value_ = j.at("value").get<float>();
+	else if (pb.type_ == "int")   pb.value_ = j.at("value").get<int>  ();
+	else if (pb.type_ == "bool")  pb.value_ = j.at("value").get<bool> ();
+	else                          pb.value_ = j.at("value").get<std::string>();
 }
 
 }

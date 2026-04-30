@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <string>
 #include <vector>
+#include <utility>
 #include <format>
 
 #include <SFML/Graphics/RenderStates.hpp>
@@ -17,22 +18,26 @@
 #include <NiEngine/LayerBlueprint.h>
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/Tilemap.h>
+#include <NiEngine/ObjectFactory.h>
+#include <NiEngine/GameMode.h>
 
 void ni::Level::SetTotalLevelCount(int count)
 {
 	num_of_levels_ = count;
 }
 
-void ni::Level::ReloadLevel()
+void ni::Level::ReloadLevel(GameMode& mode)
 {
 	LoadLevel(current_level_);
+
+	LoadObjects(mode);
 }
 
-void ni::Level::LoadNextLevel()
+void ni::Level::LoadNextLevel(GameMode& mode)
 {
 	current_level_++;
 
-	LoadLevel(current_level_);
+	ReloadLevel(mode);
 }
 
 void ni::Level::EnableTilemapCollisions(b2WorldId world_id)
@@ -76,12 +81,21 @@ void ni::Level::LoadLevel(int index)
 	for (int i = 0; i < current_level_blueprint_.layers_.size(); ++i)
 	{
 		LayerBlueprint& layer_blueprint = current_level_blueprint_.layers_[i];
-		if (layer_blueprint.name_ == kPrototypeLayerName || layer_blueprint.type_ == kObjectsLayerType)
+		if (layer_blueprint.name_ == kPrototypeLayerName)
 		{
 			continue;
 		}
+		if (layer_blueprint.type_ == kObjectsLayerType)
+		{
+			return;
+		}
 		tilemap_.LoadTiles(layer_blueprint, tileset_blueprints_);
 	}
+}
+
+void ni::Level::RegisterObjectFactory(std::unique_ptr<ObjectFactory> factory)
+{
+	factory_ = std::move(factory);
 }
 
 void ni::Level::LoadTilesetBlueprints(const std::vector<TilesetReference>&tileset_references)
@@ -98,5 +112,13 @@ void ni::Level::LoadTilesetBlueprints(const std::vector<TilesetReference>&tilese
 		tileset_blueprint.first_gid_ = tileset_reference.first_gid_;
 
 		tileset_blueprints_.emplace_back(tileset_blueprint);
+	}
+}
+
+void ni::Level::LoadObjects(GameMode& mode)
+{
+	for (auto& object_layer : current_level_blueprint_.object_layers_)
+	{
+		factory_->LoadObjects(object_layer, tileset_blueprints_, mode);
 	}
 }

@@ -15,7 +15,7 @@
 class ObstacleUpdateComponent : public ni::UpdateComponent
 {
 public:
-	ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id, sf::Vector2f collision_box_size);
+	ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, sf::Vector2f collision_box_size);
 	
 	void RegisterCollisionComponent(std::unique_ptr<ObstacleCollisionComponent> collision_component);
 	virtual void Update() override;

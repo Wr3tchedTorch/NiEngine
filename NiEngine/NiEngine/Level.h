@@ -4,19 +4,22 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "TilesetBlueprint.h"
 #include "Tilemap.h"
-#include "ObjectMap.h"
+#include "ObjectFactory.h"
 #include "LevelBlueprint.h"
 #include "LayerBlueprint.h"
 #include "TilesetReference.h"
 #include "BitmapStore.h"
 
 namespace ni {
+
+class GameMode;
 
 class Level
 {
@@ -29,9 +32,10 @@ public:
 	inline static const std::string kObjectsLayerType = "objectgroup";
 
 	void SetTotalLevelCount(int count);
-	void ReloadLevel();
-	void LoadNextLevel();
+	void ReloadLevel  (GameMode& mode);
+	void LoadNextLevel(GameMode& mode);
 	void LoadLevel(int index);
+	void RegisterObjectFactory(std::unique_ptr<ObjectFactory> factory);
 
 	void EnableTilemapCollisions(b2WorldId world_id);
 
@@ -49,10 +53,11 @@ private:
 
 	std::string last_loaded_file_ = "";
 
-	Tilemap   tilemap_;
-	ObjectMap object_map_;
+	Tilemap tilemap_;
+	std::unique_ptr<ObjectFactory> factory_;
 
 	void LoadTilesetBlueprints(const std::vector<TilesetReference>& tileset_references);
+	void LoadObjects(GameMode& mode);
 };
 
 }

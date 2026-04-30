@@ -14,9 +14,8 @@
 #include "CharacterPhysicsComponent.h"
 #include "ObstacleCollisionComponent.h"
 
-ObstacleUpdateComponent::ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, ni::Id<ni::GameObjectTag> player_id, sf::Vector2f collision_box_size) 
-	: ni::UpdateComponent(component_locator),
-	  player_id_(player_id)
+ObstacleUpdateComponent::ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, sf::Vector2f collision_box_size) 
+	: ni::UpdateComponent(component_locator)
 {
 	owner_id_ = id;
 	collision_box_size_ = collision_box_size;

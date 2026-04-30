@@ -8,6 +8,8 @@
 #include <NiEngine/LayerBlueprint.h>
 #include <NiEngine/TilesetReference.h>
 
+#include "ObjectLayerBlueprint.h"
+
 using json = nlohmann::json;
 
 namespace ni {
@@ -18,7 +20,9 @@ struct LevelBlueprint
 	sf::Vector2i map_size_ = {};
 
 	std::vector<TilesetReference> tileset_references_ = {};
-	std::vector<LayerBlueprint>	  layers_ = {};
+	
+	std::vector<LayerBlueprint>	      layers_        = {};
+	std::vector<ObjectLayerBlueprint> object_layers_ = {};
 };
 
 inline void to_json(json& j, const LevelBlueprint& tb)
@@ -30,7 +34,7 @@ inline void to_json(json& j, const LevelBlueprint& tb)
 		{"tileWidth",  tb.tile_size_.x },
 		{"tileHeight", tb.tile_size_.y },
 		{"tilesets",   tb.tileset_references_ },
-		{"layers",     tb.layers_ }
+		{"layers",     tb.layers_ },
 	};	
 }
 
@@ -43,7 +47,20 @@ inline void from_json(const json& j, LevelBlueprint& tb)
 	j.at("tileheight").get_to(tb.tile_size_.y);
 
 	j.at("tilesets").get_to(tb.tileset_references_);
-	j.at("layers").get_to(tb.layers_);	
+
+	for (auto& layer : j.at("layers"))
+	{
+		std::string dump = layer.dump(4);
+		if (layer.contains("data"))
+		{
+			tb.layers_.push_back(layer);
+			continue;
+		}
+		if (layer.contains("objects"))
+		{
+			tb.object_layers_.push_back(layer);
+		}
+	}
 }
 
 }

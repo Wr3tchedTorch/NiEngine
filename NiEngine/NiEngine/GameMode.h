@@ -2,8 +2,6 @@
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
-#include <vector>
-#include <string>
 
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/ComponentStore.h>

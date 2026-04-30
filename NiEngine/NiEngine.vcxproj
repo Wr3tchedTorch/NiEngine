@@ -181,14 +181,14 @@
     <ClInclude Include="NiEngine\SoundBufferStore.h" />
     <ClInclude Include="NiEngine\SoundEngine.h" />
     <ClInclude Include="NiEngine\TilemapUtility.h" />
-    <ClInclude Include="NiEngine\ObjectMap.h" />
+    <ClInclude Include="NiEngine\ObjectFactory.h" />
     <ClInclude Include="PropertyBlueprint.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ObjectMap.cpp" />
+    <ClCompile Include="src\ObjectFactory.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="NiEngine\MathUtility.h" />
     <ClCompile Include="NiEngine\ObjectTemplateBlueprint.h" />
