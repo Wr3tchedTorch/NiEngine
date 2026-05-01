@@ -12,10 +12,13 @@
 
 #include "CharacterPhysicsComponent.h"
 #include "PlayerUpdateComponent.h"
+#include "PlatformerGameMode.h"
 
 ni::Id<ni::GameObjectTag> EntityFactory::CreatePlatformerCharacter(ni::GameMode& game_mode, sf::Vector2i character_size, int animation_row)
 {
 	ni::Id<ni::GameObjectTag> id = game_mode.CreateGameObject();
+
+	game_mode.GetComponentStore().RegisterTagForId(id, PlatformerGameMode::kPlayerTag);
 
 	auto physics  = std::make_unique<CharacterPhysicsComponent>(character_size);
 	auto graphics = std::make_unique<ni::AnimatedGraphicsComponent>("graphics/tilemap.png", sf::Vector2i(16, 16), 1);	

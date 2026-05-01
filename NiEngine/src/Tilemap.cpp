@@ -136,7 +136,7 @@ bool ni::Tilemap::IsTileEmpty(sf::Vector2i tile_grid_position) const
 
 	for (auto& layer : layers_)
 	{
-		if (layer.name_ == Level::kPrototypeLayerName || layer.type_ == Level::kObjectsLayerType)
+		if (layer.name_ == Level::kPrototypeLayerName || layer.name_ == Level::kIgnoreLayerName || layer.type_ == Level::kObjectsLayerType)
 		{
 			continue;
 		}

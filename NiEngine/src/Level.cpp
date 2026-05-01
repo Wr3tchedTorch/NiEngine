@@ -81,13 +81,9 @@ void ni::Level::LoadLevel(int index)
 	for (int i = 0; i < current_level_blueprint_.layers_.size(); ++i)
 	{
 		LayerBlueprint& layer_blueprint = current_level_blueprint_.layers_[i];
-		if (layer_blueprint.name_ == kPrototypeLayerName)
+		if (layer_blueprint.name_ == kPrototypeLayerName || layer_blueprint.name_ == kIgnoreLayerName || layer_blueprint.type_ == kObjectsLayerType)
 		{
 			continue;
-		}
-		if (layer_blueprint.type_ == kObjectsLayerType)
-		{
-			return;
 		}
 		tilemap_.LoadTiles(layer_blueprint, tileset_blueprints_);
 	}

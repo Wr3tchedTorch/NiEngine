@@ -8,7 +8,7 @@ namespace ni {
 template <typename Tag>
 struct Id
 {
-	uint32_t id_ = 0;
+	uint32_t id_ = -1;
 
 	bool operator==(const Id& other) const
 	{

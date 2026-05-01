@@ -1,17 +1,19 @@
 #pragma once
 
 #include <vector>
+#include <string>
+#include <unordered_map>
 
 #include "TransformComponent.h"
 #include "PhysicsComponent.h"
 #include "GameObjectTag.h"
-#include "Id.h"
 #include "GraphicsComponent.h"
 #include "AnimatedGraphicsComponent.h"
-#include <string>
-#include "UpdateComponent.h"
+#include "Id.h"
 
 namespace ni {
+
+class UpdateComponent;
 
 class ComponentLocator
 {
@@ -20,7 +22,11 @@ public:
 	virtual PhysicsComponent*   GetPhysicsComponent(Id<GameObjectTag> id)   = 0;
 	virtual std::vector<GraphicsComponent*> GetGraphicsComponents(Id<GameObjectTag> id) = 0;
 	virtual AnimatedGraphicsComponent* GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) = 0;
-	virtual UpdateComponent* GetFirstUpdateByTag(const std::string& tag) = 0;
+
+	virtual Id<GameObjectTag> GetIdByTag(std::string tag) = 0;
+
+protected:
+	std::unordered_map<std::string, Id<GameObjectTag>> id_tag_map_;
 };
 
 }

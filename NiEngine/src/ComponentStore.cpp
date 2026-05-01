@@ -3,6 +3,7 @@
 #include <id.h>
 
 #include <vector>
+#include <iostream>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -55,6 +56,11 @@ ni::AnimatedGraphicsComponent* ni::ComponentStore::GetFirstAnimatedGraphicsCompo
 	return nullptr;
 }
 
+void ni::ComponentStore::RegisterTagForId(Id<GameObjectTag> target, std::string tag)
+{
+	id_tag_map_.emplace(tag, target);
+}
+
 void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id, const Tilemap& current_tilemap, float delta)
 {
 	for (auto& [id, component] : physics_components_)
@@ -72,12 +78,9 @@ void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id, const Tilemap& curren
 
 void ni::ComponentStore::Update()
 {
-	for (auto& [tag, components] : update_components_)
+	for (auto& [id, component] : update_component_)
 	{
-		for (auto& component : components)
-		{
-			component->Update();
-		}
+		component->Update();
 	}
 }
 
@@ -101,16 +104,18 @@ void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates state
 	}
 }
 
-ni::UpdateComponent* ni::ComponentStore::GetFirstUpdateByTag(const std::string& tag)
+ni::Id<ni::GameObjectTag> ni::ComponentStore::GetIdByTag(std::string tag)
 {
-	for (auto& [group_tag, components] : update_components_)
+	auto it = id_tag_map_.find(tag);
+	if (it == id_tag_map_.end())
 	{
-		if (group_tag == tag)
-		{
-			return components.front().get();
-		}
+#ifdef _DEBUG
+		std::cout << "ComponentLocator: Id not found!";
+#endif // _DEBUG
 	}
-	return nullptr;
+
+
+	return it->second;
 }
 
 std::vector<ni::GraphicsComponent*> ni::ComponentStore::GetGraphicsComponents(Id<ni::GameObjectTag> id)

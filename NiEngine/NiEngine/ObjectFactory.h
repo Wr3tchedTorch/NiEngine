@@ -1,10 +1,13 @@
 #pragma once
 
 #include <vector>
+#include <string>
+#include <unordered_map>
 
 #include "ObjectLayerBlueprint.h"
 #include "ObjectTemplateBlueprint.h"
 #include "TilesetBlueprint.h"
+#include "ObjectBlueprint.h"
 
 namespace ni {
 

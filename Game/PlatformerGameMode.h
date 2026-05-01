@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <NiEngine/GameMode.h>
@@ -11,6 +13,9 @@
 class PlatformerGameMode : public ni::GameMode
 {
 public:
+	inline static const std::string kSpikeTag  = "spike";
+	inline static const std::string kPlayerTag = "player";
+
 	PlatformerGameMode();
 
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;

@@ -11,6 +11,7 @@
 #include <NiEngine/Engine.h>
 
 #include "ObstacleUpdateComponent.h"
+#include "PlatformerGameMode.h"
 
 MovingObstacleUpdateComponent::MovingObstacleUpdateComponent(
 	ni::ComponentLocator& component_locator, 
@@ -46,6 +47,10 @@ void MovingObstacleUpdateComponent::Update()
 
 void MovingObstacleUpdateComponent::LocatePlayer()
 {
+	if (player_id_.id_ == -1)
+	{
+		player_id_ = component_locator_.GetIdByTag(PlatformerGameMode::kPlayerTag);
+	}
 	ni::TransformComponent* transform        = component_locator_.GetTransformComponent(owner_id_);
 	ni::TransformComponent* player_transform = component_locator_.GetTransformComponent(player_id_);	
 

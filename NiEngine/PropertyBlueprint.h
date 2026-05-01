@@ -2,6 +2,7 @@
 
 #include <string>
 #include <variant>
+#include <utility>
 
 #include <nlohmann/json.hpp>
 
@@ -16,6 +17,22 @@ struct PropertyBlueprint
 	std::string   name_  = "";
 	std::string   type_  = "";
 	PropertyValue value_ = {};
+
+	template<typename T>
+	T GetValue()
+	{
+		if (std::holds_alternative<T>(value_))
+		{ 
+			return std::get<T>(value_);
+		}
+		return T{};
+	}
+
+	template<typename T>
+	bool HasValue()
+	{
+		return std::holds_alternative<T>(value_);
+	}
 };
 
 inline void to_json(json& j, const PropertyBlueprint& pb)

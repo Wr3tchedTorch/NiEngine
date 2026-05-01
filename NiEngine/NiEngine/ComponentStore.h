@@ -27,21 +27,21 @@ namespace ni {
 class ComponentStore : public ComponentLocator
 {
 private:
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>> transform_components_ = {};
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>   physics_components_   = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>>             transform_components_ = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>               physics_components_   = {};
 	std::unordered_map<Id<GameObjectTag>, std::vector<std::unique_ptr<GraphicsComponent>>> graphics_components_  = {};
-	std::unordered_map<std::string, std::vector<std::unique_ptr<UpdateComponent>>> update_components_ = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>                update_component_     = {};
 
 public:
-	// Component Attaching/Removing
+	// Component Attaching/Removing	
 	void AttachPhysicsComponent(Id<GameObjectTag> target, std::unique_ptr<PhysicsComponent> component)
 	{		
 		physics_components_.emplace(target, std::move(component));
 	}
 
-	void AttachUpdateComponent(std::string tag, std::unique_ptr<UpdateComponent> component)
+	void AttachUpdateComponent(Id<GameObjectTag> target, std::unique_ptr<UpdateComponent> component)
 	{
-		update_components_[tag].push_back(std::move(component));
+		update_component_.emplace(target, std::move(component));
 	}
 
 	void AttachGraphicsComponent(Id<GameObjectTag> target, std::unique_ptr<GraphicsComponent> component)
@@ -73,12 +73,15 @@ public:
 	std::vector<GraphicsComponent*> GetGraphicsComponents(Id<GameObjectTag> id)				override;
 	TransformComponent*             GetTransformComponent(Id<GameObjectTag> id)				override;
 	PhysicsComponent*	            GetPhysicsComponent(Id<GameObjectTag> id)               override;
-	AnimatedGraphicsComponent*      GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) override;	
-	UpdateComponent* GetFirstUpdateByTag(const std::string& tag) override;
+	AnimatedGraphicsComponent*      GetFirstAnimatedGraphicsComponent(Id<GameObjectTag> id) override;
+	Id<GameObjectTag> GetIdByTag(std::string tag) override;
+
+	void RegisterTagForId(Id<GameObjectTag> target, std::string tag);
 
 	void PhysicsUpdate(b2WorldId world_id, const Tilemap& current_tilemap, float delta);
 	void Update();
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
+
 
 };
 

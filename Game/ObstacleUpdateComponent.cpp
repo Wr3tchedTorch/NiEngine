@@ -13,12 +13,13 @@
 
 #include "CharacterPhysicsComponent.h"
 #include "ObstacleCollisionComponent.h"
+#include "PlatformerGameMode.h"
 
 ObstacleUpdateComponent::ObstacleUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> id, sf::Vector2f collision_box_size) 
 	: ni::UpdateComponent(component_locator)
 {
 	owner_id_ = id;
-	collision_box_size_ = collision_box_size;
+	collision_box_size_ = collision_box_size;	
 }
 
 
@@ -58,6 +59,11 @@ void ObstacleUpdateComponent::CollideFront(sf::FloatRect collision_box)
 
 void ObstacleUpdateComponent::HandleCollisions()
 {
+	if (player_id_.id_ == -1)
+	{
+		player_id_ = component_locator_.GetIdByTag(PlatformerGameMode::kPlayerTag);
+	}
+
 	ni::TransformComponent* transform        = component_locator_.GetTransformComponent(owner_id_ );
 	ni::TransformComponent* player_transform = component_locator_.GetTransformComponent(player_id_);
 	auto player_physics = static_cast<CharacterPhysicsComponent*>(component_locator_.GetPhysicsComponent(player_id_));

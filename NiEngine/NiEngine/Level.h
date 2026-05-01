@@ -29,6 +29,7 @@ public:
 
 	inline static const std::string kPrototypeLayerName = "prototype";
 	inline static const std::string kTerrainLayerName = "terrain";
+	inline static const std::string kIgnoreLayerName  = "gameignore";
 	inline static const std::string kObjectsLayerType = "objectgroup";
 
 	void SetTotalLevelCount(int count);
