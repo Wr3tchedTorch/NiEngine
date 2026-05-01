@@ -8,8 +8,6 @@
 #include <NiEngine/Camera.h>
 #include <NiEngine/BitmapStore.h>
 
-#include "EntityFactory.h"
-
 class PlatformerGameMode : public ni::GameMode
 {
 public:
@@ -18,11 +16,13 @@ public:
 
 	PlatformerGameMode();
 
+	void RestartLevel();
+	virtual void Update(ni::GameModeController& controller) override;
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;
 
 private:
 	ni::Camera camera_;
 
-	EntityFactory entity_factory_;
+	bool restart_level_ = false;
 };
 

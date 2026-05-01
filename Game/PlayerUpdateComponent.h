@@ -7,15 +7,21 @@
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Id.h>
 #include <NiEngine/AnimatedGraphicsComponent.h>
+#include <NiEngine/Subject.h>
 
 #include "CharacterPhysicsComponent.h"
+#include "PlatformerGameMode.h"
 
 class PlayerUpdateComponent : public ni::UpdateComponent
 {
 public:
-	PlayerUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> owner_id);
+	~PlayerUpdateComponent();
+	PlayerUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> owner_id, PlatformerGameMode& game_mode);
+
 	void Init(ni::AnimatedGraphicsComponent& graphics, CharacterPhysicsComponent& physics);
 	void Update() override;
+
+	void Die();
 
 private:
 	inline static const int kAnimationRow = 12;
@@ -23,6 +29,10 @@ private:
 	inline static const std::string kWalkAnimationKey = "walk";
 
 	inline static const std::string kJumpSoundKey = "sounds/jump.wav";
+
+	int key_pressed_event_id_ = 0;
+
+	ni::Subject<> on_player_killed_;
 
 	bool airborne_ = false;
 

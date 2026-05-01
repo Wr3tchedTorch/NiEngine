@@ -39,6 +39,13 @@ private:
 public:
 	TilemapCollisionComponent(b2WorldId world_id);
 
+	void Clear()
+	{
+		exposed_edges_ = {};
+		one_sided_edges_ = {};
+		body_id_ = {};
+	}
+
 	void AddTile(sf::Vector2i grid_position, int tile_gid, const TilesetBlueprint& tileset, const LayerBlueprint& layer, sf::Vector2i map_size, sf::Vector2i tile_size);
 	void CreateCollision();
 };

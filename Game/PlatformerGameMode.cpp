@@ -3,14 +3,13 @@
 #include <types.h>
 #include <memory>
 #include <utility>
+#include <iostream>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <NiEngine/Converter.h>
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/GameMode.h>
-#include <NiEngine/GameObjectTag.h>
-#include <NiEngine/Id.h>
 
 #include "PlatformerObjectFactory.h"
 
@@ -27,8 +26,22 @@ PlatformerGameMode::PlatformerGameMode()
 	level_.LoadNextLevel(*this);
 
 	camera_.FitTo(level_.GetCurrentTilemap().GetBounds());
+}
 
-	ni::Id<ni::GameObjectTag> player_id = entity_factory_.CreatePlatformerCharacter(*this, { 16, 16 }, 12);
+void PlatformerGameMode::RestartLevel()
+{
+	restart_level_ = true;
+}
+
+void PlatformerGameMode::Update(ni::GameModeController& controller)
+{
+	if (restart_level_)
+	{
+		level_.ReloadLevel(*this);
+		restart_level_ = false;
+		return;
+	}
+	GameMode::Update(controller);
 }
 
 void PlatformerGameMode::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)

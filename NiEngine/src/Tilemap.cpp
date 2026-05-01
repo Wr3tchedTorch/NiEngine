@@ -19,6 +19,16 @@
 #include <NiEngine/TiledUtility.h>
 #include <NiEngine/Level.h>
 
+void ni::Tilemap::Clear()
+{
+	graphics_.Clear();
+
+	if (collision_)
+	{
+		collision_->Clear();
+	}
+}
+
 void ni::Tilemap::Init(sf::Vector2i map_size, sf::Vector2i tile_size)
 {
 	map_size_  = map_size;

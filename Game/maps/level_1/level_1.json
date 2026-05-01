@@ -50,6 +50,12 @@
                  "template":"..\/templates\/spike.json",
                  "x":192,
                  "y":256
+                }, 
+                {
+                 "id":16,
+                 "template":"..\/templates\/player.json",
+                 "x":400,
+                 "y":224
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -151,7 +157,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":15,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",

@@ -46,6 +46,11 @@ inline void from_json(const json& j, ObjectBlueprint& lb)
 	j.at("y")         .get_to(lb.position_.y);
 	j.at("template")  .get_to(lb.template_filepath_);
 	
+	if (!j.contains("properties"))
+	{
+		return;	
+	}
+
 	for (auto& property : j.at("properties"))
 	{
 		lb.properties_[property.at("name")] = property;

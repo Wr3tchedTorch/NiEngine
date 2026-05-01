@@ -12,18 +12,28 @@
 #include <SFML/Window/Keyboard.hpp>
 
 #include "CharacterPhysicsComponent.h"
+#include "PlatformerGameMode.h"
 
-PlayerUpdateComponent::PlayerUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> owner_id)
+PlayerUpdateComponent::~PlayerUpdateComponent()
+{
+	ni::ServiceLocator::Instance().GetEventDispatcher().RemoveKeyPressedEvent(key_pressed_event_id_);
+}
+
+PlayerUpdateComponent::PlayerUpdateComponent(ni::ComponentLocator& component_locator, ni::Id<ni::GameObjectTag> owner_id, PlatformerGameMode& game_mode)
 	: ni::UpdateComponent(component_locator)
 {
 	owner_id_ = owner_id;
 
 	ni::ServiceLocator::Instance().GetSoundEngine().Preload(kJumpSoundKey);
+
+	on_player_killed_.Subscribe([&game_mode]() {
+		game_mode.RestartLevel();
+	});
 }
 
 void PlayerUpdateComponent::Init(ni::AnimatedGraphicsComponent& graphics, CharacterPhysicsComponent& physics)
 {
-	ni::ServiceLocator::Instance().GetEventDispatcher().OnKeyPressed([this](const sf::Event::KeyPressed& event) {
+	key_pressed_event_id_ = ni::ServiceLocator::Instance().GetEventDispatcher().OnKeyPressed([this](const sf::Event::KeyPressed& event) {
 		if (event.scancode == sf::Keyboard::Scancode::Space)
 		{
 			Jump();
@@ -88,6 +98,11 @@ void PlayerUpdateComponent::Update()
 		return;
 	}
 	graphics->Play(kWalkAnimationKey, .1, true);
+}
+
+void PlayerUpdateComponent::Die()
+{
+	on_player_killed_.Notify();
 }
 
 void PlayerUpdateComponent::Jump()

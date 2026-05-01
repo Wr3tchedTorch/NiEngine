@@ -18,11 +18,14 @@ private:
 	Subject<const sf::Event::KeyReleased&> on_key_released_;
 
 public:
-	EventDispatcher();
+	EventDispatcher();	
 
 	int OnClosed  	 (std::function<void(const sf::Event::Closed&)> callback)	   { return on_closed_.Subscribe(callback);		  };
 	int OnKeyPressed (std::function<void(const sf::Event::KeyPressed&)> callback)  { return on_key_pressed_.Subscribe(callback);  };
 	int OnKeyReleased(std::function<void(const sf::Event::KeyReleased&)> callback) { return on_key_released_.Subscribe(callback); };
+
+	void RemoveKeyPressedEvent (int id) { on_key_pressed_.Remove(id);  };
+	void RemoveKeyReleasedEvent(int id) { on_key_released_.Remove(id); };
 
 	void operator()(const sf::Event::Closed& event);
 	void operator()(const sf::Event::KeyPressed& event);

@@ -115,7 +115,7 @@
         "tilesets/kenney_1bit.tsx"
     ],
     "project": "game.tiled-project",
-    "property.type": "float",
+    "property.type": "int",
     "recentFiles": [
         "tilesets/karsioriart_tiles_and_backgrounds.tsx",
         "maps/level_02/level_02.tmx",

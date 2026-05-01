@@ -63,6 +63,10 @@ void ni::ComponentStore::RegisterTagForId(Id<GameObjectTag> target, std::string 
 
 void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id, const Tilemap& current_tilemap, float delta)
 {
+	if (physics_components_.empty())
+	{
+		return;
+	}
 	for (auto& [id, component] : physics_components_)
 	{
 		TransformComponent* transform = GetTransformComponent(id);
@@ -78,7 +82,11 @@ void ni::ComponentStore::PhysicsUpdate(b2WorldId world_id, const Tilemap& curren
 
 void ni::ComponentStore::Update()
 {
-	for (auto& [id, component] : update_component_)
+	if (update_components_.empty())
+	{
+		return;
+	}
+	for (auto& [id, component] : update_components_)
 	{
 		component->Update();
 	}
@@ -86,6 +94,10 @@ void ni::ComponentStore::Update()
 
 void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
+	if (graphics_components_.empty())
+	{
+		return;
+	}
 	for (auto& [id, components] : graphics_components_)
 	{
 		sf::RenderStates local_state = states;
@@ -104,6 +116,17 @@ void ni::ComponentStore::Render(sf::RenderTarget& target, sf::RenderStates state
 	}
 }
 
+ni::UpdateComponent* ni::ComponentStore::GetUpdateComponent(Id<GameObjectTag> id)
+{
+	auto it = update_components_.find(id);
+
+	if (it == update_components_.end())
+	{
+		return nullptr;
+	}
+	return it->second.get();
+}
+
 ni::Id<ni::GameObjectTag> ni::ComponentStore::GetIdByTag(std::string tag)
 {
 	auto it = id_tag_map_.find(tag);
@@ -113,9 +136,18 @@ ni::Id<ni::GameObjectTag> ni::ComponentStore::GetIdByTag(std::string tag)
 		std::cout << "ComponentLocator: Id not found!";
 #endif // _DEBUG
 	}
-
-
 	return it->second;
+}
+
+void ni::ComponentStore::Clear()
+{
+	transform_components_.clear();
+	update_components_   .clear();
+	graphics_components_ .clear();
+	physics_components_  .clear();
+
+	id_tag_map_.clear();
+
 }
 
 std::vector<ni::GraphicsComponent*> ni::ComponentStore::GetGraphicsComponents(Id<ni::GameObjectTag> id)

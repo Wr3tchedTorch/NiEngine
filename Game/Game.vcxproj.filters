@@ -39,9 +39,6 @@
     <ClCompile Include="PlatformerGameMode.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="EntityFactory.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="CharacterPhysicsComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
@@ -63,11 +60,11 @@
     <ClCompile Include="ObstacleHarmfulCollisionComponent.cpp">
       <Filter>Source Files\Components\ObstacleCollision</Filter>
     </ClCompile>
-    <ClCompile Include="MovingObstacleUpdateComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlatformerObjectFactory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingObstacleUpdateComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlatformerGameMode.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityFactory.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="CharacterPhysicsComponent.h">
@@ -98,11 +92,11 @@
     <ClInclude Include="ObstacleHarmfulCollisionComponent.h">
       <Filter>Header Files\Components\Obstacle Collision</Filter>
     </ClInclude>
-    <ClInclude Include="MovingObstacleUpdateComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PlatformerObjectFactory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingObstacleUpdateComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

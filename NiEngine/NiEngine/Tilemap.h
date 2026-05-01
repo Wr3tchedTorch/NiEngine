@@ -40,6 +40,8 @@ private:
 	sf::Vector2i tile_size_ = {};
 
 public:
+	void Clear();
+
 	void Init(sf::Vector2i map_size, sf::Vector2i tile_size);
 	void LoadTiles(LayerBlueprint layer, const std::vector<TilesetBlueprint>& tileset_blueprints);
 	void EnableCollision(b2WorldId world_id);

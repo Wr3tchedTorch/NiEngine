@@ -16,10 +16,13 @@
 #include <NiEngine/Id.h>
 #include <NiEngine/StandardGraphicsComponent.h>
 #include <NiEngine/TransformComponent.h>
+#include <NiEngine/AnimatedGraphicsComponent.h>
 
 #include "ObstacleHarmfulCollisionComponent.h"
 #include "MovingObstacleUpdateComponent.h"
 #include "PlatformerGameMode.h"
+#include "CharacterPhysicsComponent.h"
+#include "PlayerUpdateComponent.h"
 
 void PlatformerObjectFactory::SpawnObject(ni::ObjectBlueprint object, ni::ObjectTemplateBlueprint& object_template, const std::vector<ni::TilesetBlueprint>& tileset_blueprints, ni::GameMode& mode, int type)
 {
@@ -41,7 +44,35 @@ void PlatformerObjectFactory::SpawnObject(ni::ObjectBlueprint object, ni::Object
 	case ObjectTypes::Spike:
 		SpawnSpike(object, object_template, texture_key, texture_coords, mode);
 		break;
+	case ObjectTypes::Player:
+		SpawnPlayer(object, object_template, texture_key, texture_coords, mode);
+		break;
 	}
+}
+
+void PlatformerObjectFactory::SpawnPlayer(ni::ObjectBlueprint object, ni::ObjectTemplateBlueprint& object_template, std::string texture_key, sf::IntRect texture_coordinates, ni::GameMode& mode)
+{
+	ni::Id<ni::GameObjectTag> id = mode.CreateGameObject();
+
+	mode.GetComponentStore().RegisterTagForId(id, PlatformerGameMode::kPlayerTag);
+
+	auto physics  = std::make_unique<CharacterPhysicsComponent>(texture_coordinates.size);
+	auto graphics = std::make_unique<ni::AnimatedGraphicsComponent>(texture_key, texture_coordinates.size, 1);
+
+	auto& platformer_mode = static_cast<PlatformerGameMode&>(mode);
+	auto update   = std::make_unique<PlayerUpdateComponent>(mode.GetComponentStore(), id, platformer_mode);
+
+	ni::TransformComponent transform;
+	transform.GetTransformable().setPosition(object.position_);
+	transform.GetTransformable().setOrigin({ texture_coordinates.size.x / 2.0f, texture_coordinates.size.y / 2.0f });
+
+	update->Init(*graphics.get(), *physics.get());
+
+	mode.GetComponentStore().RegisterTagForId(id, PlatformerGameMode::kPlayerTag);
+	mode.GetComponentStore().AttachPhysicsComponent(id, std::move(physics));
+	mode.GetComponentStore().AttachUpdateComponent(id, std::move(update));
+	mode.GetComponentStore().AttachGraphicsComponent(id, std::move(graphics));
+	mode.GetComponentStore().AttachTransformComponent(id, transform);
 }
 
 void PlatformerObjectFactory::SpawnSpike(ni::ObjectBlueprint object, ni::ObjectTemplateBlueprint& object_template, std::string texture_key, sf::IntRect texture_coordinates, ni::GameMode& mode)

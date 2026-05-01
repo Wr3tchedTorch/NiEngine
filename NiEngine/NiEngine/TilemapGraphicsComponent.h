@@ -27,6 +27,14 @@ private:
 	std::unordered_map<std::string, TilesetDrawable> tileset_drawables_;
 
 public:
+	void Clear()
+	{
+		for (auto& [key, drawable] : tileset_drawables_)
+		{
+			drawable.vertices_.clear();
+		}
+	}
+
 	void AddTile(const sf::Vector2i& grid_position, int tile_id, const TilesetBlueprint& tileset, const sf::Vector2f& layer_position_offset);
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 

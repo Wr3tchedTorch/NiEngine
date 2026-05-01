@@ -20,6 +20,7 @@
 #include <NiEngine/Tilemap.h>
 #include <NiEngine/ObjectFactory.h>
 #include <NiEngine/GameMode.h>
+#include <NiEngine/ServiceLocator.h>
 
 void ni::Level::SetTotalLevelCount(int count)
 {
@@ -28,8 +29,10 @@ void ni::Level::SetTotalLevelCount(int count)
 
 void ni::Level::ReloadLevel(GameMode& mode)
 {
-	LoadLevel(current_level_);
+	tilemap_.Clear();
+	mode.GetComponentStore().Clear();
 
+	LoadLevel(current_level_);
 	LoadObjects(mode);
 }
 
@@ -75,7 +78,7 @@ void ni::Level::LoadLevel(int index)
 	current_level_blueprint_ = handler.GetBlueprint();
 
 	LoadTilesetBlueprints(current_level_blueprint_.tileset_references_);
-
+	
 	tilemap_.Init(current_level_blueprint_.map_size_, current_level_blueprint_.tile_size_);
 
 	for (int i = 0; i < current_level_blueprint_.layers_.size(); ++i)

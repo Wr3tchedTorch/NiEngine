@@ -4,7 +4,9 @@
 #include <NiEngine/ComponentLocator.h>
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Id.h>
-#include <NiEngine/TransformComponent.h>
+#include <NiEngine/UpdateComponent.h>
+
+#include "PlayerUpdateComponent.h"
 
 void ObstacleHarmfulCollisionComponent::SolveTopCollision(sf::FloatRect collision_box, ni::ComponentLocator& locator, ni::Id<ni::GameObjectTag> id)
 {
@@ -23,7 +25,8 @@ void ObstacleHarmfulCollisionComponent::SolveFrontCollision(sf::FloatRect collis
 
 void ObstacleHarmfulCollisionComponent::KillCharacter(ni::ComponentLocator& locator, ni::Id<ni::GameObjectTag> id)
 {
-	ni::TransformComponent* transform = locator.GetTransformComponent(id);
+	ni::UpdateComponent* update = locator.GetUpdateComponent(id);
 
-	transform->GetTransformable().setPosition({ 100, 100 });
+	auto player_update = static_cast<PlayerUpdateComponent*>(update);
+	player_update->Die();
 }

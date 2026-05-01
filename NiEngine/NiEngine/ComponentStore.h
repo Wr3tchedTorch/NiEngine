@@ -30,7 +30,7 @@ private:
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<TransformComponent>>             transform_components_ = {};
 	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<PhysicsComponent>>               physics_components_   = {};
 	std::unordered_map<Id<GameObjectTag>, std::vector<std::unique_ptr<GraphicsComponent>>> graphics_components_  = {};
-	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>                update_component_     = {};
+	std::unordered_map<Id<GameObjectTag>, std::unique_ptr<UpdateComponent>>                update_components_     = {};
 
 public:
 	// Component Attaching/Removing	
@@ -41,7 +41,7 @@ public:
 
 	void AttachUpdateComponent(Id<GameObjectTag> target, std::unique_ptr<UpdateComponent> component)
 	{
-		update_component_.emplace(target, std::move(component));
+		update_components_.emplace(target, std::move(component));
 	}
 
 	void AttachGraphicsComponent(Id<GameObjectTag> target, std::unique_ptr<GraphicsComponent> component)
@@ -69,6 +69,8 @@ public:
 		transform_components_.erase(target);
 	}
 
+	void Clear();
+
 	// Inherited via ComponentLocator
 	std::vector<GraphicsComponent*> GetGraphicsComponents(Id<GameObjectTag> id)				override;
 	TransformComponent*             GetTransformComponent(Id<GameObjectTag> id)				override;
@@ -82,6 +84,8 @@ public:
 	void Update();
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 
+	// Inherited via ComponentLocator
+	UpdateComponent* GetUpdateComponent(Id<GameObjectTag> id) override;
 
 };
 
