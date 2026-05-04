@@ -24,6 +24,7 @@
 #include "CharacterPhysicsComponent.h"
 #include "PlayerUpdateComponent.h"
 #include "ExitDoorUpdateComponent.h"
+#include "ObstacleSolidCollisionComponent.h"
 
 void PlatformerObjectFactory::SpawnObject(ni::ObjectBlueprint object, ni::ObjectTemplateBlueprint& object_template, const std::vector<ni::TilesetBlueprint>& tileset_blueprints, ni::GameMode& mode, int type)
 {

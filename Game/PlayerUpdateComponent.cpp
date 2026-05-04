@@ -107,11 +107,25 @@ void PlayerUpdateComponent::Update()
 void PlayerUpdateComponent::Die()
 {
 	dead_ = true;
+	auto physics = static_cast<CharacterPhysicsComponent*>(component_locator_.GetPhysicsComponent(owner_id_));
+	if (physics)
+	{
+		physics->Move(0);
+	}
+	auto graphics = component_locator_.GetFirstAnimatedGraphicsComponent(owner_id_);
+	if (graphics)
+	{
+		graphics->SetFrame(kAnimationRow, 6);
+	}
 	on_player_killed_.Notify();
 }
 
 void PlayerUpdateComponent::Jump()
 {
+	if (dead_)
+	{
+		return;
+	}
 	auto physics = static_cast<CharacterPhysicsComponent*>(component_locator_.GetPhysicsComponent(owner_id_));
 	if (physics)
 	{
