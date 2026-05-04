@@ -215,6 +215,12 @@
     <ClInclude Include="NiEngine\ObjectFactory.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="NiEngine\ScreenTransition.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\WipeScreenTransition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -294,6 +300,12 @@
     </ClCompile>
     <ClCompile Include="src\ObjectFactory.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScreenTransition.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WipeScreenTransition.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

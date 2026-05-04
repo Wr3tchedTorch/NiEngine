@@ -1,0 +1,28 @@
+#pragma once
+
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
+#include "ScreenTransition.h"
+#include "BitmapStore.h"
+
+namespace ni {
+
+class WipeScreenTransition : public ScreenTransition
+{
+public:
+	WipeScreenTransition(float delay_in_seconds, bool vertical, sf::Color color = sf::Color::Black);
+
+	void Update() override;
+	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;
+
+private:
+	bool vertical_ = false;
+
+	sf::RectangleShape upper_rect_;
+	sf::RectangleShape lower_rect_;
+};
+
+}

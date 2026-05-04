@@ -1,12 +1,12 @@
 {
     "activeFile": "maps/level_2/level_2.tmx",
     "expandedProjectPaths": [
-        "maps/level_02",
-        "maps",
-        ".",
         "tilesets",
         "maps/templates",
         "maps/level_2",
+        "maps/level_02",
+        "maps",
+        ".",
         "maps/level_01"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -52,11 +52,11 @@
             }
         },
         "maps/level_2/level_2.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 252.66666666666669,
-                "y": 248.66666666666669
+                "x": 137.25,
+                "y": 192.5
             }
         },
         "maps/rules/ground_autotile_rules.tmx": {

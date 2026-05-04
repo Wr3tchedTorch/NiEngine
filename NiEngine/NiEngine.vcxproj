@@ -183,11 +183,14 @@
     <ClInclude Include="NiEngine\TilemapUtility.h" />
     <ClInclude Include="NiEngine\ObjectFactory.h" />
     <ClInclude Include="PropertyBlueprint.h" />
+    <ClInclude Include="NiEngine\ScreenTransition.h" />
+    <ClInclude Include="NiEngine\WipeScreenTransition.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ScreenTransition.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="NiEngine\MathUtility.h" />
@@ -213,6 +216,7 @@
     <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\UpdateComponent.cpp" />
     <ClCompile Include="NiEngine\TiledUtility.h" />
+    <ClCompile Include="src\WipeScreenTransition.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

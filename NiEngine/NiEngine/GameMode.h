@@ -9,6 +9,7 @@
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Level.h>
 #include <NiEngine/PhysicsEngine.h>
+#include <memory>
 
 namespace ni {
 
@@ -26,6 +27,8 @@ protected:
 
 	ComponentStore component_store_;
 	PhysicsEngine  physics_engine_;
+	
+	std::unique_ptr<ScreenTransition> current_transition_;
 
 public:
 	ComponentStore& GetComponentStore()
