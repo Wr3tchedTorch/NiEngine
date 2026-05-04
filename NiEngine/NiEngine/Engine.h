@@ -8,7 +8,6 @@
 #include <SFML/System/Vector2.hpp>
 
 #include <NiEngine/BitmapStore.h>
-#include <NiEngine/SoundBufferStore.h>
 #include <NiEngine/GameModeController.h>
 
 namespace ni {

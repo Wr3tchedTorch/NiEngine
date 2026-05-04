@@ -9,7 +9,7 @@
 #include <NiEngine/GameObjectTag.h>
 #include <NiEngine/Level.h>
 #include <NiEngine/PhysicsEngine.h>
-#include <memory>
+#include <NiEngine/ScreenTransition.h>
 
 namespace ni {
 

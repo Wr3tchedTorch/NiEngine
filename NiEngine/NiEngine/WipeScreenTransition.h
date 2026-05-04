@@ -13,7 +13,7 @@ namespace ni {
 class WipeScreenTransition : public ScreenTransition
 {
 public:
-	WipeScreenTransition(float delay_in_seconds, bool vertical, sf::Color color = sf::Color::Black);
+	WipeScreenTransition(float delay_in_seconds, sf::Vector2f camera_size, bool vertical, sf::Color color = sf::Color::Black);
 
 	void Update() override;
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;

@@ -7,6 +7,7 @@
 #include <NiEngine/GameMode.h>
 #include <NiEngine/Camera.h>
 #include <NiEngine/BitmapStore.h>
+#include <NiEngine/GameModeController.h>
 
 class PlatformerGameMode : public ni::GameMode
 {

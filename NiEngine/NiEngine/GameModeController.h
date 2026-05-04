@@ -7,10 +7,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include <NiEngine/GameModeTag.h>
-#include <NiEngine/GameMode.h>
 #include <NiEngine/BitmapStore.h>
+#include <NiEngine/GameMode.h>
 #include <NiEngine/Id.h>
-#include <NiEngine/SoundEngine.h>
 
 namespace ni {
 

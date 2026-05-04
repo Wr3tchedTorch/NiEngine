@@ -11,13 +11,13 @@
 #include <NiEngine/BitmapStore.h>
 
 
-ni::WipeScreenTransition::WipeScreenTransition(float delay_in_seconds, bool vertical, sf::Color color) : ScreenTransition(delay_in_seconds),
-	upper_rect_(sf::Vector2f(Engine::window_resolution)),
-	lower_rect_(sf::Vector2f(Engine::window_resolution))
+ni::WipeScreenTransition::WipeScreenTransition(float delay_in_seconds, sf::Vector2f camera_size, bool vertical, sf::Color color) : ScreenTransition(delay_in_seconds),
+	upper_rect_(camera_size),
+	lower_rect_(camera_size)
 {
 	vertical_ = vertical;
 	upper_rect_.setFillColor(color);
-	lower_rect_.setFillColor(color);
+	lower_rect_.setFillColor(sf::Color::Green);
 
 	upper_rect_.setPosition(-upper_rect_.getSize());
 	lower_rect_.setPosition(upper_rect_.getSize());
@@ -30,22 +30,46 @@ void ni::WipeScreenTransition::Update()
 		return;
 	}
 
-	float time_elapsed = (time_since_start_ - Engine::time_elapsed).asSeconds();
+	float time_elapsed = (Engine::time_elapsed - time_since_start_).asSeconds();
+	if (time_elapsed > delay_in_seconds_)
+	{
+		sf::Vector2f upper_rect_pos = { 0, 0 };
+		sf::Vector2f lower_rect_pos = { 0, 0 };
+		if (vertical_)
+		{
+			upper_rect_pos.x = 0;
+			lower_rect_pos.x = 0;
 
-	sf::Vector2f upper_rect_pos = {};
-	sf::Vector2f lower_rect_pos = {};
+			upper_rect_pos.y =  lower_rect_.getSize().y / 2.0f - 1;
+			lower_rect_pos.y = -upper_rect_.getSize().y / 2.0f + 1;
+		}
+		else
+		{
+			upper_rect_pos.y = 0;
+			lower_rect_pos.y = 0;
+
+			upper_rect_pos.x = -upper_rect_.getSize().x / 2.0f + 5;
+			lower_rect_pos.x =  lower_rect_.getSize().x / 2.0f - 5;
+		}
+		upper_rect_.setPosition(upper_rect_pos);
+		lower_rect_.setPosition(lower_rect_pos);
+		return;
+	}
+
+	sf::Vector2f upper_rect_pos = {0, 0};
+	sf::Vector2f lower_rect_pos = {0, 0};
 	if (vertical_)
 	{
 		upper_rect_pos.x = 0;
 		lower_rect_pos.x = 0;
 
 		float upper_rect_start_y_pos = -upper_rect_.getSize().y;
-		float upper_rect_end_y_pos   = -upper_rect_.getSize().y / 2.0f;
+		float upper_rect_end_y_pos   = -upper_rect_.getSize().y / 2.0f + 1;
 
 		upper_rect_pos.y = std::lerp(upper_rect_start_y_pos, upper_rect_end_y_pos, time_elapsed / delay_in_seconds_);
 
 		float lower_rect_start_y_pos = lower_rect_.getSize().y;
-		float lower_rect_end_y_pos   = lower_rect_.getSize().y / 2.0f;
+		float lower_rect_end_y_pos   = lower_rect_.getSize().y / 2.0f - 1;
 
 		lower_rect_pos.y = std::lerp(lower_rect_start_y_pos, lower_rect_end_y_pos, time_elapsed / delay_in_seconds_);
 	}
@@ -55,12 +79,12 @@ void ni::WipeScreenTransition::Update()
 		lower_rect_pos.y = 0;
 
 		float upper_rect_start_x_pos = -upper_rect_.getSize().x;
-		float upper_rect_end_x_pos   = -upper_rect_.getSize().x / 2.0f;
+		float upper_rect_end_x_pos   = -upper_rect_.getSize().x / 2.0f + 5;
 
 		upper_rect_pos.x = std::lerp(upper_rect_start_x_pos, upper_rect_end_x_pos, time_elapsed / delay_in_seconds_);
 
 		float lower_rect_start_x_pos = lower_rect_.getSize().x;
-		float lower_rect_end_x_pos   = lower_rect_.getSize().x / 2.0f;
+		float lower_rect_end_x_pos   = lower_rect_.getSize().x / 2.0f - 5;
 
 		lower_rect_pos.x = std::lerp(lower_rect_start_x_pos, lower_rect_end_x_pos, time_elapsed / delay_in_seconds_);
 	}

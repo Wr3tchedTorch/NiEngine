@@ -37,10 +37,20 @@ void ni::GameMode::PhysicsUpdate(float delta)
 void ni::GameMode::Update(GameModeController& controller)
 {
 	component_store_.Update();
+
+	if (current_transition_)
+	{
+		current_transition_->Update();
+	}
 }
 
 void ni::GameMode::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
 {
 	level_.RenderTilemap(target, states, store);
 	component_store_.Render(target, states, store);
+
+	if (current_transition_)
+	{
+		current_transition_->Render(target, states, store);
+	}
 }

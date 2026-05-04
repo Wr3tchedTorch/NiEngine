@@ -3,13 +3,14 @@
 #include <types.h>
 #include <memory>
 #include <utility>
-#include <iostream>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <NiEngine/Converter.h>
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/GameMode.h>
+#include <NiEngine/WipeScreenTransition.h>
+#include <NiEngine/GameModeController.h>
 
 #include "PlatformerObjectFactory.h"
 
@@ -26,6 +27,9 @@ PlatformerGameMode::PlatformerGameMode()
 	level_.LoadNextLevel(*this);
 
 	camera_.FitTo(level_.GetCurrentTilemap().GetBounds());
+
+	current_transition_ = std::make_unique<ni::WipeScreenTransition>(.6f, camera_.GetView().getSize(), false, sf::Color::Red);
+	current_transition_->Play();
 }
 
 void PlatformerGameMode::PrepareToLoadNextLevel()

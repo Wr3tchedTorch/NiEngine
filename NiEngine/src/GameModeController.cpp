@@ -10,7 +10,6 @@
 #include <NiEngine/GameMode.h>
 #include <NiEngine/GameModeTag.h>
 #include <NiEngine/Id.h>
-#include <NiEngine/SoundEngine.h>
 
 ni::GameModeController::GameModeController()
 {
