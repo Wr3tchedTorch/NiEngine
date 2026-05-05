@@ -59,7 +59,7 @@ void MovingObstacleUpdateComponent::LocatePlayer()
 
 	float distance = std::max(position_x, player_position_x) - std::min(position_x, player_position_x);
 
-	if (distance < movement_trigger_distance_)
+	if (distance <= collision_box_size_.x / 2.0f)
 	{
 		TriggerMovement();
 	}
