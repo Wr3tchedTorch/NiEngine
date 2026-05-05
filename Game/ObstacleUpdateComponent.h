@@ -31,6 +31,8 @@ protected:
 private:
 	std::vector<std::unique_ptr<ObstacleCollisionComponent>> collision_components_;
 
+	bool colliding_ = false;
+
 	void HandleCollisions();
 };
 

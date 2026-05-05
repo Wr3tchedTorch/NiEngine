@@ -75,13 +75,16 @@ void ObstacleUpdateComponent::HandleCollisions()
 	if (collision_box.findIntersection(player_physics->GetFeetBounds(player_transform->GetTransformable().getPosition())))
 	{		
 		CollideTop(collision_box);
+
+		colliding_ = true;
 	}
-	else
+	else if (colliding_)
 	{
 		for (auto& collision : collision_components_)
 		{
 			collision->SolveTopCollisionLost(collision_box, component_locator_, player_id_);
 		}
+		colliding_ = false;
 	}
 
 	if (collision_box.findIntersection(player_physics->GetFrontBounds(player_transform->GetTransformable().getPosition())))
