@@ -4,13 +4,13 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <NiEngine/ScreenTransition.h>
 #include <NiEngine/Engine.h>
 #include <NiEngine/BitmapStore.h>
-#include <SFML/Graphics/RectangleShape.hpp>
-
+#include <NiEngine/MathUtility.h>
 
 ni::WipeScreenTransition::WipeScreenTransition(float delay_in_seconds, sf::Vector2f camera_size, bool vertical, sf::Color color) : ScreenTransition(delay_in_seconds),
 	upper_rect_(camera_size),
@@ -36,21 +36,22 @@ void ni::WipeScreenTransition::MoveRectByAxis(bool y_axis, sf::RectangleShape& r
 	position.x = 0;
 	position.y = 0;
 
+	float eased_t = MathUtility::EaseInOut(time_elapsed / delay_in_seconds_);
 	if (y_axis)
 	{
 		float rect_start_y_pos = rect.getSize().y * sign;
 		float rect_end_y_pos   = rect.getSize().y / 2.0f * sign + (1 * -sign);
 
-		position.y = reversed ? std::lerp(rect_end_y_pos, rect_start_y_pos, time_elapsed / delay_in_seconds_) :
-					            std::lerp(rect_start_y_pos, rect_end_y_pos, time_elapsed / delay_in_seconds_);
+		position.y = reversed ? std::lerp(rect_end_y_pos, rect_start_y_pos, eased_t) :
+					            std::lerp(rect_start_y_pos, rect_end_y_pos, eased_t);
 	}
 	else
 	{
 		float rect_start_x_pos = rect.getSize().x * sign;
-		float rect_end_x_pos   = rect.getSize().x / 2.0f * sign + (5 * -sign);
+		float rect_end_x_pos = rect.getSize().x / 2.0f * sign + (5 * -sign);
 
-		position.x = reversed ? std::lerp(rect_end_x_pos, rect_start_x_pos, time_elapsed / delay_in_seconds_) :
-			                    std::lerp(rect_start_x_pos, rect_end_x_pos, time_elapsed / delay_in_seconds_);
+		position.x = reversed ? std::lerp(rect_end_x_pos, rect_start_x_pos, eased_t) :
+			                    std::lerp(rect_start_x_pos, rect_end_x_pos, eased_t);
 	}
 	rect.setPosition(position);
 }

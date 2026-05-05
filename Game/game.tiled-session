@@ -1,13 +1,13 @@
 {
-    "activeFile": "tilesets/kenney_1bit.tsx",
+    "activeFile": "maps/level_01/level_01.tmx",
     "expandedProjectPaths": [
-        "maps",
-        "maps/level_01",
-        ".",
         "maps/templates",
+        ".",
+        "maps/level_01",
+        "maps/level_2",
         "tilesets",
         "maps/level_02",
-        "maps/level_2"
+        "maps"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -36,6 +36,9 @@
             }
         },
         "maps/level_01/level_01.tmx": {
+            "expandedObjectLayers": [
+                8
+            ],
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
@@ -52,6 +55,9 @@
             }
         },
         "maps/level_2/level_2.tmx": {
+            "expandedObjectLayers": [
+                8
+            ],
             "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
@@ -121,7 +127,8 @@
         "tilesets/karsioriart_tiles_and_backgrounds.tsx",
         "tilesets/kenney_1bit.json",
         "maps/level_2/level_2.tmx",
-        "tilesets/kenney_1bit.tsx"
+        "tilesets/kenney_1bit.tsx",
+        "maps/level_01/level_01.tmx"
     ],
     "project": "game.tiled-project",
     "property.type": "int",
@@ -130,8 +137,8 @@
         "tilesets/kenney_1bit.json",
         "maps/level_2/level_2.tmx",
         "tilesets/kenney_1bit.tsx",
-        "maps/level_02/level_02.tmx",
         "maps/level_01/level_01.tmx",
+        "maps/level_02/level_02.tmx",
         "maps/rules/ground_autotile_rules.tmx",
         "tilesets/transparent_tiles.tsx",
         "maps/rules/ground_autotile_rules_karsioriart.tmx",

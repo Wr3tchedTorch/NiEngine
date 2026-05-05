@@ -30,13 +30,13 @@ PlatformerGameMode::PlatformerGameMode()
 	level_.LoadNextLevel(*this);
 	world_camera_.FitTo(level_.GetCurrentTilemap().GetBounds());
 
-	engine_title_transition_.Init(2, "NI Engine", "fonts/good timing bd.otf", 30, sf::Color::White, sf::Color::Black, transitions_camera_.GetView().getSize());
+	engine_title_transition_.Init(2, "\t\t NI   Engine\nPor  Eric  Moura", "fonts/ARCADECLASSIC.TTF", 50, sf::Color::White, sf::Color::Black, transitions_camera_.GetView().getSize());
 	engine_title_transition_.OnTransitionFinished([this]() {
 		current_transition_->Play(true);
 	});
 	engine_title_transition_.Play();
 	
-	current_transition_ = std::make_unique<ni::WipeScreenTransition>(.4f, transitions_camera_.GetView().getSize(), false, sf::Color::Black);
+	current_transition_ = std::make_unique<ni::WipeScreenTransition>(.8f, transitions_camera_.GetView().getSize(), false, sf::Color::Black);
 	current_transition_->OnTransitionCoveredScreen([this]() {
 		if (restart_level_)
 		{
