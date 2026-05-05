@@ -81,6 +81,12 @@
     <Filter Include="Source Files\Engine\Rendering\Transitions">
       <UniqueIdentifier>{d45302c5-4ab4-451e-ac92-e1aa0fbd3d6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{80ae5c23-609d-434c-afcd-c5cc11b157e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{4e97eb4f-990d-440d-adfa-6ac477807177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NiEngine\Component.h">
@@ -206,7 +212,7 @@
     <ClInclude Include="NiEngine\TilemapUtility.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="PropertyBlueprint.h">
+    <ClInclude Include="NiEngine\PropertyBlueprint.h">
       <Filter>Header Files\FileIO\Blueprints</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\ObjectBlueprint.h">
@@ -228,6 +234,15 @@
       <Filter>Header Files\Engine\Rendering\Transitions</Filter>
     </ClInclude>
     <ClInclude Include="NiEngine\TextFadeScreenTransition.h">
+      <Filter>Header Files\Engine\Rendering\Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Panel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\HUDComponent.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="NiEngine\Container.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -317,6 +332,15 @@
       <Filter>Source Files\Engine\Rendering\Transitions</Filter>
     </ClCompile>
     <ClCompile Include="src\TextFadeScreenTransition.cpp">
+      <Filter>Source Files\Engine\Rendering\Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Panel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HUDComponent.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

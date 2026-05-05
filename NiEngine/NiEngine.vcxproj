@@ -137,6 +137,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NiEngine\Container.h" />
     <ClInclude Include="NiEngine\Level.h" />
     <ClInclude Include="NiEngine\Animation.h" />
     <ClInclude Include="NiEngine\AnimatedGraphicsComponent.h" />
@@ -182,15 +183,19 @@
     <ClInclude Include="NiEngine\SoundEngine.h" />
     <ClInclude Include="NiEngine\TilemapUtility.h" />
     <ClInclude Include="NiEngine\ObjectFactory.h" />
-    <ClInclude Include="PropertyBlueprint.h" />
+    <ClInclude Include="NiEngine\Panel.h" />
+    <ClInclude Include="NiEngine\PropertyBlueprint.h" />
     <ClInclude Include="NiEngine\ScreenTransition.h" />
     <ClInclude Include="NiEngine\WipeScreenTransition.h" />
     <ClInclude Include="NiEngine\TextFadeScreenTransition.h" />
+    <ClInclude Include="NiEngine\HUDComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Container.cpp" />
+    <ClCompile Include="src\Panel.cpp" />
     <ClCompile Include="src\ScreenTransition.cpp" />
     <ClCompile Include="src\ObjectFactory.cpp" />
     <ClCompile Include="src\Level.cpp" />
@@ -219,6 +224,7 @@
     <ClCompile Include="NiEngine\TiledUtility.h" />
     <ClCompile Include="src\WipeScreenTransition.cpp" />
     <ClCompile Include="src\TextFadeScreenTransition.cpp" />
+    <ClCompile Include="src\HUDComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

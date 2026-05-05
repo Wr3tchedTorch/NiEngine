@@ -29,8 +29,9 @@ private:
 protected:
 	Level level_;
 	
-	Camera transitions_camera_;
 	Camera world_camera_;
+	Camera hud_camera_;
+	Camera transitions_camera_;
 
 	ComponentStore component_store_;
 	PhysicsEngine  physics_engine_;
