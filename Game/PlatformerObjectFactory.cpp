@@ -44,7 +44,10 @@ void PlatformerObjectFactory::SpawnObject(ni::ObjectBlueprint object, ni::Object
 	switch (type)
 	{
 	case ObjectTypes::Spike:
-		SpawnSpike(object, object_template, texture_key, texture_coords, mode);
+		SpawnMovingObject(object, object_template, texture_key, texture_coords, mode, PlatformerGameMode::kSpikeTag);
+		break;
+	case ObjectTypes::Ground:
+		SpawnMovingObject(object, object_template, texture_key, texture_coords, mode, "");
 		break;
 	case ObjectTypes::Player:
 		SpawnPlayer(object, object_template, texture_key, texture_coords, mode);
@@ -79,7 +82,7 @@ void PlatformerObjectFactory::SpawnPlayer(ni::ObjectBlueprint object, ni::Object
 	mode.GetComponentStore().AttachTransformComponent(id, transform);
 }
 
-void PlatformerObjectFactory::SpawnSpike(ni::ObjectBlueprint object, ni::ObjectTemplateBlueprint& object_template, std::string texture_key, sf::IntRect texture_coordinates, ni::GameMode& mode)
+void PlatformerObjectFactory::SpawnMovingObject(ni::ObjectBlueprint object, ni::ObjectTemplateBlueprint& object_template, std::string texture_key, sf::IntRect texture_coordinates, ni::GameMode& mode, std::string object_tag)
 {
 	sf::Vector2f movement_offset = {};
 	movement_offset.y    = object_template.properties_map_.at("movement_offset_y").GetValue<float>();
@@ -90,15 +93,21 @@ void PlatformerObjectFactory::SpawnSpike(ni::ObjectBlueprint object, ni::ObjectT
 	repeat.y = object_template.properties_map_.at("repeat_y").GetValue<int>();
 	repeat.x = object_template.properties_map_.at("repeat_x").GetValue<int>();
 
+	bool harmful = object_template.properties_map_.at("harmful").GetValue<bool>();
+
 	if (object.properties_.contains("movement_offset_y")) movement_offset.y = object.properties_.at("movement_offset_y").GetValue<float>();
 	if (object.properties_.contains("movement_offset_x")) movement_offset.x = object.properties_.at("movement_offset_x").GetValue<float>();
 	if (object.properties_.contains("repeat_y"         )) repeat.y = object.properties_.at("repeat_y").GetValue<int>();
 	if (object.properties_.contains("repeat_x"         )) repeat.x = object.properties_.at("repeat_x").GetValue<int>();
 	if (object.properties_.contains("movement_delay"   )) movement_delay    = object.properties_.at("movement_delay"   ).GetValue<float>();
+	if (object.properties_.contains("harmful"          )) harmful = object.properties_.at("harmful").GetValue<bool>();
 
 	ni::Id<ni::GameObjectTag> id = mode.CreateGameObject();
 
-	mode.GetComponentStore().RegisterTagForId(id, PlatformerGameMode::kSpikeTag);
+	if (object_tag != "")
+	{
+		mode.GetComponentStore().RegisterTagForId(id, object_tag);
+	}
 
 	auto graphics = std::make_unique<ni::StandardGraphicsComponent>(texture_key, texture_coordinates);
 	graphics->SetRepeating(repeat);
@@ -119,7 +128,15 @@ void PlatformerObjectFactory::SpawnSpike(ni::ObjectBlueprint object, ni::ObjectT
 		collision_size,
 		movement_delay
 	);
-	update->RegisterCollisionComponent(std::make_unique<ObstacleHarmfulCollisionComponent>());
+
+	if (harmful)
+	{
+		update->RegisterCollisionComponent(std::make_unique<ObstacleHarmfulCollisionComponent>());
+	}
+	else
+	{
+		update->RegisterCollisionComponent(std::make_unique<ObstacleSolidCollisionComponent>());
+	}
 
 	mode.GetComponentStore().AttachUpdateComponent   (id, std::move(update));
 	mode.GetComponentStore().AttachGraphicsComponent (id, std::move(graphics));

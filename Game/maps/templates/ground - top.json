@@ -1,18 +1,13 @@
 { "object":
     {
-     "gid":184,
+     "gid":89,
      "height":16,
-     "id":7,
-     "name":"spike",
+     "id":37,
+     "name":"",
      "opacity":1,
      "properties":[
             {
              "name":"harmful",
-             "type":"bool",
-             "value":true
-            }, 
-            {
-             "name":"loop",
              "type":"bool",
              "value":false
             }, 
@@ -34,7 +29,7 @@
             {
              "name":"repeat_x",
              "type":"int",
-             "value":0
+             "value":5
             }, 
             {
              "name":"repeat_y",
@@ -54,7 +49,7 @@
  "tileset":
     {
      "firstgid":1,
-     "source":"..\/..\/tilesets\/kenney_1bit.json"
+     "source":"..\/..\/tilesets\/kenney_1bit.tsx"
     },
  "type":"template"
 }

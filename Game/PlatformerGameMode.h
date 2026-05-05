@@ -5,7 +5,6 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <NiEngine/GameMode.h>
-#include <NiEngine/Camera.h>
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/GameModeController.h>
 
