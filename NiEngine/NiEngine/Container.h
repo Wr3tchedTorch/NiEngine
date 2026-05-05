@@ -16,7 +16,8 @@ class Container : public HUDComponent
 {
 public:
 	Container(sf::Vector2f gap, sf::Vector2f margin, bool vertical, int max_columns);
-	void AddComponent(std::unique_ptr<HUDComponent> component);
+	int AddComponent(std::unique_ptr<HUDComponent> component);
+	HUDComponent* GetComponentByIndex(int index) const;
 
 	void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;
 

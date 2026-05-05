@@ -38,6 +38,8 @@ public:
 	void LoadLevel(int index);
 	void RegisterObjectFactory(std::unique_ptr<ObjectFactory> factory);
 
+	int GetCurrentLevelIndex() const { return current_level_; }
+
 	void EnableTilemapCollisions(b2WorldId world_id);
 
 	const Tilemap& GetCurrentTilemap() const;
@@ -46,7 +48,7 @@ public:
 	void RenderTilemap(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 
 private:
-	int current_level_ = 8;
+	int current_level_ = 0;
 	int num_of_levels_ = 0;
 
 	LevelBlueprint current_level_blueprint_;

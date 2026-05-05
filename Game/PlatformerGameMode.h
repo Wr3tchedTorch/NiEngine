@@ -7,6 +7,8 @@
 #include <NiEngine/GameMode.h>
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/GameModeController.h>
+#include <NiEngine/Panel.h>
+#include <NiEngine/Text.h>
 
 class PlatformerGameMode : public ni::GameMode
 {
@@ -25,5 +27,9 @@ private:
 	bool transitioning_   = false;
 	bool restart_level_   = false;
 	bool load_next_level_ = false;
+
+	ni::Panel hud_;
+
+	ni::Text* GetLevelTextHUD(int component_index) const;
 };
 

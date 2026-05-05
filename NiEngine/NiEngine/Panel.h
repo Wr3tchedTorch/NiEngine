@@ -1,33 +1,26 @@
 #pragma once
 
-#include <vector>
-#include <memory>
-
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
-#include "HUDComponent.h"
+#include "Container.h"
 #include "BitmapStore.h"
 
 namespace ni {
 
-class Panel : public HUDComponent
+class Panel : public Container
 {
 public:
-	Panel(sf::Vector2f gap, sf::Vector2f margin, bool vertical, int max_columns);
-
-	void AddComponent(std::unique_ptr<HUDComponent> component);
+	Panel(sf::Color background_color, sf::FloatRect rect, sf::Vector2f gap, sf::Vector2f margin, bool vertical, int max_columns);
 
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;
 
 private:
-	std::vector<std::unique_ptr<HUDComponent>> hud_components_ = {};
-
-	sf::Vector2f gap_    = {};
-	sf::Vector2f margin_ = {};
-	int max_columns_ = 0;
-	bool vertical_ = false;
+	sf::RectangleShape background_;
 };
 
 }

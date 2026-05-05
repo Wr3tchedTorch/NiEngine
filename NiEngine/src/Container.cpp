@@ -9,7 +9,6 @@
 #include <SFML/System/Vector2.hpp>
 #include <NiEngine/BitmapStore.h>
 #include <NiEngine/HUDComponent.h>
-#include <vector>
 
 ni::Container::Container(sf::Vector2f gap, sf::Vector2f margin, bool vertical, int max_columns)
 {
@@ -19,9 +18,20 @@ ni::Container::Container(sf::Vector2f gap, sf::Vector2f margin, bool vertical, i
 	max_columns_ = max_columns;
 }
 
-void ni::Container::AddComponent(std::unique_ptr<HUDComponent> component)
+int ni::Container::AddComponent(std::unique_ptr<HUDComponent> component)
 {
 	hud_components_.push_back(std::move(component));
+
+	return hud_components_.size() - 1;
+}
+
+ni::HUDComponent* ni::Container::GetComponentByIndex(int index) const
+{
+	if (index < 0 || index >= hud_components_.size())
+	{
+		return nullptr;
+	}
+	return hud_components_.at(index).get();
 }
 
 void ni::Container::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)

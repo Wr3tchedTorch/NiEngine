@@ -11,11 +11,11 @@ namespace ni {
 class HUDComponent
 {
 public:
-	sf::FloatRect& GetBounds() const { return bounds_;  };
+	sf::FloatRect& GetBounds() { return bounds_;  };
 
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) = 0;
 
-private:
+protected:
 	sf::FloatRect bounds_;
 };
 
