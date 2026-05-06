@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <functional>
 
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -16,6 +17,7 @@
 #include "LayerBlueprint.h"
 #include "TilesetReference.h"
 #include "BitmapStore.h"
+#include "Subject.h"
 
 namespace ni {
 
@@ -33,12 +35,15 @@ public:
 	inline static const std::string kObjectsLayerType = "objectgroup";
 
 	void SetTotalLevelCount(int count);
+
 	void ReloadLevel  (GameMode& mode);
 	void LoadNextLevel(GameMode& mode);
 	void LoadLevel(int index);
 	void RegisterObjectFactory(std::unique_ptr<ObjectFactory> factory);
 
 	int GetCurrentLevelIndex() const { return current_level_; }
+
+	int OnLastLevelFinished(std::function<void()> callback) { return last_level_finished_.Subscribe(callback); };
 
 	void EnableTilemapCollisions(b2WorldId world_id);
 
@@ -48,8 +53,10 @@ public:
 	void RenderTilemap(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store);
 
 private:
-	int current_level_ = 0;
+	int current_level_ = 8;
 	int num_of_levels_ = 0;
+	
+	Subject<> last_level_finished_;
 
 	LevelBlueprint current_level_blueprint_;
 	std::vector<TilesetBlueprint> tileset_blueprints_ = {};

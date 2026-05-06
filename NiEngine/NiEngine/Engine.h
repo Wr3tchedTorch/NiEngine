@@ -23,6 +23,8 @@ private:
 	BitmapStore bitmap_store_;
 
 public:
+	inline static bool exit_game_ = false;
+
 	static sf::Time		time_elapsed;
 	static sf::Vector2u window_resolution;
 

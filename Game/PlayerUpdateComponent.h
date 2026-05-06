@@ -28,7 +28,8 @@ private:
 	inline static const std::string kJumpAnimationKey = "jump";
 	inline static const std::string kWalkAnimationKey = "walk";
 
-	inline static const std::string kJumpSoundKey = "sounds/jump.wav";
+	inline static const std::string kJumpSoundKey  = "sounds/jump.wav";
+	inline static const std::string kDeathSoundKey = "sounds/death.wav";
 
 	int key_pressed_event_id_ = 0;
 

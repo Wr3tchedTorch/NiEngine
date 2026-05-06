@@ -31,18 +31,24 @@ void ni::GameMode::LoadNextLevel(bool enable_tilemap_collisions)
 
 void ni::GameMode::PhysicsUpdate(float delta)
 {
+	if (paused_)
+	{
+		return;
+	}
 	if (box2d_enabled)
 	{
 		physics_engine_.PhysicsUpdate();
 	}
-
 	component_store_.PhysicsUpdate(physics_engine_.GetWorldId(), level_.GetCurrentTilemap(), delta);
 }
 
 void ni::GameMode::Update(GameModeController& controller)
 {
+	if (paused_)
+	{
+		return;
+	}
 	component_store_.Update();
-
 	if (current_transition_)
 	{
 		current_transition_->Update();

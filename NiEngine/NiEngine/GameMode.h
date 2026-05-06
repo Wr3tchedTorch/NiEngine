@@ -27,6 +27,8 @@ private:
 	bool box2d_enabled = false;
 
 protected:
+	bool paused_ = false;
+
 	Level level_;
 	
 	Camera world_camera_;

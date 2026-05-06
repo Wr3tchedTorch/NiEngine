@@ -25,6 +25,7 @@ PlayerUpdateComponent::PlayerUpdateComponent(ni::ComponentLocator& component_loc
 	owner_id_ = owner_id;
 
 	ni::ServiceLocator::Instance().GetSoundEngine().Preload(kJumpSoundKey);
+	ni::ServiceLocator::Instance().GetSoundEngine().Preload(kDeathSoundKey);
 
 	on_player_killed_.Subscribe([&game_mode]() {
 		game_mode.RestartLevel();
@@ -55,7 +56,7 @@ void PlayerUpdateComponent::Init(ni::AnimatedGraphicsComponent& graphics, Charac
 
 		airborne_ = true;
 
-		ni::ServiceLocator::Instance().GetSoundEngine().PlaySound(kJumpSoundKey);
+		ni::ServiceLocator::Instance().GetSoundEngine().PlaySound(kJumpSoundKey, 0.70f);
 	});
 
 	physics.OnLanding([this]() {
@@ -106,6 +107,11 @@ void PlayerUpdateComponent::Update()
 
 void PlayerUpdateComponent::Die()
 {
+	if (dead_)
+	{
+		return;
+	}
+	ni::ServiceLocator::Instance().GetSoundEngine().PlaySound(kDeathSoundKey);
 	dead_ = true;
 	auto physics = static_cast<CharacterPhysicsComponent*>(component_locator_.GetPhysicsComponent(owner_id_));
 	if (physics)

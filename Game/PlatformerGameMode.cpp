@@ -17,11 +17,12 @@
 #include <NiEngine/TextFadeScreenTransition.h>
 #include <NiEngine/Text.h>
 #include <NiEngine/HUDComponent.h>
+#include <NiEngine/ServiceLocator.h>
+#include <NiEngine/Engine.h>
 
 #include "PlatformerObjectFactory.h"
 
-
-PlatformerGameMode::PlatformerGameMode() : hud_(sf::Color::Transparent, { {64, 64}, {100, 50} }, {0, 0}, { 10, 10 }, false, 3)
+PlatformerGameMode::PlatformerGameMode() : hud_(sf::Color::Transparent, { {125, 125}, {100, 50} }, {0, 0}, { 10, 10 }, false, 3)
 {
 	auto level_text = std::make_unique<ni::Text>("fonts/ARCADECLASSIC.TTF", "Level 1", sf::Color::White, 40);
 	level_text->SetTextOutline(2, sf::Color::Black);
@@ -35,13 +36,24 @@ PlatformerGameMode::PlatformerGameMode() : hud_(sf::Color::Transparent, { {64, 6
 	
 	auto factory = std::make_unique<PlatformerObjectFactory>();
 	level_.RegisterObjectFactory(std::move(factory));
-
+	level_.SetTotalLevelCount(10);
 	level_.LoadNextLevel(*this);
 	world_camera_.FitTo(level_.GetCurrentTilemap().GetBounds());
+
+	game_over_transition_.Init(2, "Game   Over!", "fonts/ARCADECLASSIC.TTF", 50, sf::Color::White, sf::Color::Black, transitions_camera_.GetView().getSize());
+	game_over_transition_.OnTransitionFinished([this]() {
+		ni::Engine::exit_game_ = true;
+	});
+	level_.OnLastLevelFinished([this]() {
+		paused_ = true;
+		game_over_transition_.Play();
+		game_over_transition_.StopHalfway();
+	});
 
 	engine_title_transition_.Init(2, "\t\t NI   Engine\nPor  Eric  Moura", "fonts/ARCADECLASSIC.TTF", 50, sf::Color::White, sf::Color::Black, transitions_camera_.GetView().getSize());
 	engine_title_transition_.OnTransitionFinished([this]() {
 		current_transition_->Play(true);
+		ni::ServiceLocator::Instance().GetSoundEngine().PlayMusic("sounds/main_music.wav", true, .6f);
 	});
 	engine_title_transition_.Play();
 	
@@ -90,6 +102,8 @@ void PlatformerGameMode::Update(ni::GameModeController& controller)
 		return;
 	}
 	GameMode::Update(controller);
+
+	game_over_transition_.Update();
 }
 
 void PlatformerGameMode::Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store)
@@ -108,7 +122,8 @@ void PlatformerGameMode::Render(sf::RenderTarget& target, sf::RenderStates state
 	{
 		current_transition_->Render(target, states, store);
 	}
-	engine_title_transition_.Render(target, states, store);
+	engine_title_transition_.Render(target, states, store);	
+	game_over_transition_   .Render(target, states, store);
 }
 
 ni::Text* PlatformerGameMode::GetLevelTextHUD(int component_index) const

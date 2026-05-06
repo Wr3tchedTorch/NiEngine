@@ -36,6 +36,12 @@ void ni::Engine::Run()
 	sf::Clock delta_clock;
 	while (window_.isOpen())
 	{
+		if (Engine::exit_game_)
+		{
+			window_.close();
+			break;
+		}
+
 		while (const std::optional event = window_.pollEvent())
 		{
 			if (event->is<sf::Event::Closed>())

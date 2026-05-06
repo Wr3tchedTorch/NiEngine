@@ -40,8 +40,6 @@ void ni::TextFadeScreenTransition::Init(float delay_in_seconds, const std::strin
 
 	main_text_position.x -= main_text_->getGlobalBounds().size.x / 2.0f;
 	main_text_->setPosition(main_text_position);
-
-
 	background_.setPosition({ 0, 0 });
 	background_.setSize(camera_size);
 	background_.setFillColor(background_color);
@@ -50,6 +48,10 @@ void ni::TextFadeScreenTransition::Init(float delay_in_seconds, const std::strin
 void ni::TextFadeScreenTransition::Update()
 {
 	if (!playing_ && !playing_reversed_)
+	{
+		return;
+	}
+	if (playing_reversed_ && stop_halfway_)
 	{
 		return;
 	}
@@ -77,8 +79,15 @@ void ni::TextFadeScreenTransition::Update()
 
 void ni::TextFadeScreenTransition::Render(sf::RenderTarget & target, sf::RenderStates states, BitmapStore & store)
 {
+	if (!playing_)
+	{
+		return;
+	}
 	target.draw(background_, states);
-	target.draw(*main_text_ , states);
+	if (main_text_)
+	{
+		target.draw(*main_text_ , states);
+	}
 }
 
 void ni::TextFadeScreenTransition::LerpTextOpacity(float time_elapsed)

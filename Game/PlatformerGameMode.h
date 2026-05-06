@@ -9,6 +9,7 @@
 #include <NiEngine/GameModeController.h>
 #include <NiEngine/Panel.h>
 #include <NiEngine/Text.h>
+#include <NiEngine/TextFadeScreenTransition.h>
 
 class PlatformerGameMode : public ni::GameMode
 {
@@ -23,10 +24,12 @@ public:
 	virtual void Update(ni::GameModeController& controller) override;
 	virtual void Render(sf::RenderTarget& target, sf::RenderStates states, BitmapStore& store) override;
 
-private:
+private:	
 	bool transitioning_   = false;
 	bool restart_level_   = false;
 	bool load_next_level_ = false;
+
+	ni::TextFadeScreenTransition game_over_transition_;
 
 	ni::Panel hud_;
 
